@@ -20,8 +20,8 @@ module.exports = function (grunt) {
 
     // configurable paths
     var yeomanConfig = {
-        app: 'app',
-        dist: 'dist'
+        app: 'laravel/dev',
+        dist: 'laravel/prd'
     };
 
     grunt.initConfig({
@@ -104,7 +104,7 @@ module.exports = function (grunt) {
             }
         },
         clean: {
-            dist: ['.tmp', '<%= yeoman.dist %>/*'],
+            dist: ['.tmp', '<%= yeoman.dist %>/*', '<%= yeoman.app %>/styles/*.css'],
             server: '.tmp'
         },
         jshint: {
@@ -150,7 +150,7 @@ module.exports = function (grunt) {
         compass: {
             options: {
                 sassDir: '<%= yeoman.app %>/styles',
-                cssDir: '.tmp/styles',
+                cssDir: '<%= yeoman.app %>/styles',
                 imagesDir: '<%= yeoman.app %>/images',
                 javascriptsDir: '<%= yeoman.app %>/scripts',
                 fontsDir: '<%= yeoman.app %>/styles/fonts',
