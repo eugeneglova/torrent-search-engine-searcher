@@ -3,7 +3,7 @@
 define([
     'underscore',
     'backbone',
-    'core/loader/index'
+    'modules/loader/index'
 ], function (_, Backbone, Loader) {
     'use strict';
 
