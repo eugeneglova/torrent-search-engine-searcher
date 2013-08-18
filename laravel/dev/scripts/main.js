@@ -6,7 +6,7 @@ require.config({
         underscore: {
             exports: '_'
         },
-        backbone: {
+        'backbone-original': {
             deps: [
                 'underscore',
                 'jquery'
@@ -26,7 +26,8 @@ require.config({
     },
     paths: {
         jquery: '../bower_components/jquery/jquery',
-        backbone: '../bower_components/backbone/backbone',
+        'backbone-original': '../bower_components/backbone/backbone',
+        backbone: 'core/backbone',
         underscore: '../bower_components/underscore/underscore',
         bootstrap: 'vendor/bootstrap',
         // require-handlebars-plugin setup
@@ -38,9 +39,12 @@ require.config({
 });
 
 require([
-    'backbone'
-  , 'modules/ui/engine/index'
-], function (Backbone, EngineView) {
-    window.x = new EngineView();
+    'backbone',
+    'core/app',
+    'core/mediator'
+], function (Backbone, App, Mediator) {
+    window.app = new App({
+        mediator: Mediator
+    });
     Backbone.history.start();
 });
