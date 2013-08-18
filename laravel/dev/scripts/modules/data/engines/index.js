@@ -15,7 +15,7 @@ define([
         // Reference to the engines collection
         engines: null,
 
-        events: {
+        listeners: {
             ':get': 'onGet'
         },
 

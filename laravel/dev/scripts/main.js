@@ -34,7 +34,7 @@ require.config({
         'handlebars' : '../bower_components/require-handlebars-plugin/Handlebars',
         'hbs': '../bower_components/require-handlebars-plugin/hbs',
         'i18nprecompile' : '../bower_components/require-handlebars-plugin/hbs/i18nprecompile',
-        'json2' : '../bower_components/require-handlebars-plugin/hbs/json2',
+        'json2' : '../bower_components/require-handlebars-plugin/hbs/json2'
     }
 });
 

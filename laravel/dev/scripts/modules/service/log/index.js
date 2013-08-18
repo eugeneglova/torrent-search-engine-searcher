@@ -9,7 +9,7 @@ define([
 
         namespace: 'service:log',
 
-        events: {
+        listeners: {
             'all': 'onAll'
         },
 

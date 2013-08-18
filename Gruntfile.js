@@ -30,6 +30,13 @@ module.exports = function (grunt) {
             options: {
                 nospawn: true
             },
+            scripts: {
+                files: ['Gruntfile.js', '.jshintrc', '<%= yeoman.app %>/scripts/**/*.js', '<%= yeoman.app %>/scripts/**/*.html'],
+                tasks: ['jshint'],
+                options: {
+                    interrupt: true
+                }
+            },
             coffee: {
                 files: ['<%= yeoman.app %>/scripts/{,*/}*.coffee'],
                 tasks: ['coffee:dist']

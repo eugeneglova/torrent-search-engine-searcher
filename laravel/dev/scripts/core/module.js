@@ -6,67 +6,58 @@ define([
 ], function (_, Backbone) {
     'use strict';
 
-    var Module = function(options) {
-        this.cid = _.uniqueId('module');
-        options || (options = {});
+    var Module = Backbone.View.extend({
 
-        this.mediator = options.mediator;
+        constructor: function(options) {
 
-        this.delegateEvents();
+            this.mediator = options.mediator;
 
-        this.initialize.apply(this, arguments);
-    };
+            this.registerListeners();
 
+            Backbone.View.apply(this, arguments);
+        },
 
-    Module.prototype = Backbone.Router.prototype;
+        announce: function() {
+            // Prepend module namespace
+            arguments[0] = this.namespace + ':' + arguments[0];
 
+            this.request.apply(this, arguments);
 
-    Module.extend = Backbone.Router.extend;
+            return this;
+        },
 
+        request: function() {
+            // Trigger event to mediator
+            this.mediator.trigger.apply(this.mediator, arguments);
 
-    Module.prototype.announce = function() {
-        // Prepend module namespace
-        arguments[0] = this.namespace + ':' + arguments[0];
+            return this;
+        },
 
-        this.request.apply(this, arguments);
+        registerListeners: function(events) {
+            var event_name, method;
 
-        return this;
-    };
+            if ( ! (events || (events = _.result(this, 'listeners')))) return this;
 
+            for (event_name in events) {
+                method = events[event_name];
 
-    Module.prototype.request = function() {
-        // Trigger event to mediator
-        this.mediator.trigger.apply(this.mediator, arguments);
+                // Allow to use shorthand event names like ':eventName'
+                // which will be prepended by this.namespace
+                if (event_name.indexOf(':') === 0) {
+                    event_name = this.namespace + event_name;
+                }
 
-        return this;
-    };
+                if ( ! _.isFunction(method)) method = this[method];
 
+                if ( ! method) continue;
 
-    Module.prototype.delegateEvents = function(events) {
-        var event_name, method;
-
-        if ( ! (events || (events = _.result(this, 'events')))) return this;
-
-        // this.undelegateEvents();
-
-        for (event_name in events) {
-            method = events[event_name];
-
-            // Allow to use shorthand event names like ':eventName'
-            // which will be prepended by this.namespace
-            if (event_name.indexOf(':') === 0) {
-                event_name = this.namespace + event_name;
+                this.mediator.on(event_name, method, this);
             }
 
-            if ( ! _.isFunction(method)) method = this[method];
-
-            if ( ! method) continue;
-
-            this.mediator.on(event_name, method, this);
+            return this;
         }
 
-        return this;
-    };
+    });
 
     return Module;
 });

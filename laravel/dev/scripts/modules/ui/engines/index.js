@@ -8,12 +8,12 @@ define([
 ], function ($, _, Backbone, EnginesCollection) {
     'use strict';
 
-    var EnginesView = Backbone.Module.extend({
+    var EnginesView = Backbone.UIModule.extend({
 
         // Reference to the engines collection
         engines: null,
 
-        events: {
+        listeners: {
             'data:engines:ready': 'onDataEnginesReady'
         },
 
@@ -33,10 +33,14 @@ define([
         onDataEnginesGet: function(engines) {
             this.engines = engines;
 
+            this.render();
+
             return true;
         },
 
         render: function() {
+            this.$el;
+
             return this;
         }
 
