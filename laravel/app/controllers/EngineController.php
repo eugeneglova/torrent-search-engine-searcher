@@ -11,12 +11,8 @@ class EngineController extends \BaseController {
     {
         //
         $engines = Engine::limit(3)->get();
- 
-        return Response::json(array(
-            'error' => false,
-            'engines' => $engines->toArray()),
-            200
-        );
+
+        return Response::json($engines->toArray(), 200);
 
     }
 
