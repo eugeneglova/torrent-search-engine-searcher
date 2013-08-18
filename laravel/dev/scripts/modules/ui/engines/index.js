@@ -2,27 +2,22 @@
 
 define([
     'jquery',
-    'underscore',
     'backbone',
-    'hbs!./templates/engines'
-], function ($, _, Backbone, EnginesTemplate) {
+    'components/engine/index'
+], function ($, Backbone, EngineView) {
     'use strict';
 
     var EnginesView = Backbone.UIModule.extend({
 
-        template: EnginesTemplate,
-
         tagName: 'ul',
+
+        className: 'engines',
 
         // Reference to the engines collection
         engines: null,
 
         listeners: {
             'data:engines:ready': 'onDataEnginesReady'
-        },
-
-        events: {
-            'click li': 'onClickEngine'
         },
 
         onDataEnginesReady: function() {
@@ -39,18 +34,20 @@ define([
             return true;
         },
 
-        onClickEngine: function(e) {
-            e.preventDefault();
-
-            return true;
-        },
-
         render: function() {
-            this.$el.html(this.template({
-                engines: this.engines.toJSON()
-            }));
+            this.$el.empty();
 
-            $('.hero-unit').append(this.$el);
+            this.engines.forEach(function(engine) {
+                var engine_view = new EngineView({
+                    model: engine
+                });
+
+                engine_view.render();
+
+                this.$el.append(engine_view.$el);
+            }, this);
+
+            $('.left-sidebar').append(this.$el);
 
             return this;
         }
