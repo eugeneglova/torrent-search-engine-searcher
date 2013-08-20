@@ -7,17 +7,21 @@ define([
 ], function (_, Backbone, mediator) {
     'use strict';
 
-    var Controller = Backbone.View.extend({
+    var Controller = function(options) {
+        this.options = options || {};
 
-        constructor: function(options) {
-            options = options || {};
+        this.mediator = this.options.mediator || mediator;
 
-            this.mediator = options.mediator ? options.mediator : mediator;
+        this.registerListeners();
 
-            this.registerListeners();
+        if (_.isFunction(this.initialize)) {
+            this.initialize(this.options);
+        }
+    };
 
-            Backbone.View.apply(this, arguments);
-        },
+    Controller.extend = Backbone.Model.extend;
+
+    _.extend(Controller.prototype, Backbone.Events, {
 
         announce: function() {
             // Prepend controller namespace
