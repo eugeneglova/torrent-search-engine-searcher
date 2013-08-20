@@ -7,7 +7,7 @@ define([
 ], function (_, Backbone, mediator) {
     'use strict';
 
-    var Module = Backbone.View.extend({
+    var Controller = Backbone.View.extend({
 
         constructor: function(options) {
             options = options || {};
@@ -20,7 +20,7 @@ define([
         },
 
         announce: function() {
-            // Prepend module namespace
+            // Prepend controller namespace
             arguments[0] = this.namespace + ':' + arguments[0];
 
             this.request.apply(this, arguments);
@@ -52,7 +52,7 @@ define([
                 method = ! _.isFunction(method_name) ? this[method_name] : method_name;
 
                 if ( ! method) {
-                    throw new Error('Method "' + method_name + '" for namespace "' + event_name + '" should be defined within the module.');
+                    throw new Error('Method "' + method_name + '" for namespace "' + event_name + '" should be defined within the controller.');
                 }
 
                 this.mediator.on(event_name, method, this);
@@ -63,5 +63,5 @@ define([
 
     });
 
-    return Module;
+    return Controller;
 });

@@ -2,14 +2,14 @@
 
 define([
     'backbone-original',
-    'core/module',
-    'core/ui-module'
-], function (Backbone, Module, UIModule) {
+    'core/controller',
+    'core/ui-controller'
+], function (Backbone, Controller, UIController) {
     'use strict';
 
-    Backbone.Module = Module;
+    Backbone.Controller = Controller;
 
-    Backbone.UIModule = UIModule;
+    Backbone.UIController = UIController;
 
     return Backbone;
 });

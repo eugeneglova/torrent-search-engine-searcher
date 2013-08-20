@@ -5,7 +5,7 @@ define([
 ], function (Backbone) {
     'use strict';
 
-    var Log = Backbone.Module.extend({
+    var Log = Backbone.Controller.extend({
 
         namespace: 'service:log',
 

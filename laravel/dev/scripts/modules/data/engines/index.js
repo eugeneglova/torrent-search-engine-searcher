@@ -8,7 +8,7 @@ define([
 ], function ($, _, Backbone, EnginesCollection) {
     'use strict';
 
-    var EnginesView = Backbone.Module.extend({
+    var EnginesView = Backbone.Controller.extend({
 
         namespace: 'data:engines',
 

@@ -7,7 +7,7 @@ define([
 ], function ($, Backbone, EngineView) {
     'use strict';
 
-    var EnginesView = Backbone.UIModule.extend({
+    var EnginesView = Backbone.UIController.extend({
 
         tagName: 'ul',
 

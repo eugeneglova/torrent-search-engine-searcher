@@ -7,7 +7,7 @@ define([
 ], function (_, Backbone, Loader) {
     'use strict';
 
-    var App = Backbone.Module.extend({
+    var App = Backbone.Controller.extend({
 
         namespace: 'app',
 

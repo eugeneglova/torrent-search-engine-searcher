@@ -7,7 +7,7 @@ define([
 ], function ($, Backbone, EngineTemplate) {
     'use strict';
 
-    var EngineView = Backbone.UIModule.extend({
+    var EngineView = Backbone.UIController.extend({
 
         template: EngineTemplate,
 
