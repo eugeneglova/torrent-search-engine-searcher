@@ -1,19 +1,12 @@
 /*global define*/
 
 define([
-    'jquery',
     'backbone',
-    'hbs!./templates/engine'
-], function ($, Backbone, EngineTemplate) {
+    './views/engine'
+], function (Backbone, EngineView) {
     'use strict';
 
-    var EngineView = Backbone.UIController.extend({
-
-        template: EngineTemplate,
-
-        tagName: 'li',
-
-        className: 'btn btn-mini btn-block',
+    var Engine = Backbone.UIController.extend({
 
         namespace: 'ui:engine',
 
@@ -21,33 +14,37 @@ define([
             'ui:engines:primary': 'onUiEnginesPrimary'
         },
 
-        events: {
-            'click': 'onClick'
+        model: null,
+
+        initialize: function(options) {
+            this.views = {};
+
+            this.views.engine = new EngineView({
+                model: this.options.model
+            });
+
+            return this;
         },
 
         render: function() {
-            this.$el.html(this.template(this.model.toJSON()));
+            this.views.engine.render();
+
+            this.el.append(this.views.engine.$el);
 
             return this;
         },
 
         onUiEnginesPrimary: function(id) {
-            this.$el.removeClass('btn-primary');
+            this.views.engine.$el.removeClass('btn-primary');
 
             if (this.model.id === id) {
-                this.$el.addClass('btn-primary');
+                this.views.engine.$el.addClass('btn-primary');
             }
-
-            return true;
-        },
-
-        onClick: function(e) {
-            e.preventDefault();
 
             return true;
         }
 
     });
 
-    return EngineView;
+    return Engine;
 });

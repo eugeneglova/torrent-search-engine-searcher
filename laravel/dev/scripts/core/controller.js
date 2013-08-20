@@ -12,6 +12,16 @@ define([
 
         this.mediator = this.options.mediator || mediator;
 
+        this.views = null;
+
+        if (this.options.el) {
+            this.el = this.options.el;
+        }
+
+        if (this.options.model) {
+            this.model = this.options.model;
+        }
+
         this.registerListeners();
 
         if (_.isFunction(this.initialize)) {
