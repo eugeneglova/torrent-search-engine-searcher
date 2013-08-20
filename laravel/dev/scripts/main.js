@@ -41,11 +41,8 @@ require.config({
 
 require([
     'backbone',
-    'core/app',
-    'core/mediator'
-], function (Backbone, App, Mediator) {
-    window.app = new App({
-        mediator: Mediator
-    });
+    'core/app'
+], function (Backbone, App) {
+    window.app = new App();
     Backbone.history.start();
 });

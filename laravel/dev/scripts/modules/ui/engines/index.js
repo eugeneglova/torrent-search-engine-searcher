@@ -13,12 +13,14 @@ define([
 
         className: 'engines',
 
-        // Reference to the engines collection
-        engines: null,
+        namespace: 'ui:engines',
 
         listeners: {
             'data:engines:ready': 'onDataEnginesReady'
         },
+
+        // Reference to the engines collection
+        engines: null,
 
         onDataEnginesReady: function() {
             this.request('data:engines:get', this.onDataEnginesGet, this);
@@ -46,6 +48,9 @@ define([
 
                 this.$el.append(engine_view.$el);
             }, this);
+
+            // Set primary engine
+            this.announce('primary', this.engines.at(1).id);
 
             $('.left-sidebar').append(this.$el);
 
