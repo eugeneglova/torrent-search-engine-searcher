@@ -22,7 +22,7 @@ define([
         engines: null,
 
         initialize: function() {
-            this.el = $('.left-sidebar');
+            this.el = $('.engines');
 
             this.views = {};
 
