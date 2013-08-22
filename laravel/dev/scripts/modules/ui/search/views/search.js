@@ -1,24 +1,22 @@
 /*global define*/
 
 define([
-    'jquery',
-    'backbone',
-    'hbs!../templates/search'
-], function ($, Backbone, SearchTemplate) {
+    'backbone'
+], function (Backbone) {
     'use strict';
 
     var SearchView = Backbone.View.extend({
 
-        template: SearchTemplate,
+        tagName: 'input',
+
+        className: 'input-medium search-query',
 
         events: {
-            'change input':     'onChange',
-            'keypress input':   'onSubmit'
+            'change':     'onChange',
+            'keypress':   'onSubmit'
         },
 
         render: function() {
-            this.$el.html(this.template());
-
             return this;
         },
 
