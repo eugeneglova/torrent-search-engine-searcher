@@ -37,7 +37,11 @@ define([
             // Prepend controller namespace
             arguments[0] = this.namespace + ':' + arguments[0];
 
-            this.request.apply(this, arguments);
+            // Trigger event to mediator
+            this.mediator.trigger.apply(this.mediator, arguments);
+
+            // Trigger log event
+            this.mediator.trigger.apply(this.mediator, ['announce'].concat(Array.prototype.slice.call(arguments)));
 
             return this;
         },
@@ -45,6 +49,9 @@ define([
         request: function() {
             // Trigger event to mediator
             this.mediator.trigger.apply(this.mediator, arguments);
+
+            // Trigger log event
+            this.mediator.trigger.apply(this.mediator, ['request'].concat(Array.prototype.slice.call(arguments)));
 
             return this;
         },

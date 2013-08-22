@@ -10,11 +10,41 @@ define([
         namespace: 'service:log',
 
         listeners: {
-            'all': 'onAll'
+            // 'all':      'onAll',
+            'request':  'onRequest',
+            'announce': 'onAnnounce'
+        },
+
+        is_log_available: null,
+
+        initialize: function() {
+            this.is_log_available = console && console.log;
+
+            return this;
+        },
+
+        log: function() {
+            if (!this.is_log_available) return false;
+
+            console.log.apply(console, arguments);
+
+            return true;
+        },
+
+        onRequest: function() {
+            this.log('request:', arguments);
+
+            return true;
+        },
+
+        onAnnounce: function() {
+            this.log('announce:', arguments);
+
+            return true;
         },
 
         onAll: function() {
-            console.log('log:', arguments);
+            this.log('log:', arguments);
 
             return true;
         }
