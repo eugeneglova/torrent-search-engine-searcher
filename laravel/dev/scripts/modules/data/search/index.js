@@ -30,6 +30,8 @@ define([
 
             this.announce('changed:' + key);
 
+            this.search();
+
             return true;
         },
 
@@ -41,6 +43,22 @@ define([
 
         onSetEngineId: function(engine_id) {
             this.set('engine-id', engine_id);
+
+            return true;
+        },
+
+        isValid: function() {
+            if (!this.model.get('query')) return false;
+
+            if (!this.model.get('engine-id')) return false;
+
+            return true;
+        },
+
+        search: function() {
+            if (!this.isValid()) return false;
+
+            this.announce('submit');
 
             return true;
         }
