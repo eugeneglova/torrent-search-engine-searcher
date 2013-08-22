@@ -42,6 +42,8 @@ define([
                 collection: this.engines
             });
 
+            this.listenTo(this.engines, 'set-engine-id', this.onSetEngineId, this);
+
             this.render();
 
             return true;
@@ -56,6 +58,12 @@ define([
             this.el.append(this.views.engines.$el);
 
             return this;
+        },
+
+        onSetEngineId: function(engine_id) {
+            this.request('data:search:set:engine-id', engine_id);
+
+            return true;
         }
 
     });

@@ -27,6 +27,8 @@ define([
         onClick: function(e) {
             e.preventDefault();
 
+            this.model.trigger('set-engine-id', this.model.id);
+
             return true;
         }
 
