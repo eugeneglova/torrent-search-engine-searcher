@@ -33,14 +33,14 @@ define([
             return true;
         },
 
-        onSetQuery: function(value) {
-            this.set('query', value);
+        onSetQuery: function(query) {
+            this.set('query', query);
 
             return true;
         },
 
-        onSetEngineId: function(value) {
-            this.set('engine-id', value);
+        onSetEngineId: function(engine_id) {
+            this.set('engine-id', engine_id);
 
             return true;
         }
