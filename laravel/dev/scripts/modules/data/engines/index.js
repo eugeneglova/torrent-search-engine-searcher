@@ -1,14 +1,12 @@
 /*global define*/
 
 define([
-    'jquery',
-    'underscore',
     'backbone',
     './collections/engines'
-], function ($, _, Backbone, EnginesCollection) {
+], function (Backbone, EnginesCollection) {
     'use strict';
 
-    var EnginesView = Backbone.Controller.extend({
+    var Engines = Backbone.Controller.extend({
 
         namespace: 'data:engines',
 
@@ -44,5 +42,5 @@ define([
 
     });
 
-    return EnginesView;
+    return Engines;
 });

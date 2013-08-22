@@ -25,6 +25,8 @@ define([
 
             this.views.search = new SearchView();
 
+            this.listenTo(this.views.search, 'change', this.onChange, this);
+
             return this;
         },
 
@@ -34,6 +36,12 @@ define([
             this.el.append(this.views.search.$el);
 
             return this;
+        },
+
+        onChange: function(value) {
+            this.request('data:search:set:query', value);
+
+            return true;
         }
 
     });
