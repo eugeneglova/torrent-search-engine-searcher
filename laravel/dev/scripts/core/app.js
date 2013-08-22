@@ -44,6 +44,8 @@ define([
         loadModulesByType: function(type) {
             Object.keys(this.loader.definitions[type]).forEach(function(module) {
                 this.modules[type][module] = new this.loader.definitions[type][module]();
+
+                this.announce('modules:load:' + type + ':' + module);
             }, this);
 
             this.announce('modules:load:' + type);
