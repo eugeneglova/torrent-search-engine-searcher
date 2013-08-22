@@ -30,7 +30,7 @@ define([
 
             this.announce('changed:' + key);
 
-            this.search();
+            this.submit();
 
             return true;
         },
@@ -55,7 +55,7 @@ define([
             return true;
         },
 
-        search: function() {
+        submit: function() {
             if (!this.isValid()) return false;
 
             this.announce('submit');
