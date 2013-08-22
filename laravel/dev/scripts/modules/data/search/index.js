@@ -15,7 +15,8 @@ define([
 
         listeners: {
             ':set:query':       'onSetQuery',
-            ':set:engine-id':   'onSetEngineId'
+            ':set:engine-id':   'onSetEngineId',
+            ':submit':          'onSubmit'
         },
 
         initialize: function() {
@@ -29,8 +30,6 @@ define([
             this.model.set(key, value);
 
             this.announce('changed:' + key);
-
-            this.submit();
 
             return true;
         },
@@ -47,7 +46,21 @@ define([
             return true;
         },
 
-        isValid: function() {
+        onSubmit: function() {
+            if (this.isValidSubmit()) {
+                this.announce('request:submit');
+
+                return false;
+            }
+
+            if (!this.isValidEngineId()) return false;
+
+            this.announce('request:open');
+
+            return true;
+        },
+
+        isValidSubmit: function() {
             if (!this.model.get('query')) return false;
 
             if (!this.model.get('engine-id')) return false;
@@ -55,10 +68,8 @@ define([
             return true;
         },
 
-        submit: function() {
-            if (!this.isValid()) return false;
-
-            this.announce('submit');
+        isValidEngineId: function() {
+            if (!this.model.get('engine-id')) return false;
 
             return true;
         }

@@ -12,7 +12,8 @@ define([
         template: SearchTemplate,
 
         events: {
-            'keypress input': 'onEnter'
+            'change input':     'onChange',
+            'keypress input':   'onSubmit'
         },
 
         render: function() {
@@ -21,11 +22,19 @@ define([
             return this;
         },
 
-        onEnter: function(e) {
+        onChange: function(e) {
+            e.preventDefault();
+
+            this.trigger('change', $(e.currentTarget).val());
+
+            return true;
+        },
+
+        onSubmit: function(e) {
             if (e.which === 13) {
                 e.preventDefault();
 
-                this.trigger('change', $(e.currentTarget).val());
+                this.trigger('submit', $(e.currentTarget).val());
             }
 
             return true;

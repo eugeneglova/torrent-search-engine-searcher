@@ -63,6 +63,8 @@ define([
         onSetEngineId: function(engine_id) {
             this.request('data:search:set:engine-id', engine_id);
 
+            this.request('data:search:submit');
+
             return true;
         }
 
