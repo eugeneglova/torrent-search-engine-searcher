@@ -2,8 +2,8 @@
 
 define([
     'backbone',
-    'components/engine/index'
-], function (Backbone, Engine) {
+    './engine'
+], function (Backbone, EngineView) {
     'use strict';
 
     var EnginesView = Backbone.View.extend({
@@ -19,10 +19,11 @@ define([
             this.$el.empty();
 
             this.collection.forEach(function(engine_model) {
-                new Engine({
-                    el: this.$el,
+                var engine_view = new EngineView({
                     model: engine_model
-                }).render();
+                });
+
+                this.$el.append(engine_view.render().$el);
             }, this);
 
             return this;
