@@ -16,7 +16,9 @@ define([
         listeners: {
             ':set:query':       'onSetQuery',
             ':set:engine-id':   'onSetEngineId',
-            ':submit':          'onSubmit'
+            ':submit':          'onSubmit',
+            ':get:query':       'onGetQuery',
+            ':get:engine-id':   'onGetEngineId'
         },
 
         initialize: function() {
@@ -30,6 +32,16 @@ define([
             this.model.set(key, value);
 
             this.announce('changed:' + key);
+
+            return true;
+        },
+
+        get: function(key) {
+            return this.model.get(key);
+        },
+
+        onGet: function(key, callback, context) {
+            callback.apply(context, [this.get(key)]);
 
             return true;
         },
@@ -58,6 +70,14 @@ define([
             this.announce('request:open');
 
             return true;
+        },
+
+        onGetQuery: function(callback, context) {
+            return this.onGet('query', callback, context);
+        },
+
+        onGetEngineId: function(callback, context) {
+            return this.onGet('engine-id', callback, context);
         },
 
         isValidSubmit: function() {

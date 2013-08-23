@@ -2,16 +2,19 @@
 
 define([
     'modules/ui/engines/index',
-    'modules/ui/search/index'
+    'modules/ui/search/index',
+    'modules/ui/iframe/index'
 ], function (
     Engines,
-    Search
+    Search,
+    Iframe
 ) {
     'use strict';
 
     var UiModules = {
         engines: Engines,
-        search: Search
+        search: Search,
+        iframe: Iframe
     };
 
     return UiModules;
