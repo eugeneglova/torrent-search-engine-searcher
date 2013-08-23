@@ -50,6 +50,7 @@ define([
         },
 
         render: function() {
+            this.views.engines.remove();
             this.views.engines.render();
 
             this.el.append(this.views.engines.$el);
@@ -61,6 +62,10 @@ define([
             this.request('data:search:set:engine-id', engine_id);
 
             this.request('data:search:submit');
+
+            this.views.engines.setSelectedEngineId(engine_id);
+
+            this.render();
 
             return true;
         }

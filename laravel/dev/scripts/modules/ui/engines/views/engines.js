@@ -15,18 +15,44 @@ define([
         // Reference to the engines collection
         collection: null,
 
-        render: function() {
-            this.$el.empty();
+        selected_engine_id: null,
 
+        views: null,
+
+        initialize: function() {
+            this.views = {};
+
+            return this;
+        },
+
+        setSelectedEngineId: function(engine_id) {
+            this.selected_engine_id = engine_id;
+
+            return true;
+        },
+
+        render: function() {
             this.collection.forEach(function(engine_model) {
-                var engine_view = new EngineView({
+                this.views[engine_model.id] = new EngineView({
                     model: engine_model
                 });
 
-                this.$el.append(engine_view.render().$el);
+                if (this.selected_engine_id === engine_model.id) {
+                    this.views[engine_model.id].addSelectedClass();
+                }
+
+                this.$el.append(this.views[engine_model.id].render().$el);
             }, this);
 
             return this;
+        },
+
+        remove: function() {
+            Object.keys(this.views).forEach(function(key) {
+                this.views[key].remove();
+            }, this);
+
+            return Backbone.View.prototype.remove.call(this)
         }
 
     });

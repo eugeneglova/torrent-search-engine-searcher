@@ -18,10 +18,18 @@ define([
             'click': 'onClick'
         },
 
+        selected_class: 'btn-primary',
+
         render: function() {
             this.$el.html(this.template(this.model.toJSON()));
 
             return this;
+        },
+
+        addSelectedClass: function() {
+            this.$el.addClass(this.selected_class);
+
+            return true;
         },
 
         onClick: function(e) {
