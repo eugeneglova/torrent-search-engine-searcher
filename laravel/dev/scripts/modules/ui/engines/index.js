@@ -52,9 +52,6 @@ define([
         render: function() {
             this.views.engines.render();
 
-            // Set primary engine
-            this.announce('primary', this.engines.at(1).id);
-
             this.el.append(this.views.engines.$el);
 
             return this;
