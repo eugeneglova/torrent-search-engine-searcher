@@ -9,11 +9,18 @@ define([
 
         tagName: 'input',
 
-        className: 'input-medium search-query',
+        className: 'search-query span12',
 
         events: {
             'change':     'onChange',
             'keypress':   'onSubmit'
+        },
+
+        initialize: function() {
+            this.$el.attr('type', 'text');
+            this.$el.attr('placeholder', 'Search');
+
+            return this;
         },
 
         render: function() {
