@@ -10,7 +10,7 @@ define([
 
         tagName: 'iframe',
 
-        window: $(window),
+        ui: null,
 
         // Reference to the engine model
         model: null,
@@ -40,13 +40,19 @@ define([
         },
 
         resize: function() {
-            this.$el.css('height', this.window.height());
+            this.$el.css('height', this.ui.window.height() - this.ui.navbar.height());
 
             return true;
         },
 
         render: function() {
-            this.window.on('resize', this.resize.bind(this));
+            this.ui = {
+                window: $(window),
+                navbar: $('.navbar-static-top'),
+                search: $('.search')
+            };
+
+            this.ui.window.on('resize', this.resize.bind(this));
 
             this.resize();
 

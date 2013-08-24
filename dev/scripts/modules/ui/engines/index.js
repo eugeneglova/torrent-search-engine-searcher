@@ -22,7 +22,7 @@ define([
         engines: null,
 
         initialize: function() {
-            this.el = $('.engines');
+            this.el = $('.sidebar');
 
             this.views = {};
 
@@ -50,7 +50,6 @@ define([
         },
 
         render: function() {
-            this.views.engines.remove();
             this.views.engines.render();
 
             this.el.append(this.views.engines.$el);

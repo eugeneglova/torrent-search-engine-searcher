@@ -24,7 +24,7 @@ define([
         engines: null,
 
         initialize: function() {
-            this.el = $('.iframe');
+            this.el = $('.content');
 
             this.views = {};
 

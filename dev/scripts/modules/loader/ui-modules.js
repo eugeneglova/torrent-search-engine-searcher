@@ -12,8 +12,8 @@ define([
     'use strict';
 
     var UiModules = {
-        engines: Engines,
         search: Search,
+        engines: Engines,
         iframe: Iframe
     };
 

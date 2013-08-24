@@ -6,7 +6,28 @@ $iconSpritePath: '/images/glyphicons-halflings.png';
     padding-left: 0;
 }
 
-.iframe iframe {
+.sidebar .engines {
+    overflow: auto;
+}
+
+.sidebar {
+    padding: 5px 0 5px 5px;
+}
+
+.sidebar li {
+    padding: 5px 0 0 0;
+}
+
+.sidebar li a {
+    @include border-radius($baseBorderRadius + 10);
+}
+
+.content {
+    overflow: hidden;
+    line-height: 0;
+}
+
+.content iframe {
     width: 100%;
     border: none;
 }

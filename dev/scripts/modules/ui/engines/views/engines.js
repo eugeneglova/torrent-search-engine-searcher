@@ -10,7 +10,9 @@ define([
 
         tagName: 'ul',
 
-        className: 'nav nav-list engines',
+        className: 'engines nav nav-list',
+
+        ui: null,
 
         // Reference to the engines collection
         collection: null,
@@ -20,7 +22,16 @@ define([
         views: null,
 
         initialize: function() {
+            this.ui = {
+                window:     $(window),
+                navbar:     $('.navbar-static-top'),
+                sidebar:    $('.sidebar'),
+                search:     $('.search')
+            };
+
             this.views = {};
+
+            this.ui.window.on('resize', this.resize.bind(this));
 
             return this;
         },
@@ -31,7 +42,15 @@ define([
             return true;
         },
 
+        resize: function() {
+            this.$el.css('height', this.ui.window.height() - this.ui.navbar.height() - this.ui.search.height() - parseInt(this.ui.sidebar.css('padding-top'), 10) - parseInt(this.ui.sidebar.css('padding-bottom'), 10));
+
+            return true;
+        },
+
         render: function() {
+            this.remove();
+
             this.collection.forEach(function(engine_model) {
                 this.views[engine_model.id] = new EngineView({
                     model: engine_model
@@ -43,6 +62,8 @@ define([
 
                 this.$el.append(this.views[engine_model.id].render().$el);
             }, this);
+
+            this.resize();
 
             return this;
         },
