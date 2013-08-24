@@ -10,12 +10,12 @@ define([
 
         tagName: 'ul',
 
-        className: 'engines',
+        className: 'nav nav-list engines',
 
         // Reference to the engines collection
         collection: null,
 
-        selected_engine_id: null,
+        active_engine_id: null,
 
         views: null,
 
@@ -25,8 +25,8 @@ define([
             return this;
         },
 
-        setSelectedEngineId: function(engine_id) {
-            this.selected_engine_id = engine_id;
+        setActiveEngineId: function(engine_id) {
+            this.active_engine_id = engine_id;
 
             return true;
         },
@@ -37,8 +37,8 @@ define([
                     model: engine_model
                 });
 
-                if (this.selected_engine_id === engine_model.id) {
-                    this.views[engine_model.id].addSelectedClass();
+                if (this.active_engine_id === engine_model.id) {
+                    this.views[engine_model.id].setIsActive(true);
                 }
 
                 this.$el.append(this.views[engine_model.id].render().$el);

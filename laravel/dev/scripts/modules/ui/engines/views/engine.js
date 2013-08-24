@@ -12,13 +12,19 @@ define([
 
         tagName: 'li',
 
-        className: 'btn btn-mini btn-block',
-
         events: {
             'click': 'onClick'
         },
 
-        selected_class: 'btn-primary',
+        is_active: null,
+
+        active_class: 'active',
+
+        initialize: function() {
+            this.setIsActive(false);
+
+            return this;
+        },
 
         render: function() {
             this.$el.html(this.template(this.model.toJSON()));
@@ -26,10 +32,18 @@ define([
             return this;
         },
 
-        addSelectedClass: function() {
-            this.$el.addClass(this.selected_class);
+        setIsActive: function(is_active) {
+            this.is_active = is_active;
+
+            if (this.isActive()) {
+                this.$el.addClass(this.active_class);
+            }
 
             return true;
+        },
+
+        isActive: function() {
+            return !!this.is_active;
         },
 
         onClick: function(e) {

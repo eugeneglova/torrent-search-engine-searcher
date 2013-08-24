@@ -63,7 +63,7 @@ define([
 
             this.request('data:search:submit');
 
-            this.views.engines.setSelectedEngineId(engine_id);
+            this.views.engines.setActiveEngineId(engine_id);
 
             this.render();
 
