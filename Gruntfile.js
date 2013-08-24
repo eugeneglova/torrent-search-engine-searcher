@@ -20,8 +20,8 @@ module.exports = function (grunt) {
 
     // configurable paths
     var yeomanConfig = {
-        app: 'laravel/dev',
-        dist: 'laravel/prd'
+        app: 'dev',
+        dist: 'prd'
     };
 
     grunt.initConfig({

@@ -1,8 +1,8 @@
 node_modules
-laravel/dev/styles/*.css
-laravel/prd
+dev/styles/*.css
+prd
 test/temp
 .sass-cache
-laravel/dev/bower_components
+dev/bower_components
 .tmp
 test/bower_components/
