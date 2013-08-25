@@ -13,7 +13,9 @@ define([
         className: 'navbar navbar-static-top',
 
         render: function() {
-            this.$el.html(this.template());
+            this.$el.html(this.template({
+                pages: this.collection.toJSON()
+            }));
 
             return this;
         }

@@ -3,12 +3,11 @@
         <a class="brand" href=".">Torrent Engine Searcher</a>
         <div class="nav-collapse collapse">
             <ul class="nav">
-                <li class="active">
-                    <a href=".">Home</a>
-                </li>
-                <li>
-                    <a href=".">Get started</a>
-                </li>
+                {{#each pages}}
+                    <li>
+                        <a href="javascript:void(0)">{{ name }}</a>
+                    </li>
+                {{/each}}
             </ul>
         </div>
     </div>

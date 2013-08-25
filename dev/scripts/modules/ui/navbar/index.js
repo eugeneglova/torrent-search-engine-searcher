@@ -26,8 +26,6 @@ define([
 
             this.views = {};
 
-            this.views.navbar = new NavbarView();
-
             return this;
         },
 
@@ -39,6 +37,10 @@ define([
 
         onDataPagesGet: function(pages) {
             this.pages = pages;
+
+            this.views.navbar = new NavbarView({
+                collection: this.pages
+            });
 
             this.render();
 
