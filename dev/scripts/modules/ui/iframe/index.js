@@ -12,8 +12,8 @@ define([
 
         listeners: {
             'data:engines:ready':           'onDataEnginesReady',
-            'data:search:request:open':     'onOpen',
-            'data:search:request:submit':   'onSubmit'
+            'data:state:request:open':      'onOpen',
+            'data:state:request:submit':    'onSubmit'
         },
 
         el: null,
@@ -46,13 +46,13 @@ define([
         },
 
         onOpen: function() {
-            this.request('data:search:get:engine-id', this.openByEngineId, this);
+            this.request('data:state:get:engine-id', this.openByEngineId, this);
 
             return true;
         },
 
         onSubmit: function() {
-            this.request('data:search:get:engine-id', this.submitByEngineId, this);
+            this.request('data:state:get:engine-id', this.submitByEngineId, this);
 
             return true;
         },
@@ -70,7 +70,7 @@ define([
             this.views.iframe.setModel(this.engines.get(engine_id));
             this.views.iframe.setType('submit');
 
-            this.request('data:search:get:query', this.submitByQuery, this);
+            this.request('data:state:get:query', this.submitByQuery, this);
 
             return true;
         },

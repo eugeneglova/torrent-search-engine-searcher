@@ -40,7 +40,7 @@ define([
         },
 
         onChange: function(value) {
-            this.request('data:search:set:query', value);
+            this.request('data:state:set:query', value);
 
             return true;
         },
@@ -48,7 +48,7 @@ define([
         onSubmit: function(value) {
             this.onChange(value);
 
-            this.request('data:search:submit');
+            this.request('data:state:submit');
 
             return true;
         }

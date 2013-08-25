@@ -8,7 +8,7 @@ define([
 
     var Search = Backbone.Controller.extend({
 
-        namespace: 'data:search',
+        namespace: 'data:state',
 
         // Reference to the search model
         model: null,

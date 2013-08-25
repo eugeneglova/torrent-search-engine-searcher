@@ -67,9 +67,9 @@ define([
         },
 
         onSetActiveEngineId: function(engine_id) {
-            this.request('data:search:set:engine-id', engine_id);
+            this.request('data:state:set:engine-id', engine_id);
 
-            this.request('data:search:submit');
+            this.request('data:state:submit');
 
             this.views.engines.setActiveEngineId(engine_id);
 

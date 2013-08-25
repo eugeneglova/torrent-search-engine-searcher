@@ -3,18 +3,18 @@
 define([
     'modules/data/engines/index',
     'modules/data/pages/index',
-    'modules/data/search/index'
+    'modules/data/state/index'
 ], function (
     Engines,
     Pages,
-    Search
+    State
 ) {
     'use strict';
 
     var DataModules = {
         engines: Engines,
         pages: Pages,
-        search: Search
+        state: State
     };
 
     return DataModules;
