@@ -48,7 +48,7 @@ define([
         onSubmit: function(value) {
             this.onChange(value);
 
-            this.request('data:state:submit');
+            this.request('ui:iframe:open');
 
             return true;
         }

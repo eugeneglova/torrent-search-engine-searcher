@@ -15,11 +15,21 @@ define([
         // Reference to the engine model
         model: null,
 
-        // Type 'open' or 'submit'
+        // Type 'home' or 'search'
         type: null,
 
         // Search query
         query: null,
+
+        initialize: function() {
+            this.ui = {
+                window: $(window),
+                navbar: $('.navbar'),
+                search: $('.search')
+            };
+
+            return this;
+        },
 
         setModel: function(model) {
             this.model = model;
@@ -48,7 +58,7 @@ define([
         render: function() {
             this.ui = {
                 window: $(window),
-                navbar: $('.navbar-static-top'),
+                navbar: $('.navbar'),
                 search: $('.search')
             };
 
@@ -56,9 +66,9 @@ define([
 
             this.resize();
 
-            if (this.type === 'open') {
+            if (this.type === 'home') {
                 this.$el.attr('src', this.model.get('home_url'));
-            } else if (this.type === 'submit') {
+            } else if (this.type === 'search') {
                 this.$el.attr('src', this.model.get('search_url').replace(/{keyword}/, this.query));
             }
 

@@ -11,9 +11,8 @@ define([
         namespace: 'ui:iframe',
 
         listeners: {
-            'data:engines:ready':           'onDataEnginesReady',
-            'data:state:request:open':      'onOpen',
-            'data:state:request:submit':    'onSubmit'
+            'data:engines:ready':   'onDataEnginesReady',
+            ':open':                'onOpen',
         },
 
         el: null,
@@ -46,36 +45,32 @@ define([
         },
 
         onOpen: function() {
-            this.request('data:state:get:engine-id', this.openByEngineId, this);
+            this.request('data:state:get:engine-id', this.onGetEngineId, this);
 
             return true;
         },
 
-        onSubmit: function() {
-            this.request('data:state:get:engine-id', this.submitByEngineId, this);
-
-            return true;
-        },
-
-        openByEngineId: function(engine_id) {
+        onGetEngineId: function(engine_id) {
             this.views.iframe.setModel(this.engines.get(engine_id));
-            this.views.iframe.setType('open');
 
-            this.render();
-
-            return true;
-        },
-
-        submitByEngineId: function(engine_id) {
-            this.views.iframe.setModel(this.engines.get(engine_id));
-            this.views.iframe.setType('submit');
-
-            this.request('data:state:get:query', this.submitByQuery, this);
+            this.request('data:state:get:type', this.onGetType, this);
 
             return true;
         },
 
-        submitByQuery: function(query) {
+        onGetType: function(type) {
+            this.views.iframe.setType(type);
+
+            if (type === 'home') {
+                this.render();
+            } else if (type === 'search') {
+                this.request('data:state:get:query', this.onGetQuery, this);
+            }
+
+            return true;
+        },
+
+        onGetQuery: function(query) {
             this.views.iframe.setQuery(query);
 
             this.render();

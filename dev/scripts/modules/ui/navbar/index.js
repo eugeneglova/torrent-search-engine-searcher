@@ -62,7 +62,7 @@ define([
         onSetActiveItemId: function(item_id) {
             // this.request('data:state:set:engine-id', engine_id);
 
-            // this.request('data:state:submit');
+            // this.request('ui:iframe:open');
 
             this.views.navbar.setActiveItemId(item_id);
 

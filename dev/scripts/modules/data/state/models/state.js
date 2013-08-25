@@ -8,7 +8,8 @@ define([
     var StateModel = Model.extend({
         defaults: {
             query:          null,
-            'engine-id':    null
+            'engine-id':    null,
+            type:           null
         }
     });
 

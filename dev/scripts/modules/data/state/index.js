@@ -14,11 +14,11 @@ define([
         model: null,
 
         listeners: {
-            ':set:query':       'onSetQuery',
-            ':set:engine-id':   'onSetEngineId',
-            ':submit':          'onSubmit',
             ':get:query':       'onGetQuery',
-            ':get:engine-id':   'onGetEngineId'
+            ':get:engine-id':   'onGetEngineId',
+            ':get:type':        'onGetType',
+            ':set:query':       'onSetQuery',
+            ':set:engine-id':   'onSetEngineId'
         },
 
         initialize: function() {
@@ -26,6 +26,10 @@ define([
             this.model = new StateModel();
 
             return this;
+        },
+
+        get: function(key) {
+            return this.model.get(key);
         },
 
         set: function(key, value) {
@@ -36,8 +40,14 @@ define([
             return true;
         },
 
-        get: function(key) {
-            return this.model.get(key);
+        setType: function() {
+            if (this.get('query') && this.get('query').length) {
+                this.set('type', 'search');
+            } else {
+                this.set('type', 'home');
+            }
+
+            return true;
         },
 
         onGet: function(key, callback, context) {
@@ -49,25 +59,15 @@ define([
         onSetQuery: function(query) {
             this.set('query', query);
 
+            this.setType();
+
             return true;
         },
 
         onSetEngineId: function(engine_id) {
             this.set('engine-id', engine_id);
 
-            return true;
-        },
-
-        onSubmit: function() {
-            if (this.isValidSubmit()) {
-                this.announce('request:submit');
-
-                return false;
-            }
-
-            if (!this.isValidEngineId()) return false;
-
-            this.announce('request:open');
+            this.setType();
 
             return true;
         },
@@ -80,18 +80,8 @@ define([
             return this.onGet('engine-id', callback, context);
         },
 
-        isValidSubmit: function() {
-            if (!this.model.get('query')) return false;
-
-            if (!this.model.get('engine-id')) return false;
-
-            return true;
-        },
-
-        isValidEngineId: function() {
-            if (!this.model.get('engine-id')) return false;
-
-            return true;
+        onGetType: function(callback, context) {
+            return this.onGet('type', callback, context);
         }
 
     });
