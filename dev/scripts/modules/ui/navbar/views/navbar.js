@@ -3,8 +3,9 @@
 define([
     'backbone',
     'hbs!../templates/navbar',
+    './brand-item',
     './item'
-], function (Backbone, NavbarTemplate, ItemView) {
+], function (Backbone, NavbarTemplate, BrandItemView, ItemView) {
     'use strict';
 
     var NavbarView = Backbone.View.extend({
@@ -37,6 +38,8 @@ define([
 
             this.$el.html(this.template());
 
+            this.renderBrandItemView();
+
             this.collection.forEach(function(item_model) {
                 var view = new ItemView({
                     parent: this,
@@ -53,6 +56,19 @@ define([
             }, this);
 
             return this;
+        },
+
+        renderBrandItemView: function() {
+            var view = new BrandItemView({
+                parent: this,
+                model:  this.collection.at(0)
+            });
+
+            this.views.brand = view;
+
+            this.$('.container-fluid').prepend(view.render().$el);
+
+            return true;
         },
 
         clearViews: function() {
