@@ -53,7 +53,7 @@ define([
         },
 
         render: function() {
-            this.remove();
+            this.clearViews();
 
             this.collection.forEach(function(engine_model) {
                 var view = new EngineView({
@@ -75,12 +75,13 @@ define([
             return this;
         },
 
-        remove: function() {
+        clearViews: function() {
             Object.keys(this.views).forEach(function(key) {
                 this.views[key].remove();
+                delete this.views[key];
             }, this);
 
-            return Backbone.View.prototype.remove.call(this)
+            return true;
         }
 
     });
