@@ -1,10 +1,9 @@
 /*global define*/
 
 define([
-    'underscore',
     'backbone',
     '../models/engine'
-], function (_, Backbone, EngineModel) {
+], function (Backbone, EngineModel) {
     'use strict';
 
     var EnginesCollection = Backbone.Collection.extend({
