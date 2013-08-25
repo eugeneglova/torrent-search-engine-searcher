@@ -42,6 +42,8 @@ define([
                 collection: this.pages
             });
 
+            this.listenTo(this.views.navbar, 'set-active-item-id', this.onSetActiveItemId, this);
+
             this.render();
 
             this.announce('ready');
@@ -55,6 +57,18 @@ define([
             this.el.prepend(this.views.navbar.$el);
 
             return this;
+        },
+
+        onSetActiveItemId: function(item_id) {
+            // this.request('data:search:set:engine-id', engine_id);
+
+            // this.request('data:search:submit');
+
+            this.views.navbar.setActiveItemId(item_id);
+
+            this.render();
+
+            return true;
         }
 
     });

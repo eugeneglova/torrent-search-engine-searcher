@@ -43,7 +43,7 @@ define([
                 collection: this.engines
             });
 
-            this.listenTo(this.views.engines, 'set-engine-id', this.onSetEngineId, this);
+            this.listenTo(this.views.engines, 'set-active-engine-id', this.onSetActiveEngineId, this);
 
             this.render();
 
@@ -66,7 +66,7 @@ define([
             return this;
         },
 
-        onSetEngineId: function(engine_id) {
+        onSetActiveEngineId: function(engine_id) {
             this.request('data:search:set:engine-id', engine_id);
 
             this.request('data:search:submit');

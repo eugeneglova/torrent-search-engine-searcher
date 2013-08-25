@@ -54,7 +54,7 @@ define([
         onClick: function(e) {
             e.preventDefault();
 
-            this.parent.trigger('set-engine-id', this.model.id);
+            this.parent.trigger('set-active-engine-id', this.model.id);
 
             return true;
         }

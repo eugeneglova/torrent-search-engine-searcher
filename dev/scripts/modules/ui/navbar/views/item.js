@@ -54,7 +54,7 @@ define([
         onClick: function(e) {
             e.preventDefault();
 
-            this.parent.trigger('set-item-id', this.model.id);
+            this.parent.trigger('set-active-item-id', this.model.id);
 
             return true;
         }
