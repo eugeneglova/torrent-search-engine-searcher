@@ -6,10 +6,13 @@ define([
     'use strict';
 
     var EngineModel = Model.extend({
-        defaults: {
-            id:     null,
-            name:   null
+
+        parse: function(response) {
+            response.name_stripped = response.name.replace(/(<([^>]+)>)/ig, '')
+
+            return response;
         }
+
     });
 
     return EngineModel;
