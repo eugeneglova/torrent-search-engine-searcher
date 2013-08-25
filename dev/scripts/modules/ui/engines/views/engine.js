@@ -16,11 +16,16 @@ define([
             'click': 'onClick'
         },
 
+        // Reference to parent view
+        parent: null,
+
         is_active: null,
 
         active_class: 'active',
 
-        initialize: function() {
+        initialize: function(options) {
+            this.parent = options.parent;
+
             this.setIsActive(false);
 
             return this;
@@ -49,7 +54,7 @@ define([
         onClick: function(e) {
             e.preventDefault();
 
-            this.model.trigger('set-engine-id', this.model.id);
+            this.parent.trigger('set-engine-id', this.model.id);
 
             return true;
         }

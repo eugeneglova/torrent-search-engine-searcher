@@ -43,7 +43,7 @@ define([
                 collection: this.engines
             });
 
-            this.listenTo(this.engines, 'set-engine-id', this.onSetEngineId, this);
+            this.listenTo(this.views.engines, 'set-engine-id', this.onSetEngineId, this);
 
             this.render();
 

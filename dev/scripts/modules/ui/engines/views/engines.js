@@ -56,15 +56,18 @@ define([
             this.remove();
 
             this.collection.forEach(function(engine_model) {
-                this.views[engine_model.id] = new EngineView({
-                    model: engine_model
+                var view = new EngineView({
+                    parent: this,
+                    model:  engine_model
                 });
 
                 if (this.active_engine_id === engine_model.id) {
-                    this.views[engine_model.id].setIsActive(true);
+                    view.setIsActive(true);
                 }
 
-                this.$el.append(this.views[engine_model.id].render().$el);
+                this.$el.append(view.render().$el);
+
+                this.views[engine_model.id] = view;
             }, this);
 
             this.resize();
