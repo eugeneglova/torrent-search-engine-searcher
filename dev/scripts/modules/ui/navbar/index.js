@@ -11,7 +11,8 @@ define([
         namespace: 'ui:navbar',
 
         listeners: {
-            'data:pages:ready': 'onDataPagesReady'
+            'data:pages:ready': 'onDataPagesReady',
+            'ui:iframe:open':   'onIframeOpen'
         },
 
         el: null,
@@ -51,6 +52,14 @@ define([
             return true;
         },
 
+        onIframeOpen: function() {
+            this.views.navbar.setActiveItemId();
+
+            this.render();
+
+            return true;
+        },
+
         render: function() {
             this.views.navbar.render();
 
@@ -60,9 +69,9 @@ define([
         },
 
         onSetActiveItemId: function(item_id) {
-            // this.request('data:state:set:engine-id', engine_id);
+            this.request('data:state:set:page-id', item_id);
 
-            // this.request('ui:iframe:open');
+            this.request('ui:page:open');
 
             this.views.navbar.setActiveItemId(item_id);
 

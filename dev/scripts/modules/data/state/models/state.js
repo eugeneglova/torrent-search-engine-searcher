@@ -9,7 +9,8 @@ define([
         defaults: {
             query:          null,
             'engine-id':    null,
-            type:           null
+            type:           null,
+            'page-id':      null
         }
     });
 

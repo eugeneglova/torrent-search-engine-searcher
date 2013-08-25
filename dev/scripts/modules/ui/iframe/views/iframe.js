@@ -3,12 +3,15 @@
 define([
     'jquery',
     'backbone',
-], function ($, Backbone) {
+    'hbs!../templates/iframe'
+], function ($, Backbone, IframeTemplate) {
     'use strict';
 
     var IframeView = Backbone.View.extend({
 
-        tagName: 'iframe',
+        template: IframeTemplate,
+
+        className: 'iframe-wrapper',
 
         ui: null,
 
@@ -24,8 +27,8 @@ define([
         initialize: function() {
             this.ui = {
                 window: $(window),
-                navbar: $('.navbar'),
-                search: $('.search')
+                navbar: null,
+                search: null
             };
 
             return this;
@@ -49,28 +52,42 @@ define([
             return true;
         },
 
+        prepareResize: function() {
+            if (!this.ui.navbar || !this.ui.navbar.length) {
+                this.ui.navbar = $('.navbar');
+            }
+
+            if (!this.ui.search || !this.ui.search.length) {
+                this.ui.search = $('.search');
+            }
+
+            this.ui.window.on('resize', this.resize.bind(this));
+
+            return true;
+        },
+
         resize: function() {
-            this.$el.css('height', this.ui.window.height() - this.ui.navbar.height());
+            this.$('iframe').css('height', this.ui.window.height() - this.ui.navbar.height());
 
             return true;
         },
 
         render: function() {
-            this.ui = {
-                window: $(window),
-                navbar: $('.navbar'),
-                search: $('.search')
-            };
-
-            this.ui.window.on('resize', this.resize.bind(this));
-
-            this.resize();
+            var src;
 
             if (this.type === 'home') {
-                this.$el.attr('src', this.model.get('home_url'));
+                src = this.model.get('home_url');
             } else if (this.type === 'search') {
-                this.$el.attr('src', this.model.get('search_url').replace(/{keyword}/, this.query));
+                src = this.model.get('search_url').replace(/{keyword}/, this.query);
             }
+
+            this.$el.html(this.template(_.extend(this.model.toJSON(), {
+                src: src
+            })));
+
+            this.prepareResize();
+
+            this.resize();
 
             return this;
         }

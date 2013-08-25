@@ -13,6 +13,7 @@ define([
         listeners: {
             'data:engines:ready':   'onDataEnginesReady',
             ':open':                'onOpen',
+            'ui:page:open':         'remove'
         },
 
         el: null,
@@ -84,6 +85,14 @@ define([
             this.el.append(this.views.iframe.$el);
 
             return this;
+        },
+
+        remove: function() {
+            Object.keys(this.views).forEach(function(key) {
+                this.views[key].remove();
+            }, this);
+
+            return true;
         }
 
     });

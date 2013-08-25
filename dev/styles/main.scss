@@ -22,7 +22,7 @@ $iconSpritePath: '/images/glyphicons-halflings.png';
     @include border-radius($baseBorderRadius + 10);
 }
 
-.content {
+.content .iframe-wrapper {
     overflow: hidden;
     line-height: 0;
 }

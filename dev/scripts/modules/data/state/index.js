@@ -17,8 +17,10 @@ define([
             ':get:query':       'onGetQuery',
             ':get:engine-id':   'onGetEngineId',
             ':get:type':        'onGetType',
+            ':get:page-id':     'onGetPageId',
             ':set:query':       'onSetQuery',
-            ':set:engine-id':   'onSetEngineId'
+            ':set:engine-id':   'onSetEngineId',
+            ':set:page-id':     'onSetPageId'
         },
 
         initialize: function() {
@@ -72,6 +74,12 @@ define([
             return true;
         },
 
+        onSetPageId: function(page_id) {
+            this.set('page-id', page_id);
+
+            return true;
+        },
+
         onGetQuery: function(callback, context) {
             return this.onGet('query', callback, context);
         },
@@ -82,6 +90,10 @@ define([
 
         onGetType: function(callback, context) {
             return this.onGet('type', callback, context);
+        },
+
+        onGetPageId: function(callback, context) {
+            return this.onGet('page-id', callback, context);
         }
 
     });
