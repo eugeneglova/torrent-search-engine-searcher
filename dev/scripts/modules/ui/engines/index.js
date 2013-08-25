@@ -11,7 +11,8 @@ define([
         namespace: 'ui:engines',
 
         listeners: {
-            'data:engines:ready': 'onDataEnginesReady'
+            'data:engines:ready':   'onDataEnginesReady',
+            'ui:navbar:ready':      'onNavbarReady'
         },
 
         el: null,
@@ -45,6 +46,14 @@ define([
             this.listenTo(this.engines, 'set-engine-id', this.onSetEngineId, this);
 
             this.render();
+
+            return true;
+        },
+
+        onNavbarReady: function() {
+            if (this.views.engines) {
+                this.views.engines.resize();
+            }
 
             return true;
         },

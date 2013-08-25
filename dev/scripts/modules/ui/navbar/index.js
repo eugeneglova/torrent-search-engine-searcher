@@ -28,8 +28,6 @@ define([
 
             this.views.navbar = new NavbarView();
 
-            this.render();
-
             return this;
         },
 
@@ -43,6 +41,8 @@ define([
             this.pages = pages;
 
             this.render();
+
+            this.announce('ready');
 
             return true;
         },
