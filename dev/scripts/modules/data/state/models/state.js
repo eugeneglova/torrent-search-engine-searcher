@@ -5,12 +5,12 @@ define([
 ], function (Model) {
     'use strict';
 
-    var SearchModel = Model.extend({
+    var StateModel = Model.extend({
         defaults: {
             query:          null,
             'engine-id':    null
         }
     });
 
-    return SearchModel;
+    return StateModel;
 });

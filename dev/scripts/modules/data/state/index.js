@@ -2,11 +2,11 @@
 
 define([
     'backbone',
-    './models/search'
-], function (Backbone, SearchModel) {
+    './models/state'
+], function (Backbone, StateModel) {
     'use strict';
 
-    var Search = Backbone.Controller.extend({
+    var State = Backbone.Controller.extend({
 
         namespace: 'data:state',
 
@@ -23,7 +23,7 @@ define([
 
         initialize: function() {
             // Initialize search model
-            this.model = new SearchModel();
+            this.model = new StateModel();
 
             return this;
         },
@@ -96,5 +96,5 @@ define([
 
     });
 
-    return Search;
+    return State;
 });
