@@ -21,9 +21,9 @@ define([
             // Initialize engines collection
             this.engines = new EnginesCollection();
 
-            this.listenTo(this.engines, 'sync', this.onEnginesSync, this);
+            this.listenTo(this.engines, 'reset', this.onEnginesReset, this);
 
-            this.engines.fetch();
+            this.engines.fetch({ reset: true });
 
             return this;
         },
@@ -34,7 +34,7 @@ define([
             return true;
         },
 
-        onEnginesSync: function() {
+        onEnginesReset: function() {
             this.announce('ready');
 
             return true;
