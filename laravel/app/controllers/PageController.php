@@ -45,6 +45,9 @@ class PageController extends \BaseController {
     public function show($id)
     {
         //
+        $page = PageDetails::find($id);
+
+        return Response::json($page->toArray(), 200);
     }
 
     /**

@@ -52,9 +52,11 @@ define([
         },
 
         onGetPageId: function(page_id) {
-            this.views.page.setModel(this.pages.get(page_id));
+            var page_model = this.pages.get(page_id);
 
-            this.render();
+            this.views.page.setModel(page_model);
+
+            page_model.fetch().then(this.render.bind(this));
 
             return true;
         },

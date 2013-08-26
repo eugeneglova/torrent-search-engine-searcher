@@ -21,9 +21,9 @@ define([
             // Initialize pages collection
             this.pages = new PagesCollection();
 
-            this.listenTo(this.pages, 'sync', this.onPagesSync, this);
+            this.listenTo(this.pages, 'reset', this.onPagesSync, this);
 
-            this.pages.fetch();
+            this.pages.fetch({ reset: true });
 
             return this;
         },

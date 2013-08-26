@@ -3,10 +3,13 @@
 define([
     'jquery',
     'backbone',
-], function ($, Backbone) {
+    'hbs!../templates/page'
+], function ($, Backbone, PageTemplate) {
     'use strict';
 
     var PageView = Backbone.View.extend({
+
+        template: PageTemplate,
 
         ui: null,
 
@@ -50,7 +53,7 @@ define([
         },
 
         render: function() {
-            this.$el.html(JSON.stringify(this.model));
+            this.$el.html(this.template(this.model.toJSON()));
 
             this.prepareResize();
 
