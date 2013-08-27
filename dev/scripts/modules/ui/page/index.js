@@ -42,6 +42,8 @@ define([
         onDataPagesGet: function(pages) {
             this.pages = pages;
 
+            this.announce('ready');
+
             return true;
         },
 

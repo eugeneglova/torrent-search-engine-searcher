@@ -12,6 +12,8 @@ define([
 
         listeners: {
             'data:pages:ready': 'onDataPagesReady',
+            'ui:page:ready':    'onPageReady',
+            'ui:page:open':     'onPageOpen',
             'ui:iframe:open':   'onIframeOpen'
         },
 
@@ -43,7 +45,7 @@ define([
                 collection: this.pages
             });
 
-            this.listenTo(this.views.navbar, 'set-active-item-id', this.onSetActiveItemId, this);
+            this.listenTo(this.views.navbar, 'open-page', this.openPageById, this);
 
             this.render();
 
@@ -52,8 +54,29 @@ define([
             return true;
         },
 
+        onPageReady: function() {
+            // Open first page on site load
+            this.openPageById(this.pages.at(0).id);
+
+            return true;
+        },
+
+        onPageOpen: function() {
+            this.request('data:state:get:page-id', this.onGetPageId, this);
+
+            return true;
+        },
+
+        onGetPageId: function(page_id) {
+            this.views.navbar.setActiveItemId(page_id);
+
+            this.render();
+
+            return true;
+        },
+
         onIframeOpen: function() {
-            this.views.navbar.setActiveItemId();
+            this.views.navbar.setActiveItemId(null);
 
             this.render();
 
@@ -68,14 +91,10 @@ define([
             return this;
         },
 
-        onSetActiveItemId: function(item_id) {
-            this.request('data:state:set:page-id', item_id);
+        openPageById: function(page_id) {
+            this.request('data:state:set:page-id', page_id);
 
             this.request('ui:page:open');
-
-            this.views.navbar.setActiveItemId(item_id);
-
-            this.render();
 
             return true;
         }
