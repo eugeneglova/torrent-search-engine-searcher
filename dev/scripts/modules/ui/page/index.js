@@ -68,6 +68,8 @@ define([
 
             this.el.append(this.views.page.$el);
 
+            this.request('service:analytics:event', 'page', 'open', this.views.page.model.get('name'));
+
             return this;
         },
 

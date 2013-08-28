@@ -64,6 +64,8 @@ define([
 
             if (type === 'home') {
                 this.render();
+
+                this.request('service:analytics:event', 'iframe', 'open', 'home');
             } else if (type === 'search') {
                 this.request('data:state:get:query', this.onGetQuery, this);
             }
@@ -75,6 +77,8 @@ define([
             this.views.iframe.setQuery(query);
 
             this.render();
+
+            this.request('service:analytics:event', 'iframe', 'open', 'search');
 
             return true;
         },
