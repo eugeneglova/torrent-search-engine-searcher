@@ -1,7 +1,7 @@
 /*global define*/
 
 define([
-    './item',
+    './item'
 ], function (ItemView) {
     'use strict';
 
@@ -12,7 +12,7 @@ define([
         className: 'brand',
 
         render: function() {
-            this.$el.attr('href', 'javascript:void(0)');
+            this.$el.attr('href', '/');
 
             this.$el.html('Torrent Engine Searcher');
 

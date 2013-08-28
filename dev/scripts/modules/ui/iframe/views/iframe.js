@@ -2,9 +2,10 @@
 
 define([
     'jquery',
+    'underscore',
     'backbone',
     'hbs!../templates/iframe'
-], function ($, Backbone, IframeTemplate) {
+], function ($, _, Backbone, IframeTemplate) {
     'use strict';
 
     var IframeView = Backbone.View.extend({
