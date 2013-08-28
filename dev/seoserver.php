@@ -16,4 +16,4 @@ $url = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 
 $cmd = $node . ' ' . $phantom . ' ' . $server . ' ' . $url;
 
-passthru($cmd);
+echo system($cmd . ' 2> /dev/null');
