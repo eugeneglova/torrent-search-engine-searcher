@@ -1,14 +1,17 @@
 /*global define*/
 
 define([
-    'modules/service/log/index'
+    'modules/service/log/index',
+    'modules/service/analytics/index'
 ], function (
-    Log
+    Log,
+    Analytics
 ) {
     'use strict';
 
     var ServiceModules = {
-        log: Log
+        log: Log,
+        analytics: Analytics
     };
 
     return ServiceModules;
