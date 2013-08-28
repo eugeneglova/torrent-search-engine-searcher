@@ -10,7 +10,7 @@ define([
         namespace: 'service:analytics',
 
         listeners: {
-            'event':  'onEvent'
+            ':event': 'onEvent'
         },
 
         // Reference to google analytics ga variable
