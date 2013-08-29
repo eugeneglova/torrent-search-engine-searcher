@@ -91,11 +91,7 @@ define([
         loadByType: function(type) {
             Object.keys(this.definitions[type]).forEach(function(module) {
                 this.modules[type][module] = new this.definitions[type][module]();
-
-                this.announce('load:' + type + ':' + module);
             }, this);
-
-            this.announce('load:' + type);
 
             return true;
         },
