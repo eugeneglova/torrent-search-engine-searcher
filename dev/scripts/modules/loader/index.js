@@ -13,6 +13,7 @@ define([
     'modules/ui/iframe/index',
     'modules/ui/page/index',
     'modules/ui/navbar/index',
+    'modules/ui/routes/index',
 
     // Data
     'modules/data/engines/index',
@@ -31,6 +32,7 @@ define([
     Iframe,
     Page,
     Navbar,
+    Routes,
 
     // Data
     DataEngines,
@@ -49,6 +51,8 @@ define([
         // Reference to loaded modules
         modules: null,
 
+        data_loaded_count: 0,
+
         initialize: function() {
             this.definitions = {};
 
@@ -62,7 +66,8 @@ define([
                 search:     Search,
                 engines:    Engines,
                 iframe:     Iframe,
-                page:       Page
+                page:       Page,
+                routes:     Routes
             };
 
             this.definitions.data = {
@@ -75,6 +80,11 @@ define([
             this.modules.service    = {};
             this.modules.ui         = {};
             this.modules.data       = {};
+
+            // Subscribe to ready event of each data module
+            Object.keys(this.definitions.data).forEach(function(module) {
+                this.mediator.once(this.definitions.data[module].prototype.namespace + ':ready', this.onDataModuleReady, this);
+            }, this);
 
             // Load all modules
             this.load();
@@ -107,6 +117,22 @@ define([
             this.loadByType('ui');
 
             this.loadByType('data');
+
+            return true;
+        },
+
+
+        /**
+         * Callback on each data module ready state
+         * to announce event about all async data modules are loaded
+         * @return {boolean}
+         */
+        onDataModuleReady: function() {
+            this.data_loaded_count += 1;
+
+            if (Object.keys(this.modules.data).length === this.data_loaded_count) {
+                this.announce('ready')
+            }
 
             return true;
         }

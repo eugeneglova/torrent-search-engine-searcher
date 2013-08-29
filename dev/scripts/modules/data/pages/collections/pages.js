@@ -10,7 +10,7 @@ define([
 
         model: PageModel,
 
-        url: 'api/v1/pages'
+        url: '/api/v1/pages'
 
     });
 

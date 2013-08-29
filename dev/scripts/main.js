@@ -40,9 +40,7 @@ require.config({
 });
 
 require([
-    'backbone',
     'core/app'
-], function (Backbone, App) {
+], function (App) {
     window.app = new App();
-    Backbone.history.start();
 });
