@@ -27,6 +27,8 @@ define([
             // Initialize search model
             this.model = new StateModel();
 
+            this.announce('ready');
+
             return this;
         },
 
