@@ -561,6 +561,7 @@ AddCharset utf-8 .atom .css .js .json .rss .vtt .xml
     RewriteCond %{HTTP_USER_AGENT} msnbot [OR]
     RewriteCond %{HTTP_USER_AGENT} AltaVista [OR]
     RewriteCond %{HTTP_USER_AGENT} Slurp [OR]
+    RewriteCond %{HTTP_USER_AGENT} AhrefsBot [OR]
     RewriteCond %{HTTP_USER_AGENT} Teoma
     RewriteRule (.*) seoserver.php [L]
 
