@@ -17,7 +17,9 @@ define([
         ga: null,
 
         initialize: function() {
-            this.ga = ga;
+            if (typeof ga !== 'undefined') {
+                this.ga = ga;
+            }
 
             return this;
         },
