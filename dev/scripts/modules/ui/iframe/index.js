@@ -65,7 +65,7 @@ define([
             if (type === 'home') {
                 this.render();
 
-                this.request('service:analytics:event', 'iframe', 'open', 'home');
+                this.request('service:analytics:event', 'iframe', type, this.views.iframe.model.get('name_stripped'));
             } else if (type === 'search') {
                 this.request('data:state:get:query', this.onGetQuery, this);
             }
@@ -78,7 +78,9 @@ define([
 
             this.render();
 
-            this.request('service:analytics:event', 'iframe', 'open', 'search');
+            this.request('service:analytics:event', 'iframe', this.views.iframe.type, this.views.iframe.model.get('name_stripped'));
+
+            this.request('service:analytics:event', 'iframe', 'query', query);
 
             return true;
         },
