@@ -12,11 +12,16 @@ define([
         namespace: 'ui:routes',
 
         listeners: {
-            'app:loader:ready':    'onLoaderReady'
+            'data:engines:ready':   'onDataEnginesReady',
+            'data:pages:ready':     'onDataPagesReady',
+            'app:loader:ready':     'onLoaderReady'
         },
 
         // Reference to the routers object
         routers: null,
+
+        // Reference to the engines collection
+        engines: null,
 
         initialize: function() {
             this.routers = {};
@@ -24,12 +29,60 @@ define([
             return this;
         },
 
+        onDataEnginesReady: function() {
+            this.request('data:engines:get', this.onDataEnginesGet, this);
+
+            return true;
+        },
+
+        onDataEnginesGet: function(engines) {
+            this.engines = engines;
+
+            this.routers.engines = new EnginesRouter({
+                collection: this.engines
+            });
+
+            this.listenTo(this.routers.engines, 'open-engine-by-id', this.openEngineById, this);
+
+            return true;
+        },
+
+        onDataPagesReady: function() {
+            this.request('data:pages:get', this.onDataPagesGet, this);
+
+            this.listenTo(this.routers.pages, 'open-page-by-id', this.openPageById, this);
+
+            return true;
+        },
+
+        onDataPagesGet: function(pages) {
+            this.pages = pages;
+
+            this.routers.pages = new PagesRouter({
+                collection: this.pages
+            });
+
+            return true;
+        },
+
         onLoaderReady: function() {
-            this.routers.engines = new EnginesRouter();
-
-            this.routers.pages = new PagesRouter();
-
             Backbone.history.start({ pushState: true });
+
+            return true;
+        },
+
+        openEngineById: function(engine_id) {
+            this.request('data:state:set:engine-id', engine_id);
+
+            this.request('ui:iframe:open');
+
+            return true;
+        },
+
+        openPageById: function(page_id) {
+            this.request('data:state:set:page-id', page_id);
+
+            this.request('ui:page:open');
 
             return true;
         }
