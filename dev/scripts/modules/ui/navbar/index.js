@@ -44,7 +44,7 @@ define([
                 collection: this.pages
             });
 
-            this.listenTo(this.views.navbar, 'open-page', this.openPageById, this);
+            this.listenTo(this.views.navbar, 'open-page-by-id', this.openPageById, this);
 
             this.render();
 

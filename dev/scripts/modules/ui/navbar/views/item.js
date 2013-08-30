@@ -54,7 +54,7 @@ define([
         onClick: function(e) {
             e.preventDefault();
 
-            this.parent.trigger('open-page', this.model.id);
+            this.parent.trigger('open-page-by-id', this.model.id);
 
             return true;
         }
