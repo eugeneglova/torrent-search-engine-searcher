@@ -12,7 +12,8 @@ define([
 
         listeners: {
             'data:engines:ready':   'onDataEnginesReady',
-            'ui:navbar:ready':      'onNavbarReady'
+            'ui:navbar:ready':      'onNavbarReady',
+            'ui:iframe:open':       'onIframeOpen'
         },
 
         el: null,
@@ -43,7 +44,7 @@ define([
                 collection: this.engines
             });
 
-            this.listenTo(this.views.engines, 'set-active-engine-id', this.onSetActiveEngineId, this);
+            this.listenTo(this.views.engines, 'open-engine-by-id', this.openEngineById, this);
 
             this.render();
 
@@ -58,6 +59,20 @@ define([
             return true;
         },
 
+        onIframeOpen: function() {
+            this.request('data:state:get:engine-id', this.onGetEngineId, this);
+
+            return true;
+        },
+
+        onGetEngineId: function(engine_id) {
+            this.views.engines.setActiveItemById(engine_id);
+
+            this.render();
+
+            return true;
+        },
+
         render: function() {
             this.views.engines.render();
 
@@ -66,14 +81,10 @@ define([
             return this;
         },
 
-        onSetActiveEngineId: function(engine_id) {
+        openEngineById: function(engine_id) {
             this.request('data:state:set:engine-id', engine_id);
 
             this.request('ui:iframe:open');
-
-            this.views.engines.setActiveEngineId(engine_id);
-
-            this.render();
 
             return true;
         }

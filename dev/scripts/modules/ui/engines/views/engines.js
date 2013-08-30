@@ -36,7 +36,7 @@ define([
             return this;
         },
 
-        setActiveEngineId: function(engine_id) {
+        setActiveItemById: function(engine_id) {
             this.active_engine_id = engine_id;
 
             return true;
