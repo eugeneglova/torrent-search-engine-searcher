@@ -65,6 +65,8 @@ define([
             if (type === 'home') {
                 this.render();
 
+                this.request('ui:routes:set', 'engine/' + this.views.iframe.model.get('slug'));
+
                 this.request('service:analytics:event', 'iframe', type, this.views.iframe.model.get('name_stripped'));
             } else if (type === 'search') {
                 this.request('data:state:get:query', this.onGetQuery, this);

@@ -12,6 +12,7 @@ define([
         namespace: 'ui:routes',
 
         listeners: {
+            ':set':                 'onSet',
             'data:engines:ready':   'onDataEnginesReady',
             'data:pages:ready':     'onDataPagesReady',
             'app:loader:ready':     'onLoaderReady'
@@ -27,6 +28,12 @@ define([
             this.routers = {};
 
             return this;
+        },
+
+        onSet: function(route) {
+            Backbone.history.navigate(route);
+
+            return true;
         },
 
         onDataEnginesReady: function() {

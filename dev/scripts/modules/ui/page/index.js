@@ -54,9 +54,20 @@ define([
         },
 
         onGetPageId: function(page_id) {
-            var page_model = this.pages.get(page_id);
+            var page_model = this.pages.get(page_id),
+                route;
 
             this.views.page.setModel(page_model);
+
+            if (page_model.get('is_home_page')) {
+                route = '';
+            } else {
+                route = 'page/' + page_model.get('slug');
+            }
+
+            this.request('ui:routes:set', route);
+
+            this.request('service:analytics:event', 'page', 'open', page_model.get('name'));
 
             page_model.fetch().then(this.render.bind(this));
 
@@ -67,8 +78,6 @@ define([
             this.views.page.render();
 
             this.el.append(this.views.page.$el);
-
-            this.request('service:analytics:event', 'page', 'open', this.views.page.model.get('name'));
 
             return this;
         },
