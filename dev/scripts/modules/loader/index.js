@@ -131,7 +131,10 @@ define([
             this.data_loaded_count += 1;
 
             if (Object.keys(this.modules.data).length === this.data_loaded_count) {
-                this.announce('ready')
+                // Move ready event to the end of event loop
+                setTimeout(function() {
+                    this.announce('ready');
+                }.bind(this), 0);
             }
 
             return true;
