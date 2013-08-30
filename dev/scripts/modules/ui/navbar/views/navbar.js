@@ -27,7 +27,7 @@ define([
             return this;
         },
 
-        setActiveItemId: function(item_id) {
+        setActiveItemById: function(item_id) {
             this.active_item_id = item_id;
 
             return true;

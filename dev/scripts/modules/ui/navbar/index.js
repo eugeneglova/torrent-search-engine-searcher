@@ -60,7 +60,7 @@ define([
         },
 
         onGetPageId: function(page_id) {
-            this.views.navbar.setActiveItemId(page_id);
+            this.views.navbar.setActiveItemById(page_id);
 
             this.render();
 
@@ -68,7 +68,7 @@ define([
         },
 
         onIframeOpen: function() {
-            this.views.navbar.setActiveItemId(null);
+            this.views.navbar.setActiveItemById(null);
 
             this.render();
 
