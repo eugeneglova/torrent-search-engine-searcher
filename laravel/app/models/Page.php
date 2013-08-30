@@ -6,7 +6,9 @@ class Page extends Eloquent {
 
     protected $visible = array(
         'id',
-        'name'
+        'name',
+        'title',
+        'description'
     );
 
 }
