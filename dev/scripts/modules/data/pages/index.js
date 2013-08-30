@@ -10,12 +10,12 @@ define([
 
         namespace: 'data:pages',
 
-        // Reference to the pages collection
-        pages: null,
-
         listeners: {
             ':get': 'onGet'
         },
+
+        // Reference to the pages collection
+        pages: null,
 
         initialize: function() {
             // Initialize pages collection

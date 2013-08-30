@@ -10,12 +10,12 @@ define([
 
         namespace: 'data:engines',
 
-        // Reference to the engines collection
-        engines: null,
-
         listeners: {
             ':get': 'onGet'
         },
+
+        // Reference to the engines collection
+        engines: null,
 
         initialize: function() {
             // Initialize engines collection
