@@ -14,6 +14,7 @@ define([
     'modules/ui/page/index',
     'modules/ui/navbar/index',
     'modules/ui/routes/index',
+    'modules/ui/head/index',
 
     // Data
     'modules/data/engines/index',
@@ -33,6 +34,7 @@ define([
     Page,
     Navbar,
     Routes,
+    Head,
 
     // Data
     DataEngines,
@@ -67,7 +69,8 @@ define([
                 engines:    Engines,
                 iframe:     Iframe,
                 page:       Page,
-                routes:     Routes
+                routes:     Routes,
+                head:       Head
             };
 
             this.definitions.data = {
