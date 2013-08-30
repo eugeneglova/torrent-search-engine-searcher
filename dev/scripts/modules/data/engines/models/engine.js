@@ -9,6 +9,7 @@ define([
 
         parse: function(response) {
             response.name_stripped = response.name.replace(/(<([^>]+)>)/ig, '');
+            response.slug = response.name.replace(/(<([^>]+)>)/ig, '').replace(/\s+/, '-').replace(/[^\w-]/g, '').toLowerCase();
 
             return response;
         }
