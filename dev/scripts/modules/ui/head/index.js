@@ -29,9 +29,9 @@ define([
         },
 
         onSet: function(attributes) {
-            this.onSetTitle(attributes.title);
+            this.onSetTitle(attributes.head_title);
 
-            this.onSetDescription(attributes.description);
+            this.onSetDescription(attributes.head_description);
 
             return true;
         },

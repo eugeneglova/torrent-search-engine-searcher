@@ -8,7 +8,8 @@ class Page extends Eloquent {
         'id',
         'name',
         'title',
-        'description'
+        'head_title',
+        'head_description'
     );
 
 }
