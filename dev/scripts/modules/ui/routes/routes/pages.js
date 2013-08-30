@@ -29,7 +29,7 @@ define([
         onPage: function(slug) {
             var pages = this.collection.where({ slug: slug });
 
-            if (!pages.length) return false
+            if (!pages.length) return false;
 
             this.trigger('open-page-by-id', pages[0].id);
 
