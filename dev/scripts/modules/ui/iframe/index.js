@@ -11,8 +11,8 @@ define([
         namespace: 'ui:iframe',
 
         listeners: {
-            'data:engines:ready':   'onDataEnginesReady',
             ':open':                'onOpen',
+            'data:engines:ready':   'onDataEnginesReady',
             'ui:page:open':         'remove'
         },
 

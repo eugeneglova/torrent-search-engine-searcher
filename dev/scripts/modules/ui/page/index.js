@@ -11,8 +11,8 @@ define([
         namespace: 'ui:page',
 
         listeners: {
-            'data:pages:ready': 'onDataPagesReady',
             ':open':            'onOpen',
+            'data:pages:ready': 'onDataPagesReady',
             'ui:iframe:open':   'remove'
         },
 
