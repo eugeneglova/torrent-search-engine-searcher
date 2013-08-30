@@ -12,7 +12,6 @@ define([
 
         listeners: {
             'data:pages:ready': 'onDataPagesReady',
-            'ui:page:ready':    'onPageReady',
             'ui:page:open':     'onPageOpen',
             'ui:iframe:open':   'onIframeOpen'
         },
@@ -50,13 +49,6 @@ define([
             this.render();
 
             this.announce('ready');
-
-            return true;
-        },
-
-        onPageReady: function() {
-            // Open first page on site load
-            this.openPageById(this.pages.at(0).id);
 
             return true;
         },
