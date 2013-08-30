@@ -21,7 +21,7 @@ define([
         },
 
         onHomePage: function() {
-            this.trigger('open-page-by-id', this.pages.at(0).id);
+            this.trigger('open-page-by-id', this.collection.at(0).id);
 
             return true;
         },
