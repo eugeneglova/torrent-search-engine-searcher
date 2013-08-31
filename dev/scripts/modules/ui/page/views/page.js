@@ -11,6 +11,8 @@ define([
 
         template: PageTemplate,
 
+        className: 'page',
+
         ui: null,
 
         // Reference to the page model
