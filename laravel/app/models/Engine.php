@@ -11,4 +11,9 @@ class Engine extends Eloquent {
         'search_url'
     );
 
+    public function categories()
+    {
+        return $this->belongsToMany('Category', 'ss2_categories_sites', 'category_id', 'site_id')->withPivot('search_url');
+    }
+
 }
