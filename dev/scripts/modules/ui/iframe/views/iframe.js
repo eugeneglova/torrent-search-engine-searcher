@@ -17,7 +17,10 @@ define([
         ui: null,
 
         // Reference to the engine model
-        model: null,
+        engine: null,
+
+        // Reference to the category model
+        category: null,
 
         // Type 'home' or 'search'
         type: null,
@@ -35,8 +38,14 @@ define([
             return this;
         },
 
-        setModel: function(model) {
-            this.model = model;
+        setEngine: function(engine) {
+            this.engine = engine;
+
+            return true;
+        },
+
+        setCategory: function(category) {
+            this.category = category;
 
             return true;
         },
@@ -77,14 +86,18 @@ define([
             var src;
 
             if (this.type === 'home') {
-                src = this.model.get('home_url');
+                src = this.engine.get('home_url');
             } else if (this.type === 'search') {
-                src = this.model.get('search_url').replace(/{keyword}/, this.query);
+                if (!this.category) {
+                    src = this.engine.get('search_url').replace(/{keyword}/, this.query);
+                } else {
+                    src = this.category.get('search_url').replace(/{keyword}/, this.query);
+                }
             }
 
-            this.$el.html(this.template(_.extend(this.model.toJSON(), {
+            this.$el.html(this.template({
                 src: src
-            })));
+            }));
 
             this.prepareResize();
 

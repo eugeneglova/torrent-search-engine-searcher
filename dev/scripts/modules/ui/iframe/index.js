@@ -11,9 +11,9 @@ define([
         namespace: 'ui:iframe',
 
         listeners: {
-            ':open':                'onOpen',
-            'data:engines:ready':   'onDataEnginesReady',
-            'ui:page:open':         'remove'
+            ':open':                    'onOpen',
+            'data:engines:ready':       'onDataEnginesReady',
+            'ui:page:open':             'remove'
         },
 
         el: null,
@@ -22,6 +22,9 @@ define([
 
         // Reference to the engines collection
         engines: null,
+
+        // Reference to the categories collection
+        categories: null,
 
         initialize: function() {
             this.el = $('.content');
@@ -52,7 +55,7 @@ define([
         },
 
         onGetEngineId: function(engine_id) {
-            this.views.iframe.setModel(this.engines.get(engine_id));
+            this.views.iframe.setEngine(this.engines.get(engine_id));
 
             this.request('data:state:get:type', this.onGetType, this);
 
@@ -65,11 +68,11 @@ define([
             if (type === 'home') {
                 this.render();
 
-                this.request('ui:routes:set', 'engine/' + this.views.iframe.model.get('slug'));
+                this.request('ui:routes:set', 'engine/' + this.views.iframe.engine.get('slug'));
 
-                this.request('ui:head:set', this.views.iframe.model.toJSON());
+                this.request('ui:head:set', this.views.iframe.engine.toJSON());
 
-                this.request('service:analytics:event', 'iframe', type, this.views.iframe.model.get('name_stripped'));
+                this.request('service:analytics:event', 'iframe', type, this.views.iframe.engine.get('name_stripped'));
             } else if (type === 'search') {
                 this.request('data:state:get:query', this.onGetQuery, this);
             }
@@ -80,11 +83,31 @@ define([
         onGetQuery: function(query) {
             this.views.iframe.setQuery(query);
 
+            this.request('data:categories:get', this.onDataCategoriesGet, this);
+
+            return true;
+        },
+
+        onDataCategoriesGet: function(categories) {
+            this.categories = categories;
+
+            this.request('data:state:get:category-id', this.onGetCategoryId, this);
+
+            return true;
+        },
+
+        onGetCategoryId: function(category_id) {
+            this.views.iframe.setCategory(this.categories.get(category_id));
+
             this.render();
 
-            this.request('service:analytics:event', 'iframe', this.views.iframe.type, this.views.iframe.model.get('name_stripped'));
+            this.request('service:analytics:event', 'iframe', this.views.iframe.type, this.views.iframe.engine.get('name_stripped'));
 
-            this.request('service:analytics:event', 'iframe', 'query', query);
+            this.request('service:analytics:event', 'iframe', 'query', this.views.iframe.query);
+
+            if (this.views.iframe.category) {
+                this.request('service:analytics:event', 'iframe', 'category', this.views.iframe.category.get('name_stripped'));
+            }
 
             return true;
         },
