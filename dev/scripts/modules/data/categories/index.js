@@ -17,10 +17,6 @@ define([
         // Reference to the categories collections object
         categories: null,
 
-        callback: null,
-
-        context: null,
-
         initialize: function() {
             this.categories = {};
 
@@ -30,37 +26,35 @@ define([
         },
 
         onGet: function(callback, context) {
-            this.callback = callback;
-
-            this.context = context;
-
-            this.request('data:state:get:engine-id', this.onGetEngineId, this)
+            this.request('data:state:get:engine-id', this.onGetEngineId(callback, context), this)
 
             return true;
         },
 
-        onGetEngineId: function(engine_id) {
-            var categories_callback = this.onCategoriesReset(engine_id);
+        onGetEngineId: function(callback, context) {
+            return function(engine_id) {
+                var categories_callback = this.onCategoriesReset(engine_id, callback, context);
 
-            if (!this.categories[engine_id]) {
-                // Initialize categories collection
-                this.categories[engine_id] = new CategoriesCollection({
-                    engine_id: engine_id
-                });
+                if (!this.categories[engine_id]) {
+                    // Initialize categories collection
+                    this.categories[engine_id] = new CategoriesCollection({
+                        engine_id: engine_id
+                    });
 
-                this.listenTo(this.categories[engine_id], 'reset', categories_callback, this);
+                    this.listenTo(this.categories[engine_id], 'reset', categories_callback, this);
 
-                this.categories[engine_id].fetch({ reset: true });
-            } else {
-                categories_callback();
-            }
+                    this.categories[engine_id].fetch({ reset: true });
+                } else {
+                    categories_callback();
+                }
 
-            return true;
+                return true;
+            }.bind(this);
         },
 
-        onCategoriesReset: function(engine_id) {
+        onCategoriesReset: function(engine_id, callback, context) {
             return function() {
-                this.callback.apply(this.context, [this.categories[engine_id]]);
+                callback.apply(context, [this.categories[engine_id]]);
 
                 return true;
             }.bind(this);
