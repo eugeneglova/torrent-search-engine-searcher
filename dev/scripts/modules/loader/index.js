@@ -18,6 +18,7 @@ define([
 
     // Data
     'modules/data/engines/index',
+    'modules/data/categories/index',
     'modules/data/pages/index',
     'modules/data/state/index'
 ], function (
@@ -38,6 +39,7 @@ define([
 
     // Data
     DataEngines,
+    DataCategories,
     DataPages,
     DataState
 ) {
@@ -75,6 +77,7 @@ define([
 
             this.definitions.data = {
                 engines:    DataEngines,
+                categories: DataCategories,
                 pages:      DataPages,
                 state:      DataState
             };
