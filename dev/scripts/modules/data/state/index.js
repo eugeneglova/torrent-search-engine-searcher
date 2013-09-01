@@ -34,32 +34,30 @@ define([
             return this;
         },
 
-        get: function(key) {
-            return this.model.get(key);
-        },
-
-        set: function(key, value) {
-            this.model.set(key, value);
-
-            this.announce('changed:' + key);
-
-            return true;
-        },
-
-        setType: function() {
-            if (this.get('query') && this.get('query').length) {
-                this.set('type', 'search');
-            } else {
-                this.set('type', 'home');
-            }
-
-            return true;
-        },
-
         onGet: function(key, callback, context) {
             callback.apply(context, [this.get(key)]);
 
             return true;
+        },
+
+        onGetQuery: function(callback, context) {
+            return this.onGet('query', callback, context);
+        },
+
+        onGetEngineId: function(callback, context) {
+            return this.onGet('engine-id', callback, context);
+        },
+
+        onGetCategoryId: function(callback, context) {
+            return this.onGet('category-id', callback, context);
+        },
+
+        onGetType: function(callback, context) {
+            return this.onGet('type', callback, context);
+        },
+
+        onGetPageId: function(callback, context) {
+            return this.onGet('page-id', callback, context);
         },
 
         onSetQuery: function(query) {
@@ -92,24 +90,26 @@ define([
             return true;
         },
 
-        onGetQuery: function(callback, context) {
-            return this.onGet('query', callback, context);
+        get: function(key) {
+            return this.model.get(key);
         },
 
-        onGetEngineId: function(callback, context) {
-            return this.onGet('engine-id', callback, context);
+        set: function(key, value) {
+            this.model.set(key, value);
+
+            this.announce('changed:' + key);
+
+            return true;
         },
 
-        onGetCategoryId: function(callback, context) {
-            return this.onGet('category-id', callback, context);
-        },
+        setType: function() {
+            if (this.get('query') && this.get('query').length) {
+                this.set('type', 'search');
+            } else {
+                this.set('type', 'home');
+            }
 
-        onGetType: function(callback, context) {
-            return this.onGet('type', callback, context);
-        },
-
-        onGetPageId: function(callback, context) {
-            return this.onGet('page-id', callback, context);
+            return true;
         }
 
     });
