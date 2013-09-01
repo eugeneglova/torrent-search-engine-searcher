@@ -13,6 +13,9 @@ define([
 
         className: 'navbar-inner',
 
+        // Reference to the engine model
+        engine: null,
+
         // Reference to the categories collection
         categories: null,
 
@@ -24,6 +27,12 @@ define([
             this.views = {};
 
             return this;
+        },
+
+        setEngine: function(engine) {
+            this.engine = engine;
+
+            return true;
         },
 
         setCategories: function(categories) {
@@ -45,8 +54,9 @@ define([
 
             this.categories.forEach(function(model) {
                 var view = new CategoryView({
-                    parent: this,
-                    model:  model
+                    parent:     this,
+                    engine:     this.engine,
+                    category:   model
                 });
 
                 if (this.active_category_id === model.id) {

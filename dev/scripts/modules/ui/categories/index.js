@@ -12,6 +12,7 @@ define([
 
         listeners: {
             'data:state:changed:engine-id': 'onDataStateChangedEngineId',
+            'data:engines:ready':           'onDataEnginesReady',
             'ui:page:open':                 'remove'
         },
 
@@ -20,6 +21,9 @@ define([
         ui: null,
 
         views: null,
+
+        // Reference to the engines collection
+        engines: null,
 
         // Reference to the categories collection
         categories: null,
@@ -49,9 +53,23 @@ define([
 
             this.views.categories.setCategories(this.categories);
 
+            this.views.categories.setEngine(this.engines.get(this.categories.engine_id));
+
             this.listenTo(this.views.categories, 'open-category-by-id', this.openCategoryById, this);
 
             this.render();
+
+            return true;
+        },
+
+        onDataEnginesReady: function() {
+            this.request('data:engines:get', this.onDataEnginesGet, this);
+
+            return true;
+        },
+
+        onDataEnginesGet: function(engines) {
+            this.engines = engines;
 
             return true;
         },

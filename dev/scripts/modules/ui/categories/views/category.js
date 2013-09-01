@@ -19,6 +19,12 @@ define([
         // Reference to parent view
         parent: null,
 
+        // Reference to engine model
+        engine: null,
+
+        // Reference to category model
+        category: null,
+
         is_active: null,
 
         active_class: 'active',
@@ -26,13 +32,20 @@ define([
         initialize: function(options) {
             this.parent = options.parent;
 
+            this.engine = options.engine;
+
+            this.category = options.category;
+
             this.setIsActive(false);
 
             return this;
         },
 
         render: function() {
-            this.$el.html(this.template(this.model.toJSON()));
+            this.$el.html(this.template({
+                engine:     this.engine.toJSON(),
+                category:   this.category.toJSON()
+            }));
 
             return this;
         },
@@ -54,7 +67,7 @@ define([
         onClick: function(e) {
             e.preventDefault();
 
-            this.parent.trigger('open-category-by-id', this.model.id);
+            this.parent.trigger('open-category-by-id', this.category.id);
 
             return true;
         }
