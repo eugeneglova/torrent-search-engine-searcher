@@ -136,7 +136,7 @@ define([
         onDataModuleReady: function() {
             this.data_loaded_count += 1;
 
-            if (Object.keys(this.modules.data).length === this.data_loaded_count) {
+            if (Object.keys(this.definitions.data).length === this.data_loaded_count) {
                 // Move ready event to the end of event loop
                 setTimeout(function() {
                     this.announce('ready');
