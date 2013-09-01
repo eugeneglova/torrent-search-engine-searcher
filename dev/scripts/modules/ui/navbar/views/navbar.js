@@ -12,7 +12,7 @@ define([
 
         template: NavbarTemplate,
 
-        className: 'navbar navbar-static-top',
+        className: 'navbar-inner',
 
         // Reference to the engines collection
         collection: null,

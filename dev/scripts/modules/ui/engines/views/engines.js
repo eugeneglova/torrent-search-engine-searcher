@@ -24,7 +24,7 @@ define([
         initialize: function() {
             this.ui = {
                 window:     $(window),
-                navbar:     null,
+                header:     null,
                 sidebar:    $('.sidebar'),
                 search:     $('.search')
             };
@@ -43,11 +43,11 @@ define([
         },
 
         resize: function() {
-            if (!this.ui.navbar || !this.ui.navbar.length) {
-                this.ui.navbar = $('.navbar');
+            if (!this.ui.header || !this.ui.header.length) {
+                this.ui.header = $('.header');
             }
 
-            this.$el.css('height', this.ui.window.height() - this.ui.navbar.height() - this.ui.search.height() - this.ui.sidebar.outerHeight() + this.ui.sidebar.height());
+            this.$el.css('height', this.ui.window.height() - this.ui.header.height() - this.ui.search.height() - this.ui.sidebar.outerHeight() + this.ui.sidebar.height());
 
             return true;
         },

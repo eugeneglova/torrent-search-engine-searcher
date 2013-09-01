@@ -24,7 +24,7 @@ define([
         pages: null,
 
         initialize: function() {
-            this.el = $('.main-container');
+            this.el = $('.navigation-top');
 
             this.views = {};
 
