@@ -14,7 +14,7 @@ define([
             ':get': 'onGet'
         },
 
-        // Reference to the categories collection
+        // Reference to the categories collections object
         categories: null,
 
         callback: null,
@@ -22,10 +22,7 @@ define([
         context: null,
 
         initialize: function() {
-            // Initialize categories collection
-            this.categories = new CategoriesCollection();
-
-            this.listenTo(this.categories, 'reset', this.onCategoriesReset, this);
+            this.categories = {};
 
             this.announce('ready');
 
@@ -43,17 +40,30 @@ define([
         },
 
         onGetEngineId: function(engine_id) {
-            this.categories.setEngineId(engine_id);
+            var categories_callback = this.onCategoriesReset(engine_id);
 
-            this.categories.fetch({ reset: true });
+            if (!this.categories[engine_id]) {
+                // Initialize categories collection
+                this.categories[engine_id] = new CategoriesCollection({
+                    engine_id: engine_id
+                });
+
+                this.listenTo(this.categories[engine_id], 'reset', categories_callback, this);
+
+                this.categories[engine_id].fetch({ reset: true });
+            } else {
+                categories_callback();
+            }
 
             return true;
         },
 
-        onCategoriesReset: function() {
-            this.callback.apply(this.context, [this.categories]);
+        onCategoriesReset: function(engine_id) {
+            return function() {
+                this.callback.apply(this.context, [this.categories[engine_id]]);
 
-            return true;
+                return true;
+            }.bind(this);
         }
 
     });
