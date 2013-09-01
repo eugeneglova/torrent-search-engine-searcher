@@ -16,10 +16,12 @@ define([
         listeners: {
             ':get:query':       'onGetQuery',
             ':get:engine-id':   'onGetEngineId',
+            ':get:category-id': 'onGetCategoryId',
             ':get:type':        'onGetType',
             ':get:page-id':     'onGetPageId',
             ':set:query':       'onSetQuery',
             ':set:engine-id':   'onSetEngineId',
+            ':set:category-id': 'onSetCategoryId',
             ':set:page-id':     'onSetPageId'
         },
 
@@ -76,6 +78,14 @@ define([
             return true;
         },
 
+        onSetCategoryId: function(category_id) {
+            this.set('category-id', category_id);
+
+            this.setType();
+
+            return true;
+        },
+
         onSetPageId: function(page_id) {
             this.set('page-id', page_id);
 
@@ -88,6 +98,10 @@ define([
 
         onGetEngineId: function(callback, context) {
             return this.onGet('engine-id', callback, context);
+        },
+
+        onGetCategoryId: function(callback, context) {
+            return this.onGet('category-id', callback, context);
         },
 
         onGetType: function(callback, context) {

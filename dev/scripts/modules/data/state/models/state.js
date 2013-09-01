@@ -7,9 +7,10 @@ define([
 
     var StateModel = Model.extend({
         defaults: {
-            query:          null,
+            'query':        null,
             'engine-id':    null,
-            type:           null,
+            'category-id':  null,
+            'type':         null,
             'page-id':      null
         }
     });
