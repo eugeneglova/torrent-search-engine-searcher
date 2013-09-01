@@ -9,6 +9,7 @@ define([
 
     // UI
     'modules/ui/engines/index',
+    'modules/ui/categories/index',
     'modules/ui/search/index',
     'modules/ui/iframe/index',
     'modules/ui/page/index',
@@ -30,6 +31,7 @@ define([
 
     // UI
     Engines,
+    Categories,
     Search,
     Iframe,
     Page,
@@ -69,6 +71,7 @@ define([
                 navbar:     Navbar,
                 search:     Search,
                 engines:    Engines,
+                categories: Categories,
                 iframe:     Iframe,
                 page:       Page,
                 routes:     Routes,
