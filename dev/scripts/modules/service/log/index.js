@@ -32,7 +32,7 @@ define([
         },
 
         onRequest: function() {
-            this.log('request:', arguments);
+            this.log(arguments[0], 'request:', Array.prototype.slice.call(arguments, 1));
 
             return true;
         },

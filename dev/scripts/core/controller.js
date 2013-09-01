@@ -51,7 +51,7 @@ define([
             this.mediator.trigger.apply(this.mediator, arguments);
 
             // Trigger log event
-            this.mediator.trigger.apply(this.mediator, ['request'].concat(Array.prototype.slice.call(arguments)));
+            this.mediator.trigger.apply(this.mediator, ['request', this.namespace].concat(Array.prototype.slice.call(arguments)));
 
             return this;
         },
