@@ -55,19 +55,19 @@ define([
         render: function() {
             this.clearViews();
 
-            this.collection.forEach(function(engine_model) {
+            this.collection.forEach(function(model) {
                 var view = new EngineView({
                     parent: this,
-                    model:  engine_model
+                    model:  model
                 });
 
-                if (this.active_engine_id === engine_model.id) {
+                if (this.active_engine_id === model.id) {
                     view.setIsActive(true);
                 }
 
                 this.$el.append(view.render().$el);
 
-                this.views[engine_model.id] = view;
+                this.views[model.id] = view;
             }, this);
 
             this.resize();

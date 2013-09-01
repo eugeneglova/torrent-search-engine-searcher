@@ -43,19 +43,19 @@ define([
 
             this.$el.html(this.template());
 
-            this.categories.forEach(function(category_model) {
+            this.categories.forEach(function(model) {
                 var view = new CategoryView({
                     parent: this,
-                    model:  category_model
+                    model:  model
                 });
 
-                if (this.active_category_id === category_model.id) {
+                if (this.active_category_id === model.id) {
                     view.setIsActive(true);
                 }
 
                 this.$('.nav').append(view.render().$el);
 
-                this.views[category_model.id] = view;
+                this.views[model.id] = view;
             }, this);
 
             return this;

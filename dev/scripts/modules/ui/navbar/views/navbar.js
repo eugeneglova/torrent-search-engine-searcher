@@ -40,19 +40,19 @@ define([
 
             this.renderBrandItemView();
 
-            this.collection.forEach(function(item_model) {
+            this.collection.forEach(function(model) {
                 var view = new ItemView({
                     parent: this,
-                    model:  item_model
+                    model:  model
                 });
 
-                if (this.active_item_id === item_model.id) {
+                if (this.active_item_id === model.id) {
                     view.setIsActive(true);
                 }
 
                 this.$('.nav').append(view.render().$el);
 
-                this.views[item_model.id] = view;
+                this.views[model.id] = view;
             }, this);
 
             return this;
