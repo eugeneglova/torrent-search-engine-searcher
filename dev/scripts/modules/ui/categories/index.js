@@ -13,6 +13,7 @@ define([
         listeners: {
             'data:state:changed:engine-id': 'onDataStateChangedEngineId',
             'data:engines:ready':           'onDataEnginesReady',
+            'ui:iframe:open':               'onIframeOpen',
             'ui:page:open':                 'remove'
         },
 
@@ -39,6 +40,8 @@ define([
 
             this.views.categories = new CategoriesView();
 
+            this.listenTo(this.views.categories, 'open-category-by-id', this.openCategoryById, this);
+
             return this;
         },
 
@@ -54,8 +57,6 @@ define([
             this.views.categories.setCategories(this.categories);
 
             this.views.categories.setEngine(this.engines.get(this.categories.engine_id));
-
-            this.listenTo(this.views.categories, 'open-category-by-id', this.openCategoryById, this);
 
             this.render();
 
@@ -89,7 +90,7 @@ define([
         },
 
         render: function() {
-            if (!this.categories.length) {
+            if (!this.categories || !this.categories.length) {
                 this.remove();
 
                 return false;
