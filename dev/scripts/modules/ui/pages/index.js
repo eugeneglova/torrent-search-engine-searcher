@@ -2,13 +2,13 @@
 
 define([
     'backbone',
-    './views/navbar'
-], function (Backbone, NavbarView) {
+    './views/pages'
+], function (Backbone, PagesView) {
     'use strict';
 
-    var Navbar = Backbone.UIController.extend({
+    var Pages = Backbone.UIController.extend({
 
-        namespace: 'ui:navbar',
+        namespace: 'ui:pages',
 
         listeners: {
             'data:pages:ready': 'onDataPagesReady',
@@ -40,11 +40,11 @@ define([
         onDataPagesGet: function(pages) {
             this.pages = pages;
 
-            this.views.navbar = new NavbarView({
+            this.views.pages = new PagesView({
                 collection: this.pages
             });
 
-            this.listenTo(this.views.navbar, 'open-page-by-id', this.openPageById, this);
+            this.listenTo(this.views.pages, 'open-page-by-id', this.openPageById, this);
 
             this.render();
 
@@ -60,7 +60,7 @@ define([
         },
 
         onGetPageId: function(page_id) {
-            this.views.navbar.setActiveItemById(page_id);
+            this.views.pages.setActiveItemById(page_id);
 
             this.render();
 
@@ -68,7 +68,7 @@ define([
         },
 
         onIframeOpen: function() {
-            this.views.navbar.setActiveItemById(null);
+            this.views.pages.setActiveItemById(null);
 
             this.render();
 
@@ -76,9 +76,9 @@ define([
         },
 
         render: function() {
-            this.views.navbar.render();
+            this.views.pages.render();
 
-            this.el.prepend(this.views.navbar.$el);
+            this.el.prepend(this.views.pages.$el);
 
             return this;
         },
@@ -93,5 +93,5 @@ define([
 
     });
 
-    return Navbar;
+    return Pages;
 });

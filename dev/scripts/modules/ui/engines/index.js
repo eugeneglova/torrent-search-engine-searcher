@@ -12,7 +12,6 @@ define([
 
         listeners: {
             'data:engines:ready':   'onDataEnginesReady',
-            'ui:navbar:ready':      'onNavbarReady',
             'ui:iframe:open':       'onIframeOpen'
         },
 
@@ -47,14 +46,6 @@ define([
             this.listenTo(this.views.engines, 'open-engine-by-id', this.openEngineById, this);
 
             this.render();
-
-            return true;
-        },
-
-        onNavbarReady: function() {
-            if (this.views.engines) {
-                this.views.engines.resize();
-            }
 
             return true;
         },

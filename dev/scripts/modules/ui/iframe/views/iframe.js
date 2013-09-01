@@ -31,8 +31,7 @@ define([
         initialize: function() {
             this.ui = {
                 window: $(window),
-                navbar: null,
-                search: null
+                header: $('.header')
             };
 
             return this;
@@ -63,21 +62,13 @@ define([
         },
 
         prepareResize: function() {
-            if (!this.ui.navbar || !this.ui.navbar.length) {
-                this.ui.navbar = $('.navbar');
-            }
-
-            if (!this.ui.search || !this.ui.search.length) {
-                this.ui.search = $('.search');
-            }
-
             this.ui.window.on('resize', this.resize.bind(this));
 
             return true;
         },
 
         resize: function() {
-            this.$('iframe').css('height', this.ui.window.height() - this.ui.navbar.height());
+            this.$('iframe').css('height', this.ui.window.height() - this.ui.header.height());
 
             return true;
         },

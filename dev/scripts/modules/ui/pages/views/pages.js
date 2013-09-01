@@ -2,15 +2,15 @@
 
 define([
     'backbone',
-    'hbs!../templates/navbar',
+    'hbs!../templates/pages',
     './brand-item',
     './item'
-], function (Backbone, NavbarTemplate, BrandItemView, ItemView) {
+], function (Backbone, PagesTemplate, BrandItemView, ItemView) {
     'use strict';
 
-    var NavbarView = Backbone.View.extend({
+    var PagesView = Backbone.View.extend({
 
-        template: NavbarTemplate,
+        template: PagesTemplate,
 
         className: 'navbar-inner',
 
@@ -82,5 +82,5 @@ define([
 
     });
 
-    return NavbarView;
+    return PagesView;
 });

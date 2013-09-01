@@ -24,7 +24,7 @@ define([
         initialize: function() {
             this.ui = {
                 window:     $(window),
-                header:     null,
+                header:     $('.header'),
                 sidebar:    $('.sidebar'),
                 search:     $('.search')
             };
@@ -43,10 +43,6 @@ define([
         },
 
         resize: function() {
-            if (!this.ui.header || !this.ui.header.length) {
-                this.ui.header = $('.header');
-            }
-
             this.$el.css('height', this.ui.window.height() - this.ui.header.height() - this.ui.search.height() - this.ui.sidebar.outerHeight() + this.ui.sidebar.height());
 
             return true;

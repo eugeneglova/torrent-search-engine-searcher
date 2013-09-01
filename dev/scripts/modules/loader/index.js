@@ -13,7 +13,7 @@ define([
     'modules/ui/search/index',
     'modules/ui/iframe/index',
     'modules/ui/page/index',
-    'modules/ui/navbar/index',
+    'modules/ui/pages/index',
     'modules/ui/routes/index',
     'modules/ui/head/index',
 
@@ -35,7 +35,7 @@ define([
     Search,
     Iframe,
     Page,
-    Navbar,
+    Pages,
     Routes,
     Head,
 
@@ -68,7 +68,7 @@ define([
             };
 
             this.definitions.ui = {
-                navbar:     Navbar,
+                pages:      Pages,
                 search:     Search,
                 engines:    Engines,
                 categories: Categories,
