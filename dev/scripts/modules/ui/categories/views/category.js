@@ -1,9 +1,10 @@
 /*global define*/
 
 define([
+    'jquery',
     'backbone',
     'hbs!../templates/category'
-], function (Backbone, CategoryTemplate) {
+], function ($, Backbone, CategoryTemplate) {
     'use strict';
 
     var CategoryView = Backbone.View.extend({
@@ -65,9 +66,13 @@ define([
         },
 
         onClick: function(e) {
+            var category_id;
+
             e.preventDefault();
 
-            this.parent.trigger('open-category-by-id', this.category.id);
+            category_id = $(e.currentTarget).hasClass(this.active_class) ? undefined : this.category.id;
+
+            this.parent.trigger('open-category-by-id', category_id);
 
             return true;
         }
