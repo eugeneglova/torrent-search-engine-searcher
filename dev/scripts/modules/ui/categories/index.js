@@ -11,7 +11,6 @@ define([
         namespace: 'ui:categories',
 
         listeners: {
-            'data:state:changed:engine-id': 'onDataStateChangedEngineId',
             'data:engines:ready':           'onDataEnginesReady',
             'ui:iframe:open':               'onIframeOpen',
             'ui:page:open':                 'remove'
@@ -45,24 +44,6 @@ define([
             return this;
         },
 
-        onDataStateChangedEngineId: function() {
-            this.request('data:categories:get', this.onDataCategoriesGet, this);
-
-            return true;
-        },
-
-        onDataCategoriesGet: function(categories) {
-            this.categories = categories;
-
-            this.views.categories.setCategories(this.categories);
-
-            this.views.categories.setEngine(this.engines.get(this.categories.engine_id));
-
-            this.render();
-
-            return true;
-        },
-
         onDataEnginesReady: function() {
             this.request('data:engines:get', this.onDataEnginesGet, this);
 
@@ -76,6 +57,30 @@ define([
         },
 
         onIframeOpen: function() {
+            this.request('data:state:get:query', this.onGetQuery, this);
+
+            return true;
+        },
+
+        onGetQuery: function(query) {
+            if (!query || !query.length) {
+                this.remove();
+
+                return false;
+            }
+
+            this.request('data:categories:get', this.onDataCategoriesGet, this);
+
+            return true;
+        },
+
+        onDataCategoriesGet: function(categories) {
+            this.categories = categories;
+
+            this.views.categories.setCategories(this.categories);
+
+            this.views.categories.setEngine(this.engines.get(this.categories.engine_id));
+
             this.request('data:state:get:category-id', this.onGetCategoryId, this);
 
             return true;
