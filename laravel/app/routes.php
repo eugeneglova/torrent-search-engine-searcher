@@ -26,14 +26,29 @@ Route::group(array('prefix' => 'api/v1'), function()
     Route::resource('pages', 'PageController');
 });
 
+// Get environment name
+$environment = strstr($_SERVER['HTTP_HOST'], 'dev.') ? 'dev' : 'prd';
+
+// Get file path based on environment
+$index_file = __DIR__ . '/../../' . $environment . '/index.html';
+
 // Push state urls support
-Route::get('{path1}/{path2}', function($path1, $path2)
+Route::get('page/{page}', function() use ($index_file)
 {
-    // Get environment name
-    $environment = strstr($_SERVER['HTTP_HOST'], 'dev.') ? 'dev' : 'prd';
+    readfile($index_file);
+});
 
-    // Get file path based on environment
-    $index_file = __DIR__ . '/../../' . $environment . '/index.html';
+Route::get('engine/{engine}', function() use ($index_file)
+{
+    readfile($index_file);
+});
 
+Route::get('engine/{engine}/torrent/{query}', function() use ($index_file)
+{
+    readfile($index_file);
+});
+
+Route::get('engine/{engine}/torrent/{query}/category/{category}', function() use ($index_file)
+{
     readfile($index_file);
 });
