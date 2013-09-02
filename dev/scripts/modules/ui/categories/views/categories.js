@@ -19,6 +19,9 @@ define([
         // Reference to the categories collection
         categories: null,
 
+        // Reference to the search query
+        query: null,
+
         active_category_id: null,
 
         views: null,
@@ -41,6 +44,12 @@ define([
             return true;
         },
 
+        setQuery: function(query) {
+            this.query = query;
+
+            return true;
+        },
+
         setActiveItemById: function(category_id) {
             this.active_category_id = category_id;
 
@@ -56,7 +65,8 @@ define([
                 var view = new CategoryView({
                     parent:     this,
                     engine:     this.engine,
-                    category:   model
+                    category:   model,
+                    query:      this.query
                 });
 
                 if (this.active_category_id === model.id) {

@@ -26,6 +26,9 @@ define([
         // Reference to category model
         category: null,
 
+        // Reference to the search query
+        query: null,
+
         is_active: null,
 
         active_class: 'active',
@@ -37,6 +40,8 @@ define([
 
             this.category = options.category;
 
+            this.query = options.query;
+
             this.setIsActive(false);
 
             return this;
@@ -45,7 +50,8 @@ define([
         render: function() {
             this.$el.html(this.template({
                 engine:     this.engine.toJSON(),
-                category:   this.category.toJSON()
+                category:   this.category.toJSON(),
+                query:      this.query
             }));
 
             return this;

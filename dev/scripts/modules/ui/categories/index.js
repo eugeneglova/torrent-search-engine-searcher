@@ -69,6 +69,8 @@ define([
                 return false;
             }
 
+            this.views.categories.setQuery(query);
+
             this.request('data:categories:get', this.onDataCategoriesGet, this);
 
             return true;
