@@ -8,10 +8,11 @@ define([
     var EnginesRouter = Backbone.Router.extend({
 
         routes: {
-            'engine/:engine(/torrent/:query(/category/:category))': 'onEngine'
+            'engine/:engine(/torrent/:query)':                      'onEngine',
+            'engine/:engine/torrent/:query(/category/:category)':   'onEngine'
         },
 
-        onEngine: function(engine, query, category_parentheses, category) {
+        onEngine: function(engine, query, category) {
             this.trigger('open-engine', engine, query, category);
 
             return true;
