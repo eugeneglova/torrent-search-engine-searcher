@@ -97,9 +97,25 @@ define([
         },
 
         onGetCategoryId: function(category_id) {
+            var route;
+
             this.views.iframe.setCategory(this.categories.get(category_id));
 
             this.render();
+
+            route = 'engine/' + this.views.iframe.engine.get('slug') + '/torrent/' + this.views.iframe.query;
+
+            if (this.views.iframe.category) {
+                route += '/category/' + this.views.iframe.category.get('slug');
+            }
+
+            this.request('ui:routes:set', route);
+
+            if (this.views.iframe.category) {
+                this.request('ui:head:set', this.views.iframe.category.toJSON());
+            } else {
+                this.request('ui:head:set', this.views.iframe.engine.toJSON());
+            }
 
             this.request('service:analytics:event', 'iframe', this.views.iframe.type, this.views.iframe.engine.get('name_stripped'));
 
