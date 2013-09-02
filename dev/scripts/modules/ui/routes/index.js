@@ -27,6 +27,15 @@ define([
         initialize: function() {
             this.routers = {};
 
+            this.routers.pages = new PagesRouter();
+
+            this.listenTo(this.routers.pages, 'open-page-by-name', this.onOpenPageByName, this);
+
+            this.routers.engines = new EnginesRouter();
+
+            this.listenTo(this.routers.engines, 'open-engine', this.onOpenEngine, this);
+
+
             return this;
         },
 
@@ -45,11 +54,17 @@ define([
         onDataEnginesGet: function(engines) {
             this.engines = engines;
 
-            this.routers.engines = new EnginesRouter({
-                collection: this.engines
-            });
+            return true;
+        },
 
-            this.listenTo(this.routers.engines, 'open-engine-by-id', this.openEngineById, this);
+        onOpenEngine: function(engine, query, category) {
+            var engines;
+
+            engines = this.engines.where({ slug: engine });
+
+            if (!engines.length) return false;
+
+            this.openEngineById(engines[0].id);
 
             return true;
         },
@@ -57,17 +72,11 @@ define([
         onDataPagesReady: function() {
             this.request('data:pages:get', this.onDataPagesGet, this);
 
-            this.listenTo(this.routers.pages, 'open-page-by-id', this.openPageById, this);
-
             return true;
         },
 
         onDataPagesGet: function(pages) {
             this.pages = pages;
-
-            this.routers.pages = new PagesRouter({
-                collection: this.pages
-            });
 
             return true;
         },
@@ -82,6 +91,16 @@ define([
             this.request('data:state:set:engine-id', engine_id);
 
             this.request('ui:iframe:open');
+
+            return true;
+        },
+
+        onOpenPageByName: function(page) {
+            var pages = this.pages.where({ slug: page });
+
+            if (!pages.length) return false;
+
+            this.openPageById(pages[0].id);
 
             return true;
         },
