@@ -13,7 +13,7 @@ class Engine extends Eloquent {
 
     public function categories()
     {
-        return $this->belongsToMany('Category', 'ss2_categories_sites', 'category_id', 'site_id')->withPivot('search_url');
+        return $this->belongsToMany('Category', 'ss2_categories_sites', 'site_id', 'category_id')->withPivot('search_url');
     }
 
 }
