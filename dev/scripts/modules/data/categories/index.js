@@ -48,7 +48,7 @@ define([
 
                     this.categories[engine_id].collection.fetch({ reset: true });
                 } else if (!this.categories[engine_id].is_reset_complete) {
-                    this.categories[engine_id].collection.once('reset', categories_callback, this);
+                    this.listenToOnce(this.categories[engine_id].collection, 'reset', categories_callback, this);
                 } else {
                     categories_callback();
                 }
@@ -59,6 +59,8 @@ define([
 
         onCategoriesReset: function(engine_id, callback, context) {
             return function() {
+                this.categories[engine_id].is_reset_complete = true;
+
                 callback.apply(context, [this.categories[engine_id].collection]);
 
                 return true;
