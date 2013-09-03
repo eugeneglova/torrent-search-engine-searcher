@@ -37,13 +37,18 @@ define([
 
                 if (!this.categories[engine_id]) {
                     // Initialize categories collection
-                    this.categories[engine_id] = new CategoriesCollection({
-                        engine_id: engine_id
-                    });
+                    this.categories[engine_id] = {
+                        collection: new CategoriesCollection(undefined, {
+                            engine_id: engine_id
+                        }),
+                        is_reset_complete: false
+                    };
 
-                    this.listenTo(this.categories[engine_id], 'reset', categories_callback, this);
+                    this.listenTo(this.categories[engine_id].collection, 'reset', categories_callback, this);
 
-                    this.categories[engine_id].fetch({ reset: true });
+                    this.categories[engine_id].collection.fetch({ reset: true });
+                } else if (!this.categories[engine_id].is_reset_complete) {
+                    this.categories[engine_id].collection.once('reset', categories_callback, this);
                 } else {
                     categories_callback();
                 }
@@ -54,7 +59,7 @@ define([
 
         onCategoriesReset: function(engine_id, callback, context) {
             return function() {
-                callback.apply(context, [this.categories[engine_id]]);
+                callback.apply(context, [this.categories[engine_id].collection]);
 
                 return true;
             }.bind(this);

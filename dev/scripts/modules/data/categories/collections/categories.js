@@ -19,7 +19,7 @@ define([
             return '/api/v1/engines/' + this.engine_id + '/categories';
         },
 
-        initialize: function(options) {
+        initialize: function(models, options) {
             this.engine_id = options.engine_id;
 
             return this;
