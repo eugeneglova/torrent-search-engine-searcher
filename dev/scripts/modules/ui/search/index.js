@@ -11,7 +11,8 @@ define([
         namespace: 'ui:search',
 
         listeners: {
-            'data:engines:ready': 'render'
+            'data:engines:ready':       'render',
+            'data:state:changed:query': 'onDateStateChangedQuery'
         },
 
         el: null,
@@ -29,6 +30,20 @@ define([
             this.listenTo(this.views.search, 'submit', this.onSubmit, this);
 
             return this;
+        },
+
+        onDateStateChangedQuery: function() {
+            this.request('data:state:get:query', this.onGetQuery, this);
+
+            return true;
+        },
+
+        onGetQuery: function(query) {
+            this.views.search.setQuery(query);
+
+            this.render();
+
+            return true;
         },
 
         render: function() {

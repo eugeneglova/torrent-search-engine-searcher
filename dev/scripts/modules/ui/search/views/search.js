@@ -16,6 +16,9 @@ define([
             'keypress':   'onSubmit'
         },
 
+        // Reference to search query
+        query: null,
+
         initialize: function() {
             this.$el.attr('type', 'text');
             this.$el.attr('placeholder', 'Search');
@@ -23,7 +26,15 @@ define([
             return this;
         },
 
+        setQuery: function(query) {
+            this.query = query;
+
+            return true;
+        },
+
         render: function() {
+            this.$el.val(this.query);
+
             return this;
         },
 
