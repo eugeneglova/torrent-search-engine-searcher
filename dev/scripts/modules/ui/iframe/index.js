@@ -103,7 +103,7 @@ define([
 
             this.render();
 
-            route = 'engine/' + this.views.iframe.engine.get('slug') + '/torrent/' + this.views.iframe.query;
+            route = 'engine/' + this.views.iframe.engine.get('slug') + '/search/' + this.views.iframe.query;
 
             if (this.views.iframe.category) {
                 route += '/category/' + this.views.iframe.category.get('slug');

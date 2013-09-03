@@ -8,8 +8,8 @@ define([
     var EnginesRouter = Backbone.Router.extend({
 
         routes: {
-            'engine/:engine(/torrent/:query)':                      'onEngine',
-            'engine/:engine/torrent/:query(/category/:category)':   'onEngine'
+            'engine/:engine(/search/:query)':                       'onEngine',
+            'engine/:engine/search/:query(/category/:category)':    'onEngine'
         },
 
         onEngine: function(engine, query, category) {

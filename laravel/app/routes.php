@@ -43,12 +43,12 @@ Route::get('engine/{engine}', function() use ($index_file)
     readfile($index_file);
 });
 
-Route::get('engine/{engine}/torrent/{query}', function() use ($index_file)
+Route::get('engine/{engine}/search/{query}', function() use ($index_file)
 {
     readfile($index_file);
 });
 
-Route::get('engine/{engine}/torrent/{query}/category/{category}', function() use ($index_file)
+Route::get('engine/{engine}/search/{query}/category/{category}', function() use ($index_file)
 {
     readfile($index_file);
 });
