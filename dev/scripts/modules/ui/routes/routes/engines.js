@@ -12,8 +12,8 @@ define([
             'engine/:engine/search/:query(/category/:category)':    'onEngine'
         },
 
-        onEngine: function(engine, query, category) {
-            this.trigger('open-engine', engine, query, category);
+        onEngine: function(engine_slug, query, category_slug) {
+            this.trigger('open-engine', engine_slug, query, category_slug);
 
             return true;
         }
