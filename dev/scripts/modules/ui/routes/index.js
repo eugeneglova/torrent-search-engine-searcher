@@ -57,16 +57,36 @@ define([
             return true;
         },
 
-        onOpenEngine: function(engine, query, category) {
-            var engines;
+        onOpenEngine: function(engine_slug, query, category_slug) {
+            var engine;
 
-            engines = this.engines.where({ slug: engine });
+            engine = this.engines.findWhere({ slug: engine_slug });
 
-            if (!engines.length) return false;
+            if (!engine) return false;
 
-            this.openEngineById(engines[0].id);
+            this.request('data:state:set:engine-id', engine.id);
+
+            this.request('data:state:set:query', query);
+
+            this.request('data:categories:get', this.onDataCategoriesGet(category_slug), this);
 
             return true;
+        },
+
+        onDataCategoriesGet: function(category_slug) {
+            return function(categories) {
+                var category;
+
+                this.categories = categories;
+
+                category = this.categories.findWhere({ slug: category_slug });
+
+                this.request('data:state:set:category-id', category.id);
+
+                this.request('ui:iframe:open');
+
+                return true;
+            };
         },
 
         onDataPagesReady: function() {
@@ -83,14 +103,6 @@ define([
 
         onLoaderReady: function() {
             Backbone.history.start({ pushState: true });
-
-            return true;
-        },
-
-        openEngineById: function(engine_id) {
-            this.request('data:state:set:engine-id', engine_id);
-
-            this.request('ui:iframe:open');
 
             return true;
         },
