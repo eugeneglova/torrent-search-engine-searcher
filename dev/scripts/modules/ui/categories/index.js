@@ -11,9 +11,9 @@ define([
         namespace: 'ui:categories',
 
         listeners: {
-            'data:engines:ready':           'onDataEnginesReady',
-            'ui:iframe:open':               'onIframeOpen',
-            'ui:page:open':                 'remove'
+            'data:engines:ready':   'onDataEnginesReady',
+            'ui:iframe:open':       'onIframeOpen',
+            'ui:page:open':         'remove'
         },
 
         el: null,
