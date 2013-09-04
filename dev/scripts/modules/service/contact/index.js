@@ -23,8 +23,8 @@ define([
             return this;
         },
 
-        onSend: function(fields) {
-            this.model.save(fields);
+        onSend: function(fields, callback, context) {
+            this.model.save(fields).then(callback.bind(context));
 
             return true;
         }

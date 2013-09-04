@@ -80,7 +80,20 @@ define([
         },
 
         onSubmitContactPage: function(fields) {
-            this.request('service:contact:send', fields);
+            this.request('service:contact:send', fields, this.onServiceContactSend, this);
+
+            return true;
+        },
+
+        onServiceContactSend: function() {
+            this.views.page.model.set({
+                title:      'Thank you',
+                content:    'Your message has been sent.'
+            });
+
+            this.remove();
+
+            this.render();
 
             return true;
         },
