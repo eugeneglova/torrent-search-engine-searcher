@@ -6,6 +6,7 @@ define([
     // Service
     'modules/service/log/index',
     'modules/service/analytics/index',
+    'modules/service/contact/index',
 
     // UI
     'modules/ui/engines/index',
@@ -28,6 +29,7 @@ define([
     // Service
     Log,
     Analytics,
+    Contact,
 
     // UI
     Engines,
@@ -64,7 +66,8 @@ define([
 
             this.definitions.service = {
                 log:        Log,
-                analytics:  Analytics
+                analytics:  Analytics,
+                contact:    Contact
             };
 
             this.definitions.ui = {

@@ -80,6 +80,7 @@ define([
         },
 
         onSubmitContactPage: function(fields) {
+            this.request('service:contact:send', fields);
 
             return true;
         },
