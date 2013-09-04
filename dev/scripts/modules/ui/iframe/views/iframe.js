@@ -1,4 +1,4 @@
-/*global define*/
+/*global define, navigator*/
 
 define([
     'jquery',
@@ -85,6 +85,9 @@ define([
                     src = this.category.get('search_url').replace(/{keyword}/, this.query);
                 }
             }
+
+            // Do not render iframe if it is PhantomJS browser
+            if (navigator.userAgent.match(/PhantomJS/i)) return this;
 
             this.$el.html(this.template({
                 src: src
