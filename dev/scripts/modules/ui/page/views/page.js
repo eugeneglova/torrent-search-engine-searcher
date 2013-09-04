@@ -13,6 +13,10 @@ define([
 
         className: 'page',
 
+        events: {
+            'click .submit': 'onSubmit'
+        },
+
         ui: null,
 
         // Reference to the page model
@@ -29,6 +33,20 @@ define([
 
         setModel: function(model) {
             this.model = model;
+
+            return true;
+        },
+
+        onSubmit: function(e) {
+            e.preventDefault();
+
+            this.trigger('submit-contact-page', {
+                firstname:  this.$('.firstname').val(),
+                lastname:   this.$('.lastname').val(),
+                email:      this.$('.email').val(),
+                subject:    this.$('.subject').val(),
+                message:    this.$('.message').val()
+            });
 
             return true;
         },

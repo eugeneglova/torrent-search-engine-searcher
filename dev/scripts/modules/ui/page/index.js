@@ -30,6 +30,8 @@ define([
 
             this.views.page = new PageView();
 
+            this.listenTo(this.views.page, 'submit-contact-page', this.onSubmitContactPage, this);
+
             return this;
         },
 
@@ -73,6 +75,11 @@ define([
             this.request('service:analytics:event', 'page', 'open', model.get('name'));
 
             model.fetch().then(this.render.bind(this));
+
+            return true;
+        },
+
+        onSubmitContactPage: function(fields) {
 
             return true;
         },
