@@ -10,7 +10,7 @@ define([
 
         model: EngineModel,
 
-        url: '/api/v1/available-engines'
+        url: '/api/v1/engines/available'
 
     });
 
