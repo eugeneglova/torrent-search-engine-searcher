@@ -21,7 +21,7 @@ page.onResourceRequested = function (request) {
 };
 
 // Set user agent
-page.settings.userAgent = system.args[2];
+page.settings.userAgent = "Phantom: " + system.args[2];
 
 // Open page
 page.open(system.args[1], function () {
