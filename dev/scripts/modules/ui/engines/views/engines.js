@@ -46,7 +46,7 @@ define([
 
         onScroll: function(e) {
             // Save scroll position
-            this.scroll_top = this.$el.get(0).scrollTop;
+            this.scroll_top = e.currentTarget.scrollTop;
 
             return true;
         },
