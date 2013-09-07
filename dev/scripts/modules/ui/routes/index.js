@@ -81,7 +81,9 @@ define([
 
                 category = this.categories.findWhere({ slug: category_slug });
 
-                this.request('data:state:set:category-id', category.id);
+                if (category) {
+                    this.request('data:state:set:category-id', category.id);
+                }
 
                 this.request('ui:iframe:open');
 
