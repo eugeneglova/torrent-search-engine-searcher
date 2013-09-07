@@ -1,9 +1,10 @@
 /*global define*/
 
 define([
+    'underscore',
     'backbone',
     './engine'
-], function (Backbone, EngineView) {
+], function (_, Backbone, EngineView) {
     'use strict';
 
     var EnginesView = Backbone.View.extend({
@@ -12,7 +13,14 @@ define([
 
         className: 'engines nav nav-list',
 
+        events: {
+            'scroll': 'onScroll'
+        },
+
         ui: null,
+
+        // Reference to the scroll top
+        scroll_top: null,
 
         // Reference to the engines collection
         collection: null,
@@ -34,6 +42,13 @@ define([
             this.ui.window.on('resize', this.resize.bind(this));
 
             return this;
+        },
+
+        onScroll: function(e) {
+            // Save scroll position
+            this.scroll_top = this.$el.get(0).scrollTop;
+
+            return true;
         },
 
         setActiveItemById: function(engine_id) {
@@ -67,6 +82,11 @@ define([
             }, this);
 
             this.resize();
+
+            // Restore scroll position
+            _.defer(function() {
+                this.$el.get(0).scrollTop = this.scroll_top;
+            }.bind(this));
 
             return this;
         },
