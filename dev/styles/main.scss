@@ -36,7 +36,14 @@ $iconSpritePath: '/images/glyphicons-halflings.png';
     overflow: auto;
 }
 
-.content .page-wrapper {
-    padding-right: 40px;
+.addthis {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 150px;
+    padding: 10px 15px 10px;
 }
 
+#_atssh {
+    top: 0;
+}
