@@ -37,7 +37,7 @@ define([
         },
 
         onOpenEngines: function() {
-            this.request('ui:available-engines:open');
+            this.request('ui:available-engines:toggle');
 
             return true;
         }

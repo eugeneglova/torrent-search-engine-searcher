@@ -3,15 +3,16 @@
 define([
     'underscore',
     'backbone',
+    'hbs!../templates/engines',
     './engine'
-], function (_, Backbone, EngineView) {
+], function (_, Backbone, EnginesTemplate, EngineView) {
     'use strict';
 
     var EnginesView = Backbone.View.extend({
 
-        tagName: 'ul',
+        template: EnginesTemplate,
 
-        className: 'engines nav nav-list',
+        className: 'available-engines span2 well well-small',
 
         events: {
             'scroll': 'onScroll'
@@ -23,7 +24,7 @@ define([
         scroll_top: null,
 
         // Reference to the engines collection
-        collection: null,
+        engines: null,
 
         active_engine_id: null,
 
@@ -44,6 +45,12 @@ define([
             return this;
         },
 
+        setEngines: function(engines) {
+            this.engines = engines;
+
+            return true;
+        },
+
         setActiveItemById: function(engine_id) {
             this.active_engine_id = engine_id;
 
@@ -58,7 +65,7 @@ define([
         },
 
         resize: function() {
-            this.$el.css('height', this.ui.window.height() - this.ui.header.height() - this.ui.search.height() - this.ui.sidebar.outerHeight() + this.ui.sidebar.height());
+            // this.$el.css('height', this.ui.window.height() - this.ui.header.height() - this.ui.search.height() - this.ui.sidebar.outerHeight() + this.ui.sidebar.height());
 
             return true;
         },
@@ -66,7 +73,9 @@ define([
         render: function() {
             this.clearViews();
 
-            this.collection.forEach(function(model) {
+            this.$el.html(this.template());
+
+            this.engines.forEach(function(model) {
                 var view = new EngineView({
                     parent: this,
                     model:  model
@@ -76,7 +85,7 @@ define([
                     view.setIsActive(true);
                 }
 
-                this.$el.append(view.render().$el);
+                this.$('.nav').append(view.render().$el);
 
                 this.views[model.id] = view;
             }, this);

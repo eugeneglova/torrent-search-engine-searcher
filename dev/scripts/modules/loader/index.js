@@ -19,6 +19,7 @@ define([
     'modules/ui/head/index',
     'modules/ui/addthis/index',
     'modules/ui/controls/index',
+    'modules/ui/available-engines/index',
 
     // Data
     'modules/data/engines/index',
@@ -44,6 +45,7 @@ define([
     Head,
     AddThis,
     Controls,
+    AvailableEngines,
 
     // Data
     DataEngines,
@@ -75,16 +77,17 @@ define([
             };
 
             this.definitions.ui = {
-                pages:      Pages,
-                search:     Search,
-                engines:    Engines,
-                categories: Categories,
-                iframe:     Iframe,
-                page:       Page,
-                routes:     Routes,
-                head:       Head,
-                addthis:    AddThis,
-                controls:   Controls
+                pages:              Pages,
+                search:             Search,
+                engines:            Engines,
+                categories:         Categories,
+                iframe:             Iframe,
+                page:               Page,
+                routes:             Routes,
+                head:               Head,
+                addthis:            AddThis,
+                controls:           Controls,
+                availableengines:   AvailableEngines
             };
 
             this.definitions.data = {
@@ -99,9 +102,9 @@ define([
             this.modules.ui         = {};
             this.modules.data       = {};
 
-            // Subscribe to ready event of each data module
+            // Listen to ready event of each data module
             Object.keys(this.definitions.data).forEach(function(module) {
-                this.mediator.once(this.definitions.data[module].prototype.namespace + ':ready', this.onDataModuleReady, this);
+                this.listenToOnce(this.mediator, this.definitions.data[module].prototype.namespace + ':ready', this.onDataModuleReady, this);
             }, this);
 
             // Load all modules

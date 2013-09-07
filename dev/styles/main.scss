@@ -18,7 +18,7 @@ $iconSpritePath: '/images/glyphicons-halflings.png';
     padding: 5px 0 0 0;
 }
 
-.sidebar li a {
+.sidebar li a, .available-engines li a {
     @include border-radius($baseBorderRadius + 10);
 }
 
@@ -52,4 +52,19 @@ $iconSpritePath: '/images/glyphicons-halflings.png';
     position: absolute;
     right: 0;
     padding: 5px;
+}
+
+.available-engines {
+    position: fixed;
+    height: 100%;
+    top: 0;
+    right: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+}
+
+.available-engines .nav {
+    height: 100%;
+    overflow: auto;
 }
