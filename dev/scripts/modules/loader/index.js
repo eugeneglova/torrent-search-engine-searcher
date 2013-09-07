@@ -18,6 +18,7 @@ define([
     'modules/ui/routes/index',
     'modules/ui/head/index',
     'modules/ui/addthis/index',
+    'modules/ui/controls/index',
 
     // Data
     'modules/data/engines/index',
@@ -42,6 +43,7 @@ define([
     Routes,
     Head,
     AddThis,
+    Controls,
 
     // Data
     DataEngines,
@@ -81,7 +83,8 @@ define([
                 page:       Page,
                 routes:     Routes,
                 head:       Head,
-                addthis:    AddThis
+                addthis:    AddThis,
+                controls:   Controls
             };
 
             this.definitions.data = {
