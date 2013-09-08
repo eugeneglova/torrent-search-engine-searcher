@@ -11,9 +11,10 @@ define([
         namespace: 'ui:page',
 
         listeners: {
-            ':open':            'onOpen',
-            'data:pages:ready': 'onDataPagesReady',
-            'ui:iframe:open':   'remove'
+            ':open':                'onOpen',
+            'data:pages:ready':     'onDataPagesReady',
+            'ui:window:resized':    'onWindowResized',
+            'ui:iframe:open':       'remove'
         },
 
         el: null,
@@ -94,6 +95,14 @@ define([
             this.remove();
 
             this.render();
+
+            return true;
+        },
+
+        onWindowResized: function() {
+            if (!this.views.page) return false;
+
+            this.views.page.resize();
 
             return true;
         },

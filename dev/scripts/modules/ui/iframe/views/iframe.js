@@ -14,8 +14,6 @@ define([
 
         className: 'iframe-wrapper',
 
-        ui: null,
-
         // Reference to the engine model
         engine: null,
 
@@ -27,15 +25,6 @@ define([
 
         // Search query
         query: null,
-
-        initialize: function() {
-            this.ui = {
-                window: $(window),
-                header: $('.header')
-            };
-
-            return this;
-        },
 
         setEngine: function(engine) {
             this.engine = engine;
@@ -61,14 +50,8 @@ define([
             return true;
         },
 
-        prepareResize: function() {
-            this.ui.window.on('resize', this.resize.bind(this));
-
-            return true;
-        },
-
         resize: function() {
-            this.$('iframe').css('height', this.ui.window.height() - this.ui.header.height());
+            this.$('iframe').css('height', $(window).height() - $('.header').height());
 
             return true;
         },
@@ -92,8 +75,6 @@ define([
             this.$el.html(this.template({
                 src: src
             }));
-
-            this.prepareResize();
 
             this.resize();
 

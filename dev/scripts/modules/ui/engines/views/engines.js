@@ -17,8 +17,6 @@ define([
             'scroll': 'onScroll'
         },
 
-        ui: null,
-
         // Reference to the scroll top
         scroll_top: null,
 
@@ -30,16 +28,7 @@ define([
         views: null,
 
         initialize: function() {
-            this.ui = {
-                window:     $(window),
-                header:     $('.header'),
-                sidebar:    $('.sidebar'),
-                search:     $('.search')
-            };
-
             this.views = {};
-
-            this.ui.window.on('resize', this.resize.bind(this));
 
             return this;
         },
@@ -58,7 +47,9 @@ define([
         },
 
         resize: function() {
-            this.$el.css('height', this.ui.window.height() - this.ui.header.height() - this.ui.search.height() - this.ui.sidebar.outerHeight() + this.ui.sidebar.height());
+            var sidebar = $('.sidebar');
+
+            this.$el.css('height', $(window).height() - $('.header').height() - $('.search').height() - sidebar.outerHeight() + sidebar.height());
 
             return true;
         },

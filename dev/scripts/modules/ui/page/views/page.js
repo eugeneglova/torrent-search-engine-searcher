@@ -22,15 +22,6 @@ define([
         // Reference to the page model
         model: null,
 
-        initialize: function() {
-            this.ui = {
-                window: $(window),
-                header: $('.header')
-            };
-
-            return this;
-        },
-
         setModel: function(model) {
             this.model = model;
 
@@ -51,22 +42,14 @@ define([
             return true;
         },
 
-        prepareResize: function() {
-            this.ui.window.on('resize', this.resize.bind(this));
-
-            return true;
-        },
-
         resize: function() {
-            this.$el.css('height', this.ui.window.height() - this.ui.header.height());
+            this.$el.css('height', $(window).height() - $('.header').height());
 
             return true;
         },
 
         render: function() {
             this.$el.html(this.template(this.model.toJSON()));
-
-            this.prepareResize();
 
             this.resize();
 

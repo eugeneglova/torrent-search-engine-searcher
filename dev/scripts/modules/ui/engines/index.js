@@ -12,7 +12,8 @@ define([
 
         listeners: {
             'data:engines:ready':   'onDataEnginesReady',
-            'ui:iframe:open':       'onIframeOpen'
+            'ui:iframe:open':       'onIframeOpen',
+            'ui:window:resized':    'onWindowResized'
         },
 
         el: null,
@@ -60,6 +61,14 @@ define([
             this.views.engines.setActiveItemById(engine_id);
 
             this.render();
+
+            return true;
+        },
+
+        onWindowResized: function() {
+            if (!this.views.engines) return false;
+
+            this.views.engines.resize();
 
             return true;
         },

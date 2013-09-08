@@ -18,9 +18,9 @@ define([
 
         el: null,
 
-        ui: null,
-
         views: null,
+
+        is_rendered: null,
 
         // Reference to the engines collection
         engines: null,
@@ -31,10 +31,6 @@ define([
         initialize: function() {
             this.el = $('.navigation-top');
 
-            this.ui = {
-                window: $(window)
-            };
-
             this.views = {};
 
             this.views.categories = new CategoriesView();
@@ -42,6 +38,10 @@ define([
             this.listenTo(this.views.categories, 'open-category-by-id', this.openCategoryById, this);
 
             return this;
+        },
+
+        isRendered: function() {
+            return !!this.is_rendered;
         },
 
         onDataEnginesReady: function() {
@@ -107,7 +107,9 @@ define([
 
             this.el.append(this.views.categories.$el);
 
-            this.ui.window.trigger('resize');
+            this.is_rendered = true;
+
+            this.request('ui:window:resize');
 
             return this;
         },
@@ -121,11 +123,15 @@ define([
         },
 
         remove: function() {
+            if (!this.isRendered()) return false;
+
             Object.keys(this.views).forEach(function(key) {
                 this.views[key].remove();
             }, this);
 
-            this.ui.window.trigger('resize');
+            this.is_rendered = false;
+
+            this.request('ui:window:resize');
 
             return true;
         }

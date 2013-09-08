@@ -11,9 +11,10 @@ define([
         namespace: 'ui:iframe',
 
         listeners: {
-            ':open':                    'onOpen',
-            'data:engines:ready':       'onDataEnginesReady',
-            'ui:page:open':             'remove'
+            ':open':                'onOpen',
+            'data:engines:ready':   'onDataEnginesReady',
+            'ui:window:resized':    'onWindowResized',
+            'ui:page:open':         'remove'
         },
 
         el: null,
@@ -124,6 +125,14 @@ define([
             if (this.views.iframe.category) {
                 this.request('service:analytics:event', 'iframe', 'category', this.views.iframe.category.get('name_stripped'));
             }
+
+            return true;
+        },
+
+        onWindowResized: function() {
+            if (!this.views.iframe) return false;
+
+            this.views.iframe.resize();
 
             return true;
         },

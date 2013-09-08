@@ -9,6 +9,7 @@ define([
     'modules/service/contact/index',
 
     // UI
+    'modules/ui/window/index',
     'modules/ui/engines/index',
     'modules/ui/categories/index',
     'modules/ui/search/index',
@@ -35,6 +36,7 @@ define([
     Contact,
 
     // UI
+    Window,
     Engines,
     Categories,
     Search,
@@ -77,12 +79,13 @@ define([
             };
 
             this.definitions.ui = {
-                pages:              Pages,
-                search:             Search,
+                window:             Window,
                 engines:            Engines,
                 categories:         Categories,
+                search:             Search,
                 iframe:             Iframe,
                 page:               Page,
+                pages:              Pages,
                 routes:             Routes,
                 head:               Head,
                 addthis:            AddThis,

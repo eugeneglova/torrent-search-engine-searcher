@@ -48,6 +48,8 @@ define([
 
             this.render();
 
+            this.request('ui:window:resize');
+
             this.announce('ready');
 
             return true;
