@@ -32,7 +32,7 @@ $iconSpritePath: '/images/glyphicons-halflings.png';
     border: none;
 }
 
-.content .page {
+.content .page, .content .available-engines {
     overflow: auto;
 }
 
@@ -52,19 +52,4 @@ $iconSpritePath: '/images/glyphicons-halflings.png';
     position: absolute;
     right: 0;
     padding: 5px;
-}
-
-.available-engines {
-    position: fixed;
-    height: 100%;
-    top: 0;
-    right: 0;
-    padding-top: 0;
-    padding-right: 0;
-    padding-bottom: 0;
-}
-
-.available-engines .nav {
-    height: 100%;
-    overflow: auto;
 }

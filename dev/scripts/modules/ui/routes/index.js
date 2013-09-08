@@ -35,6 +35,7 @@ define([
 
             this.listenTo(this.routers.engines, 'open-engine', this.onOpenEngine, this);
 
+            this.listenTo(this.routers.engines, 'open-available-engines', this.onOpenAvailableEngines, this);
 
             return this;
         },
@@ -69,6 +70,12 @@ define([
             this.request('data:state:set:query', query);
 
             this.request('data:categories:get', this.onDataCategoriesGet(category_slug), this);
+
+            return true;
+        },
+
+        onOpenAvailableEngines: function() {
+            this.request('ui:available-engines:open');
 
             return true;
         },

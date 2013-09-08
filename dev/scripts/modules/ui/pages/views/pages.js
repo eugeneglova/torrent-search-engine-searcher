@@ -4,8 +4,9 @@ define([
     'backbone',
     'hbs!../templates/pages',
     './brand-item',
-    './item'
-], function (Backbone, PagesTemplate, BrandItemView, ItemView) {
+    './item',
+    './engines-item'
+], function (Backbone, PagesTemplate, BrandItemView, ItemView, EnginesItemView) {
     'use strict';
 
     var PagesView = Backbone.View.extend({
@@ -55,6 +56,8 @@ define([
                 this.views[model.id] = view;
             }, this);
 
+            this.renderEnginesItemView();
+
             return this;
         },
 
@@ -67,6 +70,22 @@ define([
             this.views.brand = view;
 
             this.$('.container-fluid').prepend(view.render().$el);
+
+            return true;
+        },
+
+        renderEnginesItemView: function() {
+            var view = new EnginesItemView({
+                parent: this
+            });
+
+            if (this.active_item_id === 'available-engines') {
+                view.setIsActive(true);
+            }
+
+            this.$('.nav').append(view.render().$el);
+
+            this.views.engines = view;
 
             return true;
         },

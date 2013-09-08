@@ -11,10 +11,11 @@ define([
         namespace: 'ui:page',
 
         listeners: {
-            ':open':                'onOpen',
-            'data:pages:ready':     'onDataPagesReady',
-            'ui:window:resized':    'onWindowResized',
-            'ui:iframe:open':       'remove'
+            ':open':                        'onOpen',
+            'data:pages:ready':             'onDataPagesReady',
+            'ui:window:resized':            'onWindowResized',
+            'ui:iframe:open':               'remove',
+            'ui:available-engines:open':    'remove'
         },
 
         el: null,

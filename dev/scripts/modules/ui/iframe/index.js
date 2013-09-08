@@ -11,10 +11,11 @@ define([
         namespace: 'ui:iframe',
 
         listeners: {
-            ':open':                'onOpen',
-            'data:engines:ready':   'onDataEnginesReady',
-            'ui:window:resized':    'onWindowResized',
-            'ui:page:open':         'remove'
+            ':open':                        'onOpen',
+            'data:engines:ready':           'onDataEnginesReady',
+            'ui:window:resized':            'onWindowResized',
+            'ui:page:open':                 'remove',
+            'ui:available-engines:open':    'remove'
         },
 
         el: null,

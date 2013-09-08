@@ -12,13 +12,11 @@ define([
 
         template: EnginesTemplate,
 
-        className: 'available-engines span2 well well-small',
+        className: 'available-engines',
 
         events: {
             'scroll': 'onScroll'
         },
-
-        ui: null,
 
         // Reference to the scroll top
         scroll_top: null,
@@ -31,16 +29,7 @@ define([
         views: null,
 
         initialize: function() {
-            this.ui = {
-                window:     $(window),
-                header:     $('.header'),
-                sidebar:    $('.sidebar'),
-                search:     $('.search')
-            };
-
             this.views = {};
-
-            this.ui.window.on('resize', this.resize.bind(this));
 
             return this;
         },
@@ -65,32 +54,42 @@ define([
         },
 
         resize: function() {
-            // this.$el.css('height', this.ui.window.height() - this.ui.header.height() - this.ui.search.height() - this.ui.sidebar.outerHeight() + this.ui.sidebar.height());
+            this.$el.css('height', $(window).height() - $('.header').height());
 
             return true;
         },
 
         render: function() {
+            var column_count;
+
             this.clearViews();
+
+            this.resize();
 
             this.$el.html(this.template());
 
-            this.engines.forEach(function(model) {
-                var view = new EngineView({
-                    parent: this,
-                    model:  model
-                });
+            column_count = Math.ceil(this.engines.length / 4);
 
-                if (this.active_engine_id === model.id) {
-                    view.setIsActive(true);
-                }
+            this.engines.forEach(function(model, index) {
+                _.defer(function() {
+                    var view, column;
 
-                this.$('.nav').append(view.render().$el);
+                    view = new EngineView({
+                        parent: this,
+                        model:  model
+                    });
 
-                this.views[model.id] = view;
+                    if (this.active_engine_id === model.id) {
+                        view.setIsActive(true);
+                    }
+
+                    column = Math.ceil(index/column_count);
+
+                    this.$('.column-' + column).append(view.render().$el);
+
+                    this.views[model.id] = view;
+                }.bind(this));
             }, this);
-
-            this.resize();
 
             // Restore scroll position
             _.defer(function() {

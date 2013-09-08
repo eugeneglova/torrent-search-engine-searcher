@@ -19,7 +19,6 @@ define([
     'modules/ui/routes/index',
     'modules/ui/head/index',
     'modules/ui/addthis/index',
-    'modules/ui/controls/index',
     'modules/ui/available-engines/index',
 
     // Data
@@ -46,7 +45,6 @@ define([
     Routes,
     Head,
     AddThis,
-    Controls,
     AvailableEngines,
 
     // Data
@@ -89,7 +87,6 @@ define([
                 routes:             Routes,
                 head:               Head,
                 addthis:            AddThis,
-                controls:           Controls,
                 availableengines:   AvailableEngines
             };
 

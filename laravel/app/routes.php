@@ -56,3 +56,8 @@ Route::get('engine/{engine}/search/{query}/category/{category}', function() use 
 {
     readfile($index_file);
 });
+
+Route::get('available-engines', function() use ($index_file)
+{
+    readfile($index_file);
+});

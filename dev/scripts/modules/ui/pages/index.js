@@ -11,9 +11,10 @@ define([
         namespace: 'ui:pages',
 
         listeners: {
-            'data:pages:ready': 'onDataPagesReady',
-            'ui:page:open':     'onPageOpen',
-            'ui:iframe:open':   'onIframeOpen'
+            'data:pages:ready':             'onDataPagesReady',
+            'ui:page:open':                 'onPageOpen',
+            'ui:iframe:open':               'onIframeOpen',
+            'ui:available-engines:open':    'onAvailableEnginesOpen'
         },
 
         el: null,
@@ -46,6 +47,8 @@ define([
 
             this.listenTo(this.views.pages, 'open-page-by-id', this.openPageById, this);
 
+            this.listenTo(this.views.pages, 'open-available-engines', this.openAvailableEngines, this);
+
             this.render();
 
             this.request('ui:window:resize');
@@ -77,6 +80,14 @@ define([
             return true;
         },
 
+        onAvailableEnginesOpen: function() {
+            this.views.pages.setActiveItemById('available-engines');
+
+            this.render();
+
+            return true;
+        },
+
         render: function() {
             this.views.pages.render();
 
@@ -89,6 +100,12 @@ define([
             this.request('data:state:set:page-id', page_id);
 
             this.request('ui:page:open');
+
+            return true;
+        },
+
+        openAvailableEngines: function() {
+            this.request('ui:available-engines:open');
 
             return true;
         }

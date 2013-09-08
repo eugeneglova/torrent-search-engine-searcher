@@ -11,9 +11,10 @@ define([
         namespace: 'ui:available-engines',
 
         listeners: {
-            ':toggle':  'onToggle',
-            ':open':    'onOpen',
-            ':close':   'onClose'
+            ':open':                'onOpen',
+            'ui:window:resized':    'onWindowResized',
+            'ui:page:open':         'remove',
+            'ui:iframe:open':       'remove'
         },
 
         el: null,
@@ -26,7 +27,7 @@ define([
         engines: null,
 
         initialize: function() {
-            this.el = $('.app-row');
+            this.el = $('.content');
 
             this.views = {};
 
@@ -35,20 +36,8 @@ define([
             return this;
         },
 
-        onToggle: function() {
-            this.isRendered() ? this.onClose() : this.onOpen();
-
-            return true;
-        },
-
         onOpen: function() {
             this.request('data:engines:get:available', this.onDataEnginesGetAvailable, this);
-
-            return true;
-        },
-
-        onClose: function() {
-            this.remove();
 
             return true;
         },
@@ -64,6 +53,13 @@ define([
 
             this.render();
 
+            this.request('ui:routes:set', 'available-engines');
+
+            this.request('ui:head:set', {
+                head_title:         'All Avaialble BitTorrent Search Engines - TorrentScan',
+                head_description:   'More than 1000 avaialble BitTorrent search engines in one place. You can search torrents with all these torrent search engines.'
+            });
+
             return true;
         },
 
@@ -72,6 +68,14 @@ define([
             this.views.engines.setActiveItemById(engine_id);
 
             this.render();
+
+            return true;
+        },
+
+        onWindowResized: function() {
+            if (!this.views.engines) return false;
+
+            this.views.engines.resize();
 
             return true;
         },
@@ -89,6 +93,8 @@ define([
         },
 
         remove: function() {
+            if (!this.isRendered()) return false;
+
             Object.keys(this.views).forEach(function(key) {
                 this.views[key].remove();
             }, this);
