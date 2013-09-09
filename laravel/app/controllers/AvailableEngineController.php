@@ -10,7 +10,7 @@ class AvailableEngineController extends \BaseController {
     public function index()
     {
         //
-        $engines = Engine::all();
+        $engines = Engine::where('enabled', 1)->get();
 
         return Response::json($engines->toArray(), 200);
 

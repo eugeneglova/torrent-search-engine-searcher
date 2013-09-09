@@ -10,7 +10,7 @@ class EngineController extends \BaseController {
     public function index()
     {
         //
-        $engines = Engine::limit(35)->get();
+        $engines = Engine::where('enabled', 1)->limit(45)->get();
 
         return Response::json($engines->toArray(), 200);
 
