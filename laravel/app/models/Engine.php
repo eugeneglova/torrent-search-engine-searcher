@@ -8,7 +8,8 @@ class Engine extends Eloquent {
         'id',
         'name',
         'home_url',
-        'search_url'
+        'search_url',
+        'post_query'
     );
 
     public function categories()

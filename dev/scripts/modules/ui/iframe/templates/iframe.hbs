@@ -1,1 +1,10 @@
-<iframe src="{{ src }}"></iframe>
+{{#if post_fields}}
+    <form class="hide" action="{{ search_url }}" method="post" target="post_iframe">
+        {{#each post_fields}}
+            <input type="hidden" name="{{ name }}" value="{{ value }}" />
+        {{/each}}
+    </form>
+    <iframe src="" name="post_iframe"></iframe>
+{{else}}
+    <iframe src="{{ search_url }}"></iframe>
+{{/if}}

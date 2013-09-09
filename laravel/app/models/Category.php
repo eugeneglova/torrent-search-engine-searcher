@@ -7,7 +7,8 @@ class Category extends Eloquent {
     protected $visible = array(
         'id',
         'name',
-        'search_url'
+        'search_url',
+        'post_query'
     );
 
 }

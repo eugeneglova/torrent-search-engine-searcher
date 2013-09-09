@@ -1,11 +1,10 @@
 /*global define, navigator*/
 
 define([
-    'jquery',
     'underscore',
     'backbone',
     'hbs!../templates/iframe'
-], function ($, _, Backbone, IframeTemplate) {
+], function (_, Backbone, IframeTemplate) {
     'use strict';
 
     var IframeView = Backbone.View.extend({
@@ -56,27 +55,68 @@ define([
             return true;
         },
 
-        render: function() {
-            var src;
+        replaceKeywordWithQuery: function(string) {
+            return string.replace(/{keyword}/, this.query)
+        },
 
+        getSearchUrl: function() {
             if (this.type === 'home') {
-                src = this.engine.get('home_url');
-            } else if (this.type === 'search') {
+                return this.engine.get('home_url');
+            }
+
+            if (this.type === 'search') {
                 if (!this.category) {
-                    src = this.engine.get('search_url').replace(/{keyword}/, this.query);
+                    return this.replaceKeywordWithQuery(this.engine.get('search_url'));
                 } else {
-                    src = this.category.get('search_url').replace(/{keyword}/, this.query);
+                    return this.replaceKeywordWithQuery(this.category.get('search_url'));
                 }
             }
+        },
+
+        getPostFields: function() {
+            if (this.type === 'search') {
+                if (!this.category) {
+                    return this.getObjectArrayByQueryString(this.replaceKeywordWithQuery(this.engine.get('post_query')));
+                } else {
+                    return this.replaceKeywordWithQuery(this.category.get('post_query'));
+                }
+            }
+        },
+
+        getObjectArrayByQueryString: function(query) {
+            return query.split("&").map(function(item) {
+                var parts;
+
+                parts = item.split("=");
+
+                return {
+                    name: parts[0],
+                    value: parts[1]
+                }
+            });
+        },
+
+        render: function() {
+            var post_fields;
 
             // Do not render iframe if it is PhantomJS browser
             if (navigator.userAgent.match(/PhantomJS/i)) return this;
 
+            post_fields = this.getPostFields();
+
             this.$el.html(this.template({
-                src: src
+                search_url: this.getSearchUrl(),
+                post_fields: post_fields
             }));
 
             this.resize();
+
+            if (post_fields.length) {
+                // Submit form right after render
+                _.defer(function() {
+                    this.$('form').submit();
+                }.bind(this));
+            }
 
             return this;
         }
