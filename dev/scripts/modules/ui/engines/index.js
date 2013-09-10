@@ -12,7 +12,7 @@ define([
 
         listeners: {
             'data:engines:ready':   'onDataEnginesReady',
-            'ui:iframe:open':       'onIframeOpen',
+            'ui:iframe:opened':     'onIframeOpen',
             'ui:window:resized':    'onWindowResized'
         },
 

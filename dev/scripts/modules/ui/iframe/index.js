@@ -57,7 +57,15 @@ define([
         },
 
         onGetEngineId: function(engine_id) {
-            this.views.iframe.setEngine(this.engines.get(engine_id));
+            var engine = this.engines.get(engine_id);
+
+            if (!engine) {
+                engine = this.engines.at(0);
+
+                this.request('data:state:set:engine-id', engine.id);
+            }
+
+            this.views.iframe.setEngine(engine);
 
             this.request('data:state:get:type', this.onGetType, this);
 
@@ -142,6 +150,8 @@ define([
             this.views.iframe.render();
 
             this.el.append(this.views.iframe.$el);
+
+            this.announce('opened');
 
             return this;
         },
