@@ -36,12 +36,13 @@ define([
         setActiveItemById: function(engine_id) {
             this.active_engine_id = engine_id;
 
-            return true;
-        },
+            this.views[this.active_engine_id].toggleActiveClass(true);
 
-        onScroll: function(e) {
-            // Save scroll position
-            this.scroll_top = e.currentTarget.scrollTop;
+            Object.keys(this.views).forEach(function(key) {
+                if (String(this.active_engine_id) === key) return false;
+
+                this.views[key].toggleActiveClass(false);
+            }, this);
 
             return true;
         },
@@ -73,11 +74,6 @@ define([
             }, this);
 
             this.resize();
-
-            // Restore scroll position
-            _.defer(function() {
-                this.$el.get(0).scrollTop = this.scroll_top;
-            }.bind(this));
 
             return this;
         },

@@ -60,8 +60,6 @@ define([
         onGetEngineId: function(engine_id) {
             this.views.engines.setActiveItemById(engine_id);
 
-            this.render();
-
             return true;
         },
 

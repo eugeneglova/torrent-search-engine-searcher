@@ -26,7 +26,7 @@ define([
         initialize: function(options) {
             this.parent = options.parent;
 
-            this.setIsActive(false);
+            this.is_active = false;
 
             return this;
         },
@@ -37,12 +37,10 @@ define([
             return this;
         },
 
-        setIsActive: function(is_active) {
+        toggleActiveClass: function(is_active) {
             this.is_active = is_active;
 
-            if (this.isActive()) {
-                this.$el.addClass(this.active_class);
-            }
+            this.$el.toggleClass(this.active_class, this.isActive());
 
             return true;
         },
