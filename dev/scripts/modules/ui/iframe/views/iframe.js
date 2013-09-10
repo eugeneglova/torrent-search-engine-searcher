@@ -81,6 +81,8 @@ define([
                     return this.replaceKeywordWithQuery(this.category.get('post_query'));
                 }
             }
+
+            return [];
         },
 
         getObjectArrayByQueryString: function(query) {
