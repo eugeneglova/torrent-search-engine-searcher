@@ -8,7 +8,7 @@ define([
 
     var UserEnginesCollection = EnginesCollection.extend({
 
-        localStorage: new LocalStorage('data:engines:user')
+        localStorage: new LocalStorage('user-engines')
 
     });
 

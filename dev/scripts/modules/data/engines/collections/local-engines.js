@@ -9,7 +9,7 @@ define([
 
     var LocalEnginesCollection = EnginesCollection.extend({
 
-        localStorage: new LocalStorage('data:engines:all'),
+        localStorage: new LocalStorage('engines'),
 
         save: function() {
             _.invoke(this.toArray(), 'save');
