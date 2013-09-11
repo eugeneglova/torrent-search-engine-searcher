@@ -52,7 +52,7 @@ define([
         },
 
         onOpen: function() {
-            this.request('data:state:get:page-id', this.onGetPageId, this);
+            this.request('data:state:get', 'page-id', this.onGetPageId, this);
 
             return true;
         },

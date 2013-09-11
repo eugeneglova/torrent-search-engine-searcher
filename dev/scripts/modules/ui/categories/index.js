@@ -57,7 +57,7 @@ define([
         },
 
         onIframeOpen: function() {
-            this.request('data:state:get:query', this.onGetQuery, this);
+            this.request('data:state:get', 'query', this.onGetQuery, this);
 
             return true;
         },
@@ -83,7 +83,7 @@ define([
 
             this.views.categories.setEngine(this.engines.get(this.categories.engine_id));
 
-            this.request('data:state:get:category-id', this.onGetCategoryId, this);
+            this.request('data:state:get', 'category-id', this.onGetCategoryId, this);
 
             return true;
         },
@@ -115,7 +115,7 @@ define([
         },
 
         openCategoryById: function(category_id) {
-            this.request('data:state:set:category-id', category_id);
+            this.request('data:state:set', 'category-id', category_id);
 
             this.request('ui:iframe:open');
 

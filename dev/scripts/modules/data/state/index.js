@@ -14,15 +14,8 @@ define([
         model: null,
 
         listeners: {
-            ':get:query':       'onGetQuery',
-            ':get:engine-id':   'onGetEngineId',
-            ':get:category-id': 'onGetCategoryId',
-            ':get:type':        'onGetType',
-            ':get:page-id':     'onGetPageId',
-            ':set:query':       'onSetQuery',
-            ':set:engine-id':   'onSetEngineId',
-            ':set:category-id': 'onSetCategoryId',
-            ':set:page-id':     'onSetPageId'
+            ':get': 'onGet',
+            ':set': 'onSet'
         },
 
         initialize: function() {
@@ -35,57 +28,17 @@ define([
         },
 
         onGet: function(key, callback, context) {
-            callback.apply(context, [this.get(key)]);
+            callback.call(context, this.get(key));
 
             return true;
         },
 
-        onGetQuery: function(callback, context) {
-            return this.onGet('query', callback, context);
-        },
+        onSet: function(key, value) {
+            this.set(key, value);
 
-        onGetEngineId: function(callback, context) {
-            return this.onGet('engine-id', callback, context);
-        },
-
-        onGetCategoryId: function(callback, context) {
-            return this.onGet('category-id', callback, context);
-        },
-
-        onGetType: function(callback, context) {
-            return this.onGet('type', callback, context);
-        },
-
-        onGetPageId: function(callback, context) {
-            return this.onGet('page-id', callback, context);
-        },
-
-        onSetQuery: function(query) {
-            this.set('query', query);
-
-            this.setType();
-
-            return true;
-        },
-
-        onSetEngineId: function(engine_id) {
-            this.set('engine-id', engine_id);
-
-            this.setType();
-
-            return true;
-        },
-
-        onSetCategoryId: function(category_id) {
-            this.set('category-id', category_id);
-
-            this.setType();
-
-            return true;
-        },
-
-        onSetPageId: function(page_id) {
-            this.set('page-id', page_id);
+            if (['query', 'engine-id', 'category-id'].indexOf(key) !== -1) {
+                this.setType();
+            }
 
             return true;
         },

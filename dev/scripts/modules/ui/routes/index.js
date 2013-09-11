@@ -65,9 +65,9 @@ define([
 
             if (!engine) return false;
 
-            this.request('data:state:set:engine-id', engine.id);
+            this.request('data:state:set', 'engine-id', engine.id);
 
-            this.request('data:state:set:query', query);
+            this.request('data:state:set', 'query', query);
 
             this.request('data:categories:get', this.onDataCategoriesGet(category_slug), this);
 
@@ -89,7 +89,7 @@ define([
                 category = this.categories.findWhere({ slug: category_slug });
 
                 if (category) {
-                    this.request('data:state:set:category-id', category.id);
+                    this.request('data:state:set', 'category-id', category.id);
                 }
 
                 this.request('ui:iframe:open');
@@ -127,7 +127,7 @@ define([
         },
 
         openPageById: function(page_id) {
-            this.request('data:state:set:page-id', page_id);
+            this.request('data:state:set', 'page-id', page_id);
 
             this.request('ui:page:open');
 

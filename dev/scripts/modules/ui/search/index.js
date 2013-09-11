@@ -33,7 +33,7 @@ define([
         },
 
         onDateStateChangedQuery: function() {
-            this.request('data:state:get:query', this.onGetQuery, this);
+            this.request('data:state:get', 'query', this.onGetQuery, this);
 
             return true;
         },
@@ -55,7 +55,7 @@ define([
         },
 
         onChange: function(value) {
-            this.request('data:state:set:query', value);
+            this.request('data:state:set', 'query', value);
 
             return true;
         },

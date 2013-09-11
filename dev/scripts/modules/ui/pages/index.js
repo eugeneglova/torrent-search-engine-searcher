@@ -59,7 +59,7 @@ define([
         },
 
         onPageOpen: function() {
-            this.request('data:state:get:page-id', this.onGetPageId, this);
+            this.request('data:state:get', 'page-id', this.onGetPageId, this);
 
             return true;
         },
@@ -97,7 +97,7 @@ define([
         },
 
         openPageById: function(page_id) {
-            this.request('data:state:set:page-id', page_id);
+            this.request('data:state:set', 'page-id', page_id);
 
             this.request('ui:page:open');
 

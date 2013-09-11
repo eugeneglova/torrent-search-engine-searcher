@@ -26,7 +26,7 @@ define([
         },
 
         onGet: function(callback, context) {
-            this.request('data:state:get:engine-id', this.onGetEngineId(callback, context), this);
+            this.request('data:state:get', 'engine-id', this.onGetEngineId(callback, context), this);
 
             return true;
         },

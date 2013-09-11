@@ -62,7 +62,7 @@ define([
         },
 
         onOpen: function() {
-            this.request('data:state:get:engine-id', this.onGetEngineId, this);
+            this.request('data:state:get', 'engine-id', this.onGetEngineId, this);
 
             return true;
         },
@@ -75,12 +75,12 @@ define([
                 // when there is no engine selected
                 engine = this.user_engines.first();
 
-                this.request('data:state:set:engine-id', engine.id);
+                this.request('data:state:set', 'engine-id', engine.id);
             }
 
             this.views.iframe.setEngine(engine);
 
-            this.request('data:state:get:type', this.onGetType, this);
+            this.request('data:state:get', 'type', this.onGetType, this);
 
             return true;
         },
@@ -97,7 +97,7 @@ define([
 
                 this.request('service:analytics:event', 'iframe', type, this.views.iframe.engine.get('name_stripped'));
             } else if (type === 'search') {
-                this.request('data:state:get:query', this.onGetQuery, this);
+                this.request('data:state:get', 'query', this.onGetQuery, this);
             }
 
             return true;
@@ -114,7 +114,7 @@ define([
         onDataCategoriesGet: function(categories) {
             this.categories = categories;
 
-            this.request('data:state:get:category-id', this.onGetCategoryId, this);
+            this.request('data:state:get', 'category-id', this.onGetCategoryId, this);
 
             return true;
         },

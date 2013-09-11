@@ -105,7 +105,7 @@ define([
         },
 
         openAvailableEngineById: function(engine_id) {
-            this.request('data:state:set:engine-id', engine_id);
+            this.request('data:state:set', 'engine-id', engine_id);
 
             this.request('ui:iframe:open');
 

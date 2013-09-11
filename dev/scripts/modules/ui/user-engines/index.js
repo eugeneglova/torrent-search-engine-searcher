@@ -52,7 +52,7 @@ define([
         },
 
         onIframeOpen: function() {
-            this.request('data:state:get:engine-id', this.onGetEngineId, this);
+            this.request('data:state:get', 'engine-id', this.onGetEngineId, this);
 
             return true;
         },
@@ -80,7 +80,7 @@ define([
         },
 
         openEngineById: function(engine_id) {
-            this.request('data:state:set:engine-id', engine_id);
+            this.request('data:state:set', 'engine-id', engine_id);
 
             this.request('ui:iframe:open');
 
