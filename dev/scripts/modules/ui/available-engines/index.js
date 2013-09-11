@@ -37,7 +37,7 @@ define([
         },
 
         onOpen: function() {
-            this.request('data:engines:get:available', this.onDataEnginesGetAvailable, this);
+            this.request('data:engines:get', 'local', this.onDataEnginesGetAvailable, this);
 
             return true;
         },
