@@ -13,7 +13,8 @@ define([
         namespace: 'data:engines',
 
         listeners: {
-            ':get': 'onGet'
+            ':get':                                     'onGet',
+            'data:settings:changed:version_engines':    'onDataSettingsChangedVersionEngines'
         },
 
         // Reference to the object with engines collections
@@ -44,6 +45,16 @@ define([
             if (!this.collections[key]) return false;
 
             callback.call(context, this.collections[key]);
+
+            return true;
+        },
+
+        onDataSettingsChangedVersionEngines: function() {
+            // Clear local engines collection
+            this.collections.local.clear();
+
+            // Fetch local collection (when it empty it will fetch remote engines)
+            this.collections.local.fetch({ reset: true });
 
             return true;
         },
@@ -88,8 +99,8 @@ define([
         onRemoteEnginesReset: function() {
             // Check if local engines collection is empty
             if (!this.collections.local.length) {
-                // Remove any relations to old collection
-                // and copy remote engines collection to the local storage
+                // Remove any relations to old collection and copy remote engines collection
+                // to the local engines collection for further usage
                 this.collections.local.reset(this.collections.remote.toJSON());
 
                 // Save local engines collection to the local storage
