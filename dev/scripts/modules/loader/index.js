@@ -25,7 +25,8 @@ define([
     'modules/data/engines/index',
     'modules/data/categories/index',
     'modules/data/pages/index',
-    'modules/data/state/index'
+    'modules/data/state/index',
+    'modules/data/settings/index'
 ], function (
     Backbone,
 
@@ -51,7 +52,8 @@ define([
     DataEngines,
     DataCategories,
     DataPages,
-    DataState
+    DataState,
+    DataSettings
 ) {
     'use strict';
 
@@ -94,7 +96,8 @@ define([
                 engines:    DataEngines,
                 categories: DataCategories,
                 pages:      DataPages,
-                state:      DataState
+                state:      DataState,
+                setting:    DataSettings
             };
 
             this.modules            = {};
