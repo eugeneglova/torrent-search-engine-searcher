@@ -19,8 +19,6 @@ Route::get('/', function()
 // Route group for API versioning
 Route::group(array('prefix' => 'api/v1'), function()
 {
-    Route::resource('engines/available', 'AvailableEngineController');
-
     Route::resource('engines', 'EngineController');
 
     Route::resource('engines.categories', 'CategoryController');

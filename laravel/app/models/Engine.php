@@ -9,7 +9,9 @@ class Engine extends Eloquent {
         'name',
         'home_url',
         'search_url',
-        'post_query'
+        'post_query',
+        'visible',
+        'sort'
     );
 
     public function categories()
