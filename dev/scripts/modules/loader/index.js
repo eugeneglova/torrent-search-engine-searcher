@@ -10,7 +10,7 @@ define([
 
     // UI
     'modules/ui/window/index',
-    'modules/ui/engines/index',
+    'modules/ui/user-engines/index',
     'modules/ui/categories/index',
     'modules/ui/search/index',
     'modules/ui/iframe/index',
@@ -36,7 +36,7 @@ define([
 
     // UI
     Window,
-    Engines,
+    UserEngines,
     Categories,
     Search,
     Iframe,
@@ -78,7 +78,7 @@ define([
 
             this.definitions.ui = {
                 window:             Window,
-                engines:            Engines,
+                user_engines:       UserEngines,
                 categories:         Categories,
                 search:             Search,
                 iframe:             Iframe,

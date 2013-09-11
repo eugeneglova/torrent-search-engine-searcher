@@ -6,9 +6,9 @@ define([
 ], function (Backbone, EnginesView) {
     'use strict';
 
-    var Engines = Backbone.UIController.extend({
+    var UserEngines = Backbone.UIController.extend({
 
-        namespace: 'ui:engines',
+        namespace: 'ui:user-engines',
 
         listeners: {
             'data:engines:ready':   'onDataEnginesReady',
@@ -89,5 +89,5 @@ define([
 
     });
 
-    return Engines;
+    return UserEngines;
 });

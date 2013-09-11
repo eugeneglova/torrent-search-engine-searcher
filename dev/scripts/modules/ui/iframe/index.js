@@ -25,6 +25,9 @@ define([
         // Reference to the engines collection
         engines: null,
 
+        // Reference to the user engines collection
+        user_engines: null,
+
         // Reference to the categories collection
         categories: null,
 
@@ -39,13 +42,21 @@ define([
         },
 
         onDataEnginesReady: function() {
-            this.request('data:engines:get', this.onDataEnginesGet, this);
+            this.request('data:engines:get', 'local', this.onDataEnginesGetLocal, this);
+
+            this.request('data:engines:get', 'user', this.onDataEnginesGetUser, this);
 
             return true;
         },
 
-        onDataEnginesGet: function(engines) {
+        onDataEnginesGetLocal: function(engines) {
             this.engines = engines;
+
+            return true;
+        },
+
+        onDataEnginesGetUser: function(engines) {
+            this.user_engines = engines;
 
             return true;
         },
@@ -60,7 +71,9 @@ define([
             var engine = this.engines.get(engine_id);
 
             if (!engine) {
-                engine = this.engines.at(0);
+                // Use first engine from user engines collection to search on
+                // when there is no engine selected
+                engine = this.user_engines.first();
 
                 this.request('data:state:set:engine-id', engine.id);
             }
