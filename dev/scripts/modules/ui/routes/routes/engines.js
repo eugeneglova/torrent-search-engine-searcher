@@ -10,7 +10,7 @@ define([
         routes: {
             'engine/:engine(/search/:query)':                       'onEngine',
             'engine/:engine/search/:query(/category/:category)':    'onEngine',
-            'available-engines':                                    'onAvailableEngines'
+            'engines':                                              'onEngines'
         },
 
         onEngine: function(engine_slug, query, category_slug) {
@@ -19,8 +19,8 @@ define([
             return true;
         },
 
-        onAvailableEngines: function() {
-            this.trigger('open-available-engines');
+        onEngines: function() {
+            this.trigger('open-engines');
 
             return true;
         }

@@ -6,33 +6,33 @@ $iconSpritePath: '/images/glyphicons-halflings.png';
     padding-left: 0;
 }
 
-.sidebar .engines {
-    overflow: auto;
-}
-
 .sidebar {
     padding: 5px 0 5px 5px;
 }
 
-.sidebar li {
+.user-engines {
+    overflow: auto;
+}
+
+.user-engines li {
     padding: 5px 0 0 0;
 }
 
-.sidebar li a, .available-engines li a {
+.user-engines li a, .engines li a {
     @include border-radius($baseBorderRadius + 10);
 }
 
-.content .iframe-wrapper {
+.iframe-wrapper {
     overflow: hidden;
     line-height: 0;
 }
 
-.content iframe {
+.iframe-wrapper iframe {
     width: 100%;
     border: none;
 }
 
-.content .page, .content .available-engines {
+.page, .engines {
     overflow: auto;
 }
 
@@ -46,10 +46,4 @@ $iconSpritePath: '/images/glyphicons-halflings.png';
 
 #_atssh {
     top: 0;
-}
-
-.controls {
-    position: absolute;
-    right: 0;
-    padding: 5px;
 }

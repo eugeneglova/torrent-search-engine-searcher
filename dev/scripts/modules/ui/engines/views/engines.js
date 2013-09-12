@@ -12,7 +12,7 @@ define([
 
         template: EnginesTemplate,
 
-        className: 'available-engines',
+        className: 'engines',
 
         events: {
             'scroll': 'onScroll'

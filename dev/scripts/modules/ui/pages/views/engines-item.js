@@ -19,7 +19,7 @@ define([
         onClick: function(e) {
             e.preventDefault();
 
-            this.parent.trigger('open-available-engines');
+            this.parent.trigger('open-engines');
 
             return true;
         }

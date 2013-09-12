@@ -11,7 +11,7 @@ define([
 
         tagName: 'ul',
 
-        className: 'engines nav nav-list',
+        className: 'user-engines nav nav-list',
 
         events: {
             'scroll': 'onScroll'

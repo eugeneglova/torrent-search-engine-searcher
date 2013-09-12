@@ -79,7 +79,7 @@ define([
                 parent: this
             });
 
-            if (this.active_item_id === 'available-engines') {
+            if (this.active_item_id === 'engines') {
                 view.setIsActive(true);
             }
 

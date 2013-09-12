@@ -3,12 +3,12 @@
 define([
     'backbone',
     './views/engines'
-], function (Backbone, AvailableEnginesView) {
+], function (Backbone, EnginesView) {
     'use strict';
 
-    var AvailableEngines = Backbone.UIController.extend({
+    var Engines = Backbone.UIController.extend({
 
-        namespace: 'ui:available-engines',
+        namespace: 'ui:engines',
 
         listeners: {
             ':open':                'onOpen',
@@ -31,13 +31,13 @@ define([
 
             this.views = {};
 
-            this.views.engines = new AvailableEnginesView();
+            this.views.engines = new EnginesView();
 
             return this;
         },
 
         onOpen: function() {
-            this.request('data:engines:get', 'local', this.onDataEnginesGetAvailable, this);
+            this.request('data:engines:get', 'local', this.onDataEnginesGet, this);
 
             return true;
         },
@@ -46,14 +46,14 @@ define([
             return !!this.is_rendered;
         },
 
-        onDataEnginesGetAvailable: function(engines) {
+        onDataEnginesGet: function(engines) {
             this.engines = engines;
 
             this.views.engines.setEngines(this.engines);
 
             this.render();
 
-            this.request('ui:routes:set', 'available-engines');
+            this.request('ui:routes:set', 'engines');
 
             this.request('ui:head:set', {
                 head_title:         'All Avaialble BitTorrent Search Engines - TorrentScan',
@@ -104,7 +104,7 @@ define([
             return true;
         },
 
-        openAvailableEngineById: function(engine_id) {
+        openEngineById: function(engine_id) {
             this.request('data:state:set', 'engine-id', engine_id);
 
             this.request('ui:iframe:open');
@@ -114,5 +114,5 @@ define([
 
     });
 
-    return AvailableEngines;
+    return Engines;
 });

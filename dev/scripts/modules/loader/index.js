@@ -19,7 +19,7 @@ define([
     'modules/ui/routes/index',
     'modules/ui/head/index',
     'modules/ui/addthis/index',
-    'modules/ui/available-engines/index',
+    'modules/ui/engines/index',
 
     // Data
     'modules/data/engines/index',
@@ -46,7 +46,7 @@ define([
     Routes,
     Head,
     AddThis,
-    AvailableEngines,
+    Engines,
 
     // Data
     DataEngines,
@@ -79,17 +79,17 @@ define([
             };
 
             this.definitions.ui = {
-                window:             Window,
-                user_engines:       UserEngines,
-                categories:         Categories,
-                search:             Search,
-                iframe:             Iframe,
-                page:               Page,
-                pages:              Pages,
-                routes:             Routes,
-                head:               Head,
-                addthis:            AddThis,
-                availableengines:   AvailableEngines
+                window:         Window,
+                user_engines:   UserEngines,
+                categories:     Categories,
+                search:         Search,
+                iframe:         Iframe,
+                page:           Page,
+                pages:          Pages,
+                routes:         Routes,
+                head:           Head,
+                addthis:        AddThis,
+                engines:        Engines
             };
 
             this.definitions.data = {

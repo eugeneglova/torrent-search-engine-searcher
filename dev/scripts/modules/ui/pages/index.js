@@ -11,10 +11,10 @@ define([
         namespace: 'ui:pages',
 
         listeners: {
-            'data:pages:ready':             'onDataPagesReady',
-            'ui:page:open':                 'onPageOpen',
-            'ui:iframe:open':               'onIframeOpen',
-            'ui:available-engines:open':    'onAvailableEnginesOpen'
+            'data:pages:ready': 'onDataPagesReady',
+            'ui:page:open':     'onPageOpen',
+            'ui:iframe:open':   'onIframeOpen',
+            'ui:engines:open':  'onEnginesOpen'
         },
 
         el: null,
@@ -47,7 +47,7 @@ define([
 
             this.listenTo(this.views.pages, 'open-page-by-id', this.openPageById, this);
 
-            this.listenTo(this.views.pages, 'open-available-engines', this.openAvailableEngines, this);
+            this.listenTo(this.views.pages, 'open-engines', this.openEngines, this);
 
             this.render();
 
@@ -80,8 +80,8 @@ define([
             return true;
         },
 
-        onAvailableEnginesOpen: function() {
-            this.views.pages.setActiveItemById('available-engines');
+        onEnginesOpen: function() {
+            this.views.pages.setActiveItemById('engines');
 
             this.render();
 
@@ -104,8 +104,8 @@ define([
             return true;
         },
 
-        openAvailableEngines: function() {
-            this.request('ui:available-engines:open');
+        openEngines: function() {
+            this.request('ui:engines:open');
 
             return true;
         }

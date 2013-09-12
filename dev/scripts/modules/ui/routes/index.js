@@ -35,7 +35,7 @@ define([
 
             this.listenTo(this.routers.engines, 'open-engine', this.onOpenEngine, this);
 
-            this.listenTo(this.routers.engines, 'open-available-engines', this.onOpenAvailableEngines, this);
+            this.listenTo(this.routers.engines, 'open-engines', this.onOpenEngines, this);
 
             return this;
         },
@@ -74,8 +74,8 @@ define([
             return true;
         },
 
-        onOpenAvailableEngines: function() {
-            this.request('ui:available-engines:open');
+        onOpenEngines: function() {
+            this.request('ui:engines:open');
 
             return true;
         },
