@@ -15,6 +15,8 @@ define([
         listeners: {
             ':get':                                     'onGet',
             ':sort':                                    'onSort',
+            ':user:add':                                'onUserEnginesAdd',
+            ':user:remove':                             'onUserEnginesRemove',
             'data:settings:changed:version_engines':    'onDataSettingsChangedVersionEngines'
         },
 
@@ -60,10 +62,38 @@ define([
             if (!sort_array || !sort_array.length) return false;
 
             sort_array.forEach(function(id, index) {
-                collection.get(id).set({ sort: index }).save();
+                collection.get(id).set({ sort: index + 1 }).save();
             }, this);
 
             collection.sort();
+
+            this.request('service:analytics:event', 'engines', 'sort');
+
+            return true;
+        },
+
+        onUserEnginesAdd: function(engine_id) {
+            var engine = this.collections.local.get(engine_id);
+
+            if (!engine) return false;
+
+            this.collections.user.create(engine.toJSON());
+
+            this.request('service:analytics:event', 'engines', 'add', engine.get('name_stripped'));
+
+            return true;
+        },
+
+        onUserEnginesRemove: function(engine_id) {
+            var engine = this.collections.user.get(engine_id);
+
+            if (!engine) return false;
+
+            this.request('service:analytics:event', 'engines', 'remove', engine.get('name_stripped'));
+
+            engine.destroy();
+
+            this.collections.user.remove(engine);
 
             return true;
         },

@@ -46,6 +46,10 @@ define([
 
             this.listenTo(this.views.engines, 'open-engine-by-id', this.openEngineById, this);
 
+            this.listenTo(this.views.engines, 'add-engine-by-id', this.addEngineById, this);
+
+            this.listenTo(this.views.engines, 'remove-engine-by-id', this.removeEngineById, this);
+
             this.listenTo(this.views.engines, 'sort-update', this.onSortUpdate, this);
 
             this.render();
@@ -91,6 +95,18 @@ define([
             this.request('data:state:set', 'engine-id', engine_id);
 
             this.request('ui:iframe:open');
+
+            return true;
+        },
+
+        addEngineById: function(engine_id) {
+            this.request('data:engines:user:add', engine_id);
+
+            return true;
+        },
+
+        removeEngineById: function(engine_id) {
+            this.request('data:engines:user:remove', engine_id);
 
             return true;
         }

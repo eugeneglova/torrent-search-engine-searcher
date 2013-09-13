@@ -14,11 +14,8 @@ define([
         className: 'user-engines nav nav-list',
 
         events: {
-            'scroll': 'onScroll'
+            'sortupdate': 'onSortUpdate'
         },
-
-        // Reference to the scroll top
-        scroll_top: null,
 
         // Reference to the engines collection
         collection: null,
@@ -31,6 +28,12 @@ define([
             this.views = {};
 
             return this;
+        },
+
+        onSortUpdate: function() {
+            this.trigger('sort-update', this.$el.sortable('toArray', { attribute: 'data-id' }));
+
+            return true;
         },
 
         setActiveItemById: function(engine_id) {
@@ -58,6 +61,8 @@ define([
         render: function() {
             this.clearViews();
 
+            this.listenTo(this.collection, 'add remove', this.render, this);
+
             this.collection.forEach(function(model) {
                 var view = new EngineView({
                     parent: this,
@@ -75,9 +80,19 @@ define([
 
             this.$el.sortable().disableSelection();
 
-            this.$el.on('sortupdate', function() {
-                this.trigger('sort-update', this.$el.sortable('toArray', { attribute: 'data-id' }));
-            }.bind(this));
+            this.$el.droppable({
+
+                accept: '.engine',
+
+                activeClass: 'alert-success',
+
+                hoverClass: 'alert-info',
+
+                drop: function(e, ui) {
+                    this.trigger('add-engine-by-id', ui.draggable.attr('data-id'));
+                }.bind(this)
+
+            });
 
             this.resize();
 

@@ -94,9 +94,31 @@ define([
             // Restore scroll position
             _.defer(function() {
                 this.$el.get(0).scrollTop = this.scroll_top;
+
+                this.$('.engine').draggable({ revert: 'invalid', helper: 'clone' }).disableSelection();
+
+                this.$('.droppable').droppable({
+
+                    accept: '.user-engine',
+
+                    activeClass: 'alert-success',
+
+                    hoverClass: 'alert-info',
+
+                    drop: function(e, ui) {
+                        ui.draggable.trigger('drop');
+                    }
+
+                });
             }.bind(this));
 
             return this;
+        },
+
+        onDropEngine: function(e, ui) {
+            ui.draggable.trigger('drop');
+
+            return true;
         },
 
         clearViews: function() {

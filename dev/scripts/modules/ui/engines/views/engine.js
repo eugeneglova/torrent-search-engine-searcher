@@ -12,6 +12,8 @@ define([
 
         tagName: 'li',
 
+        className: 'engine',
+
         events: {
             'click': 'onClick'
         },
@@ -27,6 +29,8 @@ define([
             this.parent = options.parent;
 
             this.setIsActive(false);
+
+            this.$el.attr('data-id', this.model.id);
 
             return this;
         },

@@ -12,8 +12,11 @@ define([
 
         tagName: 'li',
 
+        className: 'user-engine',
+
         events: {
-            'click': 'onClick'
+            'click':    'onClick',
+            'drop':     'onDrop'
         },
 
         // Reference to parent view
@@ -54,7 +57,15 @@ define([
         onClick: function(e) {
             e.preventDefault();
 
+            if ($(e.currentTarget).hasClass('ui-sortable-helper')) return false;
+
             this.parent.trigger('open-engine-by-id', this.model.id);
+
+            return true;
+        },
+
+        onDrop: function() {
+            this.parent.trigger('remove-engine-by-id', this.model.id);
 
             return true;
         }
