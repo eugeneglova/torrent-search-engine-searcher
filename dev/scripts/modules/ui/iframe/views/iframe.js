@@ -56,7 +56,7 @@ define([
         },
 
         replaceKeywordWithQuery: function(string) {
-            return string.replace(/{keyword}/, this.query)
+            return string.replace(/{keyword}/, this.query);
         },
 
         getSearchUrl: function() {
@@ -86,15 +86,15 @@ define([
         },
 
         getObjectArrayByQueryString: function(query) {
-            return query.split("&").map(function(item) {
+            return query.split('&').map(function(item) {
                 var parts;
 
-                parts = item.split("=");
+                parts = item.split('=');
 
                 return {
                     name: parts[0],
                     value: parts[1]
-                }
+                };
             });
         },
 

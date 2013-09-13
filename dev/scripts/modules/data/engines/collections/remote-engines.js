@@ -18,7 +18,7 @@ define([
 
         getVisible: function() {
             return this.filter(function (model) {
-                return parseInt(model.get('visible')) === 1;
+                return Number(model.get('visible')) === 1;
             });
         }
 

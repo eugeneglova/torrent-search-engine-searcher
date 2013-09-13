@@ -1,10 +1,11 @@
 /*global define*/
 
 define([
+    'underscore',
     'backbone',
     '../models/setting',
     'localstorage'
-], function (Backbone, SettingModel, LocalStorage) {
+], function (_, Backbone, SettingModel, LocalStorage) {
     'use strict';
 
     var LocalSettingsCollection = Backbone.Collection.extend({
