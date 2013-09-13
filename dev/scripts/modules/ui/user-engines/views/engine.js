@@ -32,6 +32,8 @@ define([
         },
 
         render: function() {
+            this.$el.attr('data-id', this.model.id);
+
             this.$el.html(this.template(this.model.toJSON()));
 
             return this;

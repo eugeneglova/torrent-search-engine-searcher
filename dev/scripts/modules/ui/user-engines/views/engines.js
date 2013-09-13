@@ -1,10 +1,10 @@
 /*global define*/
 
 define([
-    'underscore',
+    'jquery.ui.sortable',
     'backbone',
     './engine'
-], function (_, Backbone, EngineView) {
+], function ($, Backbone, EngineView) {
     'use strict';
 
     var EnginesView = Backbone.View.extend({
@@ -72,6 +72,12 @@ define([
 
                 this.views[model.id] = view;
             }, this);
+
+            this.$el.sortable().disableSelection();
+
+            this.$el.on('sortupdate', function() {
+                this.trigger('sort-update', this.$el.sortable('toArray', { attribute: 'data-id' }));
+            }.bind(this));
 
             this.resize();
 

@@ -46,6 +46,8 @@ define([
 
             this.listenTo(this.views.engines, 'open-engine-by-id', this.openEngineById, this);
 
+            this.listenTo(this.views.engines, 'sort-update', this.onSortUpdate, this);
+
             this.render();
 
             return true;
@@ -59,6 +61,12 @@ define([
 
         onGetEngineId: function(engine_id) {
             this.views.engines.setActiveItemById(engine_id);
+
+            return true;
+        },
+
+        onSortUpdate: function(sort_array) {
+            this.request('data:engines:sort', 'user', sort_array);
 
             return true;
         },

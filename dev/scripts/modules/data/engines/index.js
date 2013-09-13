@@ -14,6 +14,7 @@ define([
 
         listeners: {
             ':get':                                     'onGet',
+            ':sort':                                    'onSort',
             'data:settings:changed:version_engines':    'onDataSettingsChangedVersionEngines'
         },
 
@@ -42,9 +43,27 @@ define([
         },
 
         onGet: function(key, callback, context) {
-            if (!this.collections[key]) return false;
+            var collection = this.collections[key];
 
-            callback.call(context, this.collections[key]);
+            if (!collection) return false;
+
+            callback.call(context, collection);
+
+            return true;
+        },
+
+        onSort: function(key, sort_array) {
+            var collection = this.collections[key];
+
+            if (!collection) return false;
+
+            if (!sort_array || !sort_array.length) return false;
+
+            sort_array.forEach(function(id, index) {
+                collection.get(id).set({ sort: index }).save();
+            }, this);
+
+            collection.sort();
 
             return true;
         },

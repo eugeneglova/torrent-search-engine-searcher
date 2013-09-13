@@ -10,7 +10,8 @@
     "requirejs-text": "~2.0.5",
     "modernizr": "~2.6.2",
     "require-handlebars-plugin": "~0.4.0",
-    "backbone.localStorage": "~1.1.6"
+    "backbone.localStorage": "~1.1.6",
+    "jquery-ui": "~1.10.3"
   },
   "devDependencies": {}
 }
