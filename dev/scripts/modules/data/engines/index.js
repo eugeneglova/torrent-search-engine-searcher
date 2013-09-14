@@ -150,7 +150,7 @@ define([
                 }, this);
 
                 // Save user engines collection to the local storage
-                this.collections.save();
+                this.collections.user.save();
             }
 
             this.announce('ready');
