@@ -51,6 +51,16 @@ define([
 
             this.views.engines.setEngines(this.engines);
 
+            this.request('data:groups:get', this.onDataGroupsGet, this);
+
+            return true;
+        },
+
+        onDataGroupsGet: function(groups) {
+            this.groups = groups;
+
+            this.views.engines.setGroups(this.groups);
+
             this.render();
 
             this.request('ui:routes:set', 'engines');
@@ -62,7 +72,6 @@ define([
 
             return true;
         },
-
 
         onGetEngineId: function(engine_id) {
             this.views.engines.setActiveItemById(engine_id);

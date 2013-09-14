@@ -21,6 +21,8 @@ Route::group(array('prefix' => 'api/v1'), function()
 {
     Route::resource('settings', 'SettingController');
 
+    Route::resource('groups', 'GroupController');
+
     Route::resource('engines', 'EngineController');
 
     Route::resource('engines.categories', 'CategoryController');

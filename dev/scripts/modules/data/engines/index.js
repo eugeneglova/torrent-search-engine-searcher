@@ -20,6 +20,9 @@ define([
             'data:settings:changed:version_engines':    'onDataSettingsChangedVersionEngines'
         },
 
+        // Flag indicates that remote engines collection is updated with new version
+        is_new_version: null,
+
         // Reference to the object with engines collections
         collections: null,
 
@@ -138,6 +141,16 @@ define([
 
                 // Save user engines collection to the local storage
                 this.collections.user.save();
+            } else if (this.is_new_version) {
+                // Update user engines collection with new data
+                this.collections.user.forEach(function(model) {
+                    // Update user engines collection model omitting sort
+                    // to retain user saved value
+                    model.set(this.collections.local.get(model.id).omit('sort'));
+                }, this);
+
+                // Save user engines collection to the local storage
+                this.collections.save();
             }
 
             this.announce('ready');
@@ -146,6 +159,8 @@ define([
         },
 
         onRemoteEnginesReset: function() {
+            this.is_new_version = true;
+
             // Check if local engines collection is empty
             if (!this.collections.local.length) {
                 // Remove any relations to old collection and copy remote engines collection

@@ -4,8 +4,8 @@ define([
     'underscore',
     'backbone',
     'hbs!../templates/engines',
-    './engine'
-], function (_, Backbone, EnginesTemplate, EngineView) {
+    './group'
+], function (_, Backbone, EnginesTemplate, GroupView) {
     'use strict';
 
     var EnginesView = Backbone.View.extend({
@@ -24,8 +24,6 @@ define([
         // Reference to the engines collection
         engines: null,
 
-        active_engine_id: null,
-
         views: null,
 
         initialize: function() {
@@ -40,8 +38,8 @@ define([
             return true;
         },
 
-        setActiveItemById: function(engine_id) {
-            this.active_engine_id = engine_id;
+        setGroups: function(groups) {
+            this.groups = groups;
 
             return true;
         },
@@ -60,7 +58,7 @@ define([
         },
 
         render: function() {
-            var column_count;
+            // var column_count;
 
             this.clearViews();
 
@@ -68,27 +66,24 @@ define([
 
             this.$el.html(this.template());
 
-            column_count = Math.ceil(this.engines.length / 4);
+            // column_count = Math.ceil(this.engines.length / 4);
 
-            this.engines.forEach(function(model, index) {
-                _.defer(function() {
-                    var view, column;
+            this.groups.forEach(function(group) {
+                var view, engines;
 
-                    view = new EngineView({
-                        parent: this,
-                        model:  model
-                    });
+                engines = this.engines.where({ site_group_id: group.id });
 
-                    if (this.active_engine_id === model.id) {
-                        view.setIsActive(true);
-                    }
+                if (!engines.length) return false;
 
-                    column = Math.ceil(index/column_count);
+                view = this.views[group.id] = new GroupView({
+                    parent:     this,
+                    model:      group,
+                    collection: engines
+                });
 
-                    this.$('.column-' + column).append(view.render().$el);
+                this.$('.groups').append(view.render().$el);
 
-                    this.views[model.id] = view;
-                }.bind(this));
+                this.views[group.id] = view;
             }, this);
 
             // Restore scroll position

@@ -6,6 +6,7 @@ class Engine extends Eloquent {
 
     protected $visible = array(
         'id',
+        'site_group_id',
         'name',
         'home_url',
         'search_url',
