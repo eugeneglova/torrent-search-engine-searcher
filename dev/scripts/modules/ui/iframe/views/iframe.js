@@ -86,6 +86,8 @@ define([
         },
 
         getObjectArrayByQueryString: function(query) {
+            if (!query || !query.length) return false;
+
             return query.split('&').map(function(item) {
                 var parts;
 
