@@ -2,27 +2,27 @@
 
 define([
     'backbone',
-    'hbs!../templates/pages',
-    './brand-item',
     './item',
     './engines-item'
-], function (Backbone, PagesTemplate, BrandItemView, ItemView, EnginesItemView) {
+], function (Backbone, ItemView, EnginesItemView) {
     'use strict';
 
     var PagesView = Backbone.View.extend({
 
-        template: PagesTemplate,
+        tagName: 'ul',
 
-        className: 'navbar-inner',
+        className: 'pages nav',
 
-        // Reference to the engines collection
-        collection: null,
+        // Reference to the pages collection
+        pages: null,
 
         active_item_id: null,
 
         views: null,
 
-        initialize: function() {
+        initialize: function(options) {
+            this.pages = options.pages;
+
             this.views = {};
 
             return this;
@@ -37,11 +37,7 @@ define([
         render: function() {
             this.clearViews();
 
-            this.$el.html(this.template());
-
-            this.renderBrandItemView();
-
-            this.collection.forEach(function(model) {
+            this.pages.forEach(function(model) {
                 var view = new ItemView({
                     parent: this,
                     model:  model
@@ -51,7 +47,7 @@ define([
                     view.setIsActive(true);
                 }
 
-                this.$('.nav').append(view.render().$el);
+                this.$el.append(view.render().$el);
 
                 this.views[model.id] = view;
             }, this);
@@ -59,19 +55,6 @@ define([
             this.renderEnginesItemView();
 
             return this;
-        },
-
-        renderBrandItemView: function() {
-            var view = new BrandItemView({
-                parent: this,
-                model:  this.collection.at(0)
-            });
-
-            this.views.brand = view;
-
-            this.$('.container-fluid').prepend(view.render().$el);
-
-            return true;
         },
 
         renderEnginesItemView: function() {
@@ -83,7 +66,7 @@ define([
                 view.setIsActive(true);
             }
 
-            this.$('.nav').append(view.render().$el);
+            this.$el.append(view.render().$el);
 
             this.views.engines = view;
 

@@ -11,6 +11,8 @@ define([
         namespace: 'ui:pages',
 
         listeners: {
+            ':home':            'onHome',
+            'ui:navbar:ready':  'onNavbarReady',
             'data:pages:ready': 'onDataPagesReady',
             'ui:page:open':     'onPageOpen',
             'ui:iframe:open':   'onIframeOpen',
@@ -25,11 +27,29 @@ define([
         pages: null,
 
         initialize: function() {
-            this.el = $('.navigation-top');
-
             this.views = {};
 
             return this;
+        },
+
+        onHome: function() {
+            var page;
+
+            if (!this.pages || !this.pages.length) return false;
+
+            page = this.pages.at(0);
+
+            if (!page) return false;
+
+            this.openPageById(page.id);
+
+            return true;
+        },
+
+        onNavbarReady: function() {
+            this.el = $('.nav-collapse');
+
+            return true;
         },
 
         onDataPagesReady: function() {
@@ -42,7 +62,7 @@ define([
             this.pages = pages;
 
             this.views.pages = new PagesView({
-                collection: this.pages
+                pages: this.pages
             });
 
             this.listenTo(this.views.pages, 'open-page-by-id', this.openPageById, this);

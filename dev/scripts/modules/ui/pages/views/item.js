@@ -13,7 +13,7 @@ define([
         tagName: 'li',
 
         events: {
-            'click': 'onClick'
+            'click a': 'onClick'
         },
 
         // Reference to parent view
