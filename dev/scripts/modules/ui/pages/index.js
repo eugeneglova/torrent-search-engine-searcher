@@ -12,11 +12,10 @@ define([
 
         listeners: {
             ':home':            'onHome',
-            'ui:navbar:ready':  'onNavbarReady',
             'data:pages:ready': 'onDataPagesReady',
             'ui:page:open':     'onPageOpen',
             'ui:iframe:open':   'onIframeOpen',
-            'ui:engines:open':  'onEnginesOpen'
+            'ui:engines:open':  'onIframeOpen'
         },
 
         el: null,
@@ -27,6 +26,10 @@ define([
         pages: null,
 
         initialize: function() {
+            _.defer(function() {
+                this.el = $('.nav-collapse');
+            }.bind(this));
+
             this.views = {};
 
             return this;
@@ -46,12 +49,6 @@ define([
             return true;
         },
 
-        onNavbarReady: function() {
-            this.el = $('.nav-collapse');
-
-            return true;
-        },
-
         onDataPagesReady: function() {
             this.request('data:pages:get', this.onDataPagesGet, this);
 
@@ -66,8 +63,6 @@ define([
             });
 
             this.listenTo(this.views.pages, 'open-page-by-id', this.openPageById, this);
-
-            this.listenTo(this.views.pages, 'open-engines', this.openEngines, this);
 
             this.render();
 
@@ -100,14 +95,6 @@ define([
             return true;
         },
 
-        onEnginesOpen: function() {
-            this.views.pages.setActiveItemById('engines');
-
-            this.render();
-
-            return true;
-        },
-
         render: function() {
             this.views.pages.render();
 
@@ -120,12 +107,6 @@ define([
             this.request('data:state:set', 'page-id', page_id);
 
             this.request('ui:page:open');
-
-            return true;
-        },
-
-        openEngines: function() {
-            this.request('ui:engines:open');
 
             return true;
         }

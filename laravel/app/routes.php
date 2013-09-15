@@ -63,3 +63,8 @@ Route::get('engines', function() use ($index_file)
 {
     readfile($index_file);
 });
+
+Route::get('engines/{group}', function() use ($index_file)
+{
+    readfile($index_file);
+});

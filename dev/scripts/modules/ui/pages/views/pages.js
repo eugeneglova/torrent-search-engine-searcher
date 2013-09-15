@@ -2,9 +2,8 @@
 
 define([
     'backbone',
-    './item',
-    './engines-item'
-], function (Backbone, ItemView, EnginesItemView) {
+    './item'
+], function (Backbone, ItemView) {
     'use strict';
 
     var PagesView = Backbone.View.extend({
@@ -52,25 +51,7 @@ define([
                 this.views[model.id] = view;
             }, this);
 
-            this.renderEnginesItemView();
-
             return this;
-        },
-
-        renderEnginesItemView: function() {
-            var view = new EnginesItemView({
-                parent: this
-            });
-
-            if (this.active_item_id === 'engines') {
-                view.setIsActive(true);
-            }
-
-            this.$el.append(view.render().$el);
-
-            this.views.engines = view;
-
-            return true;
         },
 
         clearViews: function() {

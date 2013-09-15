@@ -24,6 +24,12 @@ define([
         // Reference to the engines collection
         engines: null,
 
+        // Reference to the groups collection
+        groups: null,
+
+        // Reference to the active group model
+        active_group: null,
+
         views: null,
 
         initialize: function() {
@@ -44,6 +50,16 @@ define([
             return true;
         },
 
+        setActiveGroup: function(group) {
+            this.active_group = null;
+
+            if (!group) return false;
+
+            this.active_group = group;
+
+            return true;
+        },
+
         onScroll: function(e) {
             // Save scroll position
             this.scroll_top = e.currentTarget.scrollTop;
@@ -58,17 +74,19 @@ define([
         },
 
         render: function() {
-            // var column_count;
+            var groups;
 
             this.clearViews();
 
             this.resize();
 
-            this.$el.html(this.template());
+            this.$el.html(this.template({
+                active_group: this.active_group
+            }));
 
-            // column_count = Math.ceil(this.engines.length / 4);
+            groups = this.active_group ? [this.active_group] : this.groups;
 
-            this.groups.forEach(function(group) {
+            groups.forEach(function(group) {
                 var view, engines;
 
                 engines = this.engines.where({ site_group_id: group.id });
@@ -76,9 +94,10 @@ define([
                 if (!engines.length) return false;
 
                 view = this.views[group.id] = new GroupView({
-                    parent:     this,
-                    model:      group,
-                    collection: engines
+                    parent:         this,
+                    model:          group,
+                    collection:     engines,
+                    active_group:   this.active_group
                 });
 
                 this.$('.groups').append(view.render().$el);

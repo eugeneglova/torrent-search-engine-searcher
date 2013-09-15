@@ -11,7 +11,8 @@ define([
             'engine-id':    null,
             'category-id':  null,
             'type':         null,
-            'page-id':      null
+            'page-id':      null,
+            'group-id':     null
         }
     });
 

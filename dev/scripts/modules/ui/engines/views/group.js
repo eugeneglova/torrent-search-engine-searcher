@@ -23,6 +23,8 @@ define([
 
             this.parent = options.parent;
 
+            this.active_group = options.active_group;
+
             return this;
         },
 
@@ -31,7 +33,7 @@ define([
 
             this.clearViews();
 
-            this.$el.html(this.template(this.model.toJSON()));
+            this.$el.html(this.template(_.extend(this.model.toJSON(), { active_group: this.active_group })));
 
             column_count = Math.ceil(this.collection.length / 4);
 

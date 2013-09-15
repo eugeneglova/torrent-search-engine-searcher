@@ -1,14 +1,19 @@
 /*global define*/
 
 define([
+    'bootstrap',
     './item',
     'hbs!../templates/engines-item'
-], function (ItemView, EnginesItemTemplate) {
+], function ($, ItemView, EnginesItemTemplate) {
     'use strict';
 
     var EnginesItemView = ItemView.extend({
 
         template: EnginesItemTemplate,
+
+        events: {
+            'click a': 'onClick'
+        },
 
         render: function() {
             this.$el.html(this.template());

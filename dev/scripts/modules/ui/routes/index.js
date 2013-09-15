@@ -74,10 +74,28 @@ define([
             return true;
         },
 
-        onOpenEngines: function() {
-            this.request('ui:engines:open');
+        onOpenEngines: function(group_slug) {
+            this.request('data:groups:get', this.onDataGroupsGet(group_slug), this);
 
             return true;
+        },
+
+        onDataGroupsGet: function(group_slug) {
+            return function(groups) {
+                var group;
+
+                this.groups = groups;
+
+                group = this.groups.findWhere({ slug: group_slug });
+
+                if (group) {
+                    this.request('data:state:set', 'group-id', group.id);
+                }
+
+                this.request('ui:engines:open');
+
+                return true;
+            };
         },
 
         onDataCategoriesGet: function(category_slug) {

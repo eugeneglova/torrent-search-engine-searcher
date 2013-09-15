@@ -16,6 +16,7 @@ define([
     'modules/ui/iframe/index',
     'modules/ui/page/index',
     'modules/ui/pages/index',
+    'modules/ui/groups/index',
     'modules/ui/routes/index',
     'modules/ui/head/index',
     'modules/ui/addthis/index',
@@ -50,6 +51,7 @@ define([
     AddThis,
     Engines,
     Navbar,
+    Groups,
 
     // Data
     DataEngines,
@@ -89,12 +91,13 @@ define([
                 search:         Search,
                 iframe:         Iframe,
                 page:           Page,
+                navbar:         Navbar,
                 pages:          Pages,
+                groups:         Groups,
                 routes:         Routes,
                 head:           Head,
                 addthis:        AddThis,
-                engines:        Engines,
-                navbar:         Navbar
+                engines:        Engines
             };
 
             this.definitions.data = {

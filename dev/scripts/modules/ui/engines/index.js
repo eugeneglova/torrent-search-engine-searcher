@@ -23,6 +23,8 @@ define([
 
         is_rendered: null,
 
+        active_group: null,
+
         // Reference to the engines collection
         engines: null,
 
@@ -61,20 +63,31 @@ define([
 
             this.views.engines.setGroups(this.groups);
 
-            this.render();
-
-            this.request('ui:routes:set', 'engines');
-
-            this.request('ui:head:set', {
-                head_title:         'All Avaialble BitTorrent Search Engines - TorrentScan',
-                head_description:   'More than 1000 avaialble BitTorrent search engines in one place. You can search torrents with all these torrent search engines.'
-            });
+            this.request('data:state:get', 'group-id', this.onDataStateGetGroupId, this);
 
             return true;
         },
 
-        onGetEngineId: function(engine_id) {
-            this.views.engines.setActiveItemById(engine_id);
+        onDataStateGetGroupId: function(group_id) {
+            var group = this.groups.get(group_id);
+
+            this.views.engines.setActiveGroup(group);
+
+            if (group) {
+                this.request('ui:routes:set', 'engines/' + group.get('slug'));
+
+                this.request('ui:head:set', {
+                    head_title:         group.get('name') + ' search engines - TorrentScan',
+                    head_description:   group.get('description')
+                });
+            } else {
+                this.request('ui:routes:set', 'engines');
+
+                this.request('ui:head:set', {
+                    head_title:         'All Avaialble BitTorrent Search Engines - TorrentScan',
+                    head_description:   'More than 1000 avaialble BitTorrent search engines in one place. You can search torrents with all these torrent search engines.'
+                });
+            }
 
             this.render();
 
