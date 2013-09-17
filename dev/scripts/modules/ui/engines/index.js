@@ -91,6 +91,8 @@ define([
 
             this.render();
 
+            this.request('service:analytics:event', 'engines', 'open', group ? group.get('name') : '');
+
             return true;
         },
 

@@ -84,6 +84,8 @@ define([
         onSubmitContactPage: function(fields) {
             this.request('service:contact:send', fields, this.onServiceContactSend, this);
 
+            this.request('service:analytics:event', 'page', 'submit', 'contact');
+
             return true;
         },
 
