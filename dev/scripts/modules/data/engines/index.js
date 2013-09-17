@@ -17,7 +17,8 @@ define([
             ':sort':                                    'onSort',
             ':user:add':                                'onUserEnginesAdd',
             ':user:remove':                             'onUserEnginesRemove',
-            'data:settings:changed:version_engines':    'onDataSettingsChangedVersionEngines'
+            'data:settings:changed:version_engines':    'onDataSettingsChangedVersionEngines',
+            'data:settings:ready':                      'onDataSettingsReady'
         },
 
         // Flag indicates that remote engines collection is updated with new version
@@ -41,8 +42,6 @@ define([
             this.listenTo(this.collections.remote, 'reset', this.onRemoteEnginesReset, this);
             this.listenTo(this.collections.local, 'reset', this.onLocalEnginesReset, this);
             this.listenTo(this.collections.user, 'reset', this.onUserEnginesReset, this);
-
-            this.collections.local.fetch({ reset: true });
 
             return this;
         },
@@ -102,9 +101,15 @@ define([
         },
 
         onDataSettingsChangedVersionEngines: function() {
+            this.is_new_version = true;
+
             // Clear local engines collection
             this.collections.local.clear();
 
+            return true;
+        },
+
+        onDataSettingsReady: function() {
             // Fetch local collection (when it empty it will fetch remote engines)
             this.collections.local.fetch({ reset: true });
 
@@ -144,9 +149,20 @@ define([
             } else if (this.is_new_version) {
                 // Update user engines collection with new data
                 this.collections.user.forEach(function(model) {
+                    var local_model;
+
+                    local_model = this.collections.local.get(model.id);
+
+                    if (!local_model) {
+                        // Remove user engine if it doesn't exist in local engines collection after update
+                        model.destroy();
+
+                        return false;
+                    }
+
                     // Update user engines collection model omitting sort
                     // to retain user saved value
-                    model.set(this.collections.local.get(model.id).omit('sort'));
+                    model.set(local_model.omit('sort'));
                 }, this);
 
                 // Save user engines collection to the local storage
@@ -159,8 +175,6 @@ define([
         },
 
         onRemoteEnginesReset: function() {
-            this.is_new_version = true;
-
             // Check if local engines collection is empty
             if (!this.collections.local.length) {
                 // Remove any relations to old collection and copy remote engines collection

@@ -68,13 +68,13 @@ define([
         },
 
         onGet: function(key, callback, context) {
-            callback.apply(context, [this.get(key)]);
+            callback.call(context, this.get(key));
 
             return true;
         },
 
         get: function(key) {
-            return this.model.get(key);
+            return this.collections.local.get(key);
         }
 
     });

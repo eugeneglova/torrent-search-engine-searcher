@@ -10,7 +10,16 @@ class EngineController extends \BaseController {
     public function index()
     {
         //
-        $engines = Engine::where('enabled', 1)->get();
+        // $engines = Engine::where('enabled', 1)
+        //     ->join('site', 'site.site_id', '=', 'ss2_sites.d_id')
+        //     ->where('site.search_engine', 1)->get();
+
+        $engines = Engine::hasConstraint('site', function($query, $table) {
+           $query->where($table . '.search_engine', 1);
+        })->where('enabled', 1)->get();
+
+        // $engines = Engine::where('enabled', 1)->get();
+        // dd(DB::getQueryLog());
 
         return Response::json($engines->toArray(), 200);
 
