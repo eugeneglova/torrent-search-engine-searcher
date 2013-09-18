@@ -42,9 +42,9 @@ define([
         },
 
         onDataEnginesReady: function() {
-            this.request('data:engines:get', 'local', this.onDataEnginesGetLocal, this);
+            this.request('data:engines:get', this.onDataEnginesGetLocal, this);
 
-            this.request('data:engines:get', 'user', this.onDataEnginesGetUser, this);
+            this.request('data:user-engines:get', this.onDataUserEnginesGet, this);
 
             return true;
         },
@@ -55,7 +55,7 @@ define([
             return true;
         },
 
-        onDataEnginesGetUser: function(engines) {
+        onDataUserEnginesGet: function(engines) {
             this.user_engines = engines;
 
             return true;

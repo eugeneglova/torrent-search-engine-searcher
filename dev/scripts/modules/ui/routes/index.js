@@ -47,7 +47,7 @@ define([
         },
 
         onDataEnginesReady: function() {
-            this.request('data:engines:get', 'local', this.onDataEnginesGet, this);
+            this.request('data:engines:get', this.onDataEnginesGet, this);
 
             return true;
         },

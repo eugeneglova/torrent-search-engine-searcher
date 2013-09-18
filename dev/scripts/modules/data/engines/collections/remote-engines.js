@@ -1,12 +1,12 @@
 /*global define*/
 
 define([
-    'backbone',
+    'components/data-collection/collections/remote',
     '../models/engine'
-], function (Backbone, EngineModel) {
+], function (RemoteCollection, EngineModel) {
     'use strict';
 
-    var EnginesCollection = Backbone.Collection.extend({
+    var RemoteEnginesCollection = RemoteCollection.extend({
 
         model: EngineModel,
 
@@ -24,5 +24,5 @@ define([
 
     });
 
-    return EnginesCollection;
+    return RemoteEnginesCollection;
 });

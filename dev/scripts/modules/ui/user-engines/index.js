@@ -11,9 +11,9 @@ define([
         namespace: 'ui:user-engines',
 
         listeners: {
-            'data:engines:ready':   'onDataEnginesReady',
-            'ui:iframe:opened':     'onIframeOpen',
-            'ui:window:resized':    'onWindowResized'
+            'data:user-engines:ready':  'onDataUserEnginesReady',
+            'ui:iframe:opened':         'onIframeOpen',
+            'ui:window:resized':        'onWindowResized'
         },
 
         el: null,
@@ -31,13 +31,13 @@ define([
             return this;
         },
 
-        onDataEnginesReady: function() {
-            this.request('data:engines:get', 'user', this.onDataEnginesGet, this);
+        onDataUserEnginesReady: function() {
+            this.request('data:user-engines:get', this.onDataUserEnginesGet, this);
 
             return true;
         },
 
-        onDataEnginesGet: function(engines) {
+        onDataUserEnginesGet: function(engines) {
             this.engines = engines;
 
             this.views.engines = new EnginesView({
@@ -70,7 +70,7 @@ define([
         },
 
         onSortUpdate: function(sort_array) {
-            this.request('data:engines:sort', 'user', sort_array);
+            this.request('data:user-engines:sort', sort_array);
 
             return true;
         },
@@ -100,13 +100,13 @@ define([
         },
 
         addEngineById: function(engine_id) {
-            this.request('data:engines:user:add', engine_id);
+            this.request('data:user-engines:add', engine_id);
 
             return true;
         },
 
         removeEngineById: function(engine_id) {
-            this.request('data:engines:user:remove', engine_id);
+            this.request('data:user-engines:remove', engine_id);
 
             return true;
         }

@@ -1,29 +1,14 @@
 /*global define*/
 
 define([
-    'underscore',
     './remote-engines',
-    'localstorage'
-], function (_, EnginesCollection, LocalStorage) {
+    'components/data-collection/collections/local'
+], function (RemoteEnginesCollection, LocalCollection) {
     'use strict';
 
-    var LocalEnginesCollection = EnginesCollection.extend({
+    var LocalEnginesCollection = RemoteEnginesCollection.extend(_.extend({}, LocalCollection.prototype, {
 
-        localStorage: new LocalStorage('engines'),
-
-        save: function() {
-            _.invoke(this.toArray(), 'save');
-
-            return true;
-        },
-
-        clear: function() {
-            this.localStorage._clear();
-
-            return true;
-        }
-
-    });
+    }));
 
     return LocalEnginesCollection;
 });
