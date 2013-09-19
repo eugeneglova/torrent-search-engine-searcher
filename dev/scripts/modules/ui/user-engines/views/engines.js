@@ -39,6 +39,8 @@ define([
         setActiveItemById: function(engine_id) {
             this.active_engine_id = engine_id;
 
+            if (!this.views[this.active_engine_id]) return false;
+
             this.views[this.active_engine_id].toggleActiveClass(true);
 
             Object.keys(this.views).forEach(function(key) {

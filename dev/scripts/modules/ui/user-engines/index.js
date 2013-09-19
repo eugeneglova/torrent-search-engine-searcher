@@ -64,6 +64,14 @@ define([
         },
 
         onGetEngineId: function(engine_id) {
+            if (!this.engines.get(engine_id)) {
+                this.addEngineById(engine_id);
+
+                this.request('ui:iframe:open');
+
+                return false;
+            }
+
             this.views.engines.setActiveItemById(engine_id);
 
             return true;
