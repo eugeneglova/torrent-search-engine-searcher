@@ -33,6 +33,16 @@ define([
             return true;
         },
 
+        setActiveItemByRoute: function(route) {
+            var page = this.pages.findWhere({ route: route });
+
+            if (!page) return false;
+
+            this.active_item_id = page.id;
+
+            return true;
+        },
+
         render: function() {
             this.clearViews();
 

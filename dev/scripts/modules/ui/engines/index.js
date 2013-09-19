@@ -85,7 +85,7 @@ define([
 
                 this.request('ui:head:set', {
                     head_title:         'All Avaialble BitTorrent Search Engines - TorrentScan',
-                    head_description:   'More than 1000 avaialble BitTorrent search engines in one place. You can search torrents with all these torrent search engines.'
+                    head_description:   'Huge amount of BitTorrent search engines in one place. You can search torrents with all these torrent search engines.'
                 });
             }
 
@@ -106,6 +106,8 @@ define([
 
         render: function() {
             this.listenTo(this.views.engines, 'open-engine-by-id', this.openEngineById, this);
+
+            this.listenTo(this.views.engines, 'open-by-group-id', this.openByGroupId, this);
 
             this.views.engines.render();
 
@@ -132,6 +134,14 @@ define([
             this.request('data:state:set', 'engine-id', engine_id);
 
             this.request('ui:iframe:open');
+
+            return true;
+        },
+
+        openByGroupId: function(group_id) {
+            this.request('data:state:set', 'group-id', group_id);
+
+            this.request('ui:engines:open');
 
             return true;
         }

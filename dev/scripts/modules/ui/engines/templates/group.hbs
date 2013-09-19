@@ -1,10 +1,14 @@
 {{#if active_group}}
-    <h1>{{ name }} sites</h1>
+    <h1>{{ name }} search engines</h1>
     <div class="well text-center">
         <a href="http://tracking.inuvo.com/c/AABXAEUABgAAfDxip%7EspEQ%3D%3D?subid1=&subid2=&subid3="><img src="http://tracking.inuvo.com/i/AABXAEUABgAAMjwTp%7EsIyw%3D%3D?subid1=&subid2=&subid3="></a>
     </div>
 {{else}}
-    <h4>{{ name }} sites</h4>
+    <h4>
+        <a href="/engines/{{ slug }}" class="engine-group-link">
+            {{ name }} search engines
+        </a>
+    </h4>
 {{/if}}
 <div class="row-fluid">
     <ul class="column-1 span3 nav nav-list"></ul>

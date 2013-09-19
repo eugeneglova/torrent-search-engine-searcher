@@ -15,7 +15,7 @@ define([
             'data:pages:ready': 'onDataPagesReady',
             'ui:page:open':     'onPageOpen',
             'ui:iframe:open':   'onIframeOpen',
-            'ui:engines:open':  'onIframeOpen'
+            'ui:engines:open':  'onEnginesOpen'
         },
 
         el: null,
@@ -95,6 +95,14 @@ define([
             return true;
         },
 
+        onEnginesOpen: function() {
+            this.views.pages.setActiveItemByRoute('engines');
+
+            this.render();
+
+            return true;
+        },
+
         render: function() {
             this.views.pages.render();
 
@@ -104,9 +112,17 @@ define([
         },
 
         openPageById: function(page_id) {
-            this.request('data:state:set', 'page-id', page_id);
+            var page = this.pages.get(page_id);
 
-            this.request('ui:page:open');
+            if (!page) return false;
+
+            if (page.get('is_custom')) {
+                this.request('ui:routes:set', page.get('route'), { trigger: true });
+            } else {
+                this.request('data:state:set', 'page-id', page_id);
+
+                this.request('ui:page:open');
+            }
 
             return true;
         }

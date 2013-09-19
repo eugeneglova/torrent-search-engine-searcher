@@ -13,6 +13,10 @@ define([
 
         className: 'group',
 
+        events: {
+            'click .engine-group-link': 'onClickEngineGroupLink'
+        },
+
         // Reference to parent view
         parent: null,
 
@@ -42,7 +46,7 @@ define([
                     var view, column;
 
                     view = new EngineView({
-                        parent: this,
+                        parent: this.parent,
                         model:  model
                     });
 
@@ -55,6 +59,14 @@ define([
             }, this);
 
             return this;
+        },
+
+        onClickEngineGroupLink: function(e) {
+            e.preventDefault();
+
+            this.parent.trigger('open-by-group-id', this.model.id);
+
+            return true;
         },
 
         clearViews: function() {

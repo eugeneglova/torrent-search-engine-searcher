@@ -40,8 +40,10 @@ define([
             return this;
         },
 
-        onSet: function(route) {
-            Backbone.history.navigate(route);
+        onSet: function(route, options) {
+            options = options || {};
+
+            Backbone.history.navigate(route, options);
 
             return true;
         },
@@ -88,9 +90,7 @@ define([
 
                 group = this.groups.findWhere({ slug: group_slug });
 
-                if (group) {
-                    this.request('data:state:set', 'group-id', group.id);
-                }
+                this.request('data:state:set', 'group-id', group ? group.id : null);
 
                 this.request('ui:engines:open');
 

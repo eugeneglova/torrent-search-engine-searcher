@@ -9,7 +9,9 @@ class Page extends Eloquent {
         'name',
         'title',
         'head_title',
-        'head_description'
+        'head_description',
+        'route',
+        'is_custom'
     );
 
 }
