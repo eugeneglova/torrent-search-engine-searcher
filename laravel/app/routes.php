@@ -42,22 +42,22 @@ $index_file = __DIR__ . '/../../' . $environment . '/index.html';
 Route::get('page/{page}', function() use ($index_file)
 {
     readfile($index_file);
-});
+})->where(array('page' => '[a-z-]+'));
 
 Route::get('engine/{engine}', function() use ($index_file)
 {
     readfile($index_file);
-});
+})->where(array('engine' => '[a-z-]+'));
 
 Route::get('engine/{engine}/search/{query}', function() use ($index_file)
 {
     readfile($index_file);
-});
+})->where(array('engine' => '[a-z-]+'));
 
 Route::get('engine/{engine}/search/{query}/category/{category}', function() use ($index_file)
 {
     readfile($index_file);
-});
+})->where(array('engine' => '[a-z-]+', 'category' => '[a-z-]+'));
 
 Route::get('engines', function() use ($index_file)
 {
@@ -67,4 +67,4 @@ Route::get('engines', function() use ($index_file)
 Route::get('engines/{group}', function() use ($index_file)
 {
     readfile($index_file);
-});
+})->where(array('group' => '[a-z-]+'));
