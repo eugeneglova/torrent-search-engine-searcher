@@ -12,10 +12,13 @@ define([
 
         listeners: {
             ':open':                'onOpen',
+            'data:sites:ready':     'onDataSitesReady',
+            'data:groups:ready':    'onDataGroupsReady',
             'ui:window:resized':    'onWindowResized',
             'ui:page:open':         'remove',
             'ui:iframe:open':       'remove',
-            'ui:engines:open':      'remove'
+            'ui:engines:open':      'remove',
+            'ui:site:open':         'remove'
         },
 
         el: null,
@@ -24,10 +27,15 @@ define([
 
         is_rendered: null,
 
-        active_group: null,
+        site: null,
+
+        group: null,
 
         // Reference to the sites collection
         sites: null,
+
+        // Reference to the groups collection
+        groups: null,
 
         initialize: function() {
             this.el = $('.content');
@@ -40,8 +48,7 @@ define([
         },
 
         onOpen: function() {
-            // this.request('data:sites:get', this.onDataSitesGet, this);
-            this.request('data:groups:get', this.onDataGroupsGet, this);
+            this.request('data:state:get', 'group-id', this.onDataStateGetGroupId, this);
 
             return true;
         },
@@ -50,11 +57,21 @@ define([
             return !!this.is_rendered;
         },
 
+        onDataSitesReady: function() {
+            this.request('data:sites:get', this.onDataSitesGet, this);
+
+            return true;
+        },
+
         onDataSitesGet: function(sites) {
             this.sites = sites;
 
             this.views.sites.setSites(this.sites);
 
+            return true;
+        },
+
+        onDataGroupsReady: function() {
             this.request('data:groups:get', this.onDataGroupsGet, this);
 
             return true;
@@ -65,35 +82,33 @@ define([
 
             this.views.sites.setGroups(this.groups);
 
-            this.request('data:state:get', 'group-id', this.onDataStateGetGroupId, this);
-
             return true;
         },
 
         onDataStateGetGroupId: function(group_id) {
-            var group = this.groups.get(group_id);
+            this.group = this.groups.get(group_id);
 
-            this.views.sites.setActiveGroup(group);
+            this.views.sites.setActiveGroup(this.group);
 
-            if (group) {
-                this.request('ui:routes:set', 'sites/' + group.get('slug'));
+            if (this.group) {
+                this.request('ui:routes:set', 'sites/' + this.group.get('slug'));
 
                 this.request('ui:head:set', {
-                    head_title:         group.get('name') + ' search sites - TorrentScan',
-                    head_description:   group.get('description')
+                    head_title:         this.group.get('name') + ' - File Sharing Directory - TorrentScan',
+                    head_description:   this.group.get('description')
                 });
             } else {
                 this.request('ui:routes:set', 'sites');
 
                 this.request('ui:head:set', {
-                    head_title:         'All Avaialble BitTorrent Search Sites - TorrentScan',
-                    head_description:   'Huge amount of BitTorrent search sites in one place. You can search torrents with all these torrent search sites.'
+                    head_title:         'File Sharing Directory - TorrentScan',
+                    head_description:   'All file sharing sites.'
                 });
             }
 
             this.render();
 
-            this.request('service:analytics:event', 'sites', 'open', group ? group.get('name') : '');
+            this.request('service:analytics:event', 'sites', 'open', this.group ? this.group.get('name') : '');
 
             return true;
         },
@@ -133,9 +148,15 @@ define([
         },
 
         openSiteById: function(site_id) {
-            this.request('data:state:set', 'site-id', site_id);
+            var site;
 
-            this.request('ui:iframe:open');
+            site = this.sites.get(site_id);
+
+            if (!site) return false;
+
+            this.request('data:state:set', 'site-id', site.id);
+
+            this.request('ui:site:open');
 
             return true;
         },

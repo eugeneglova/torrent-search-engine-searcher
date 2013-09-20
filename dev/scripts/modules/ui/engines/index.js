@@ -15,7 +15,8 @@ define([
             'ui:window:resized':    'onWindowResized',
             'ui:page:open':         'remove',
             'ui:iframe:open':       'remove',
-            'ui:sites:open':        'remove'
+            'ui:sites:open':        'remove',
+            'ui:site:open':         'remove'
         },
 
         el: null,

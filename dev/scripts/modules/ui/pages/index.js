@@ -16,7 +16,8 @@ define([
             'ui:page:open':     'onPageOpen',
             'ui:iframe:open':   'onIframeOpen',
             'ui:engines:open':  'onEnginesOpen',
-            'ui:sites:open':    'onSitesOpen'
+            'ui:sites:open':    'onSitesOpen',
+            'ui:site:open':     'onSitesOpen'
         },
 
         el: null,

@@ -1,19 +1,26 @@
-{{#if active_group}}
+{{#if group}}
     <h1>{{ name }} sites</h1>
     <div class="well text-center">
         <a href="http://tracking.inuvo.com/c/AABXAEUACwAA8UYpr%7E0xxQ%3D%3D?subid1=&subid2=&subid3="><img src="http://tracking.inuvo.com/i/AABXAEUACwAAuEZLr%7E0wLA%3D%3D?subid1=&subid2=&subid3="></a>
     </div>
-    <p class="alert alert-info">Coming soon... we are working on it right now.</p>
-    <div class="row-fluid">
-        <ul class="column-1 span3 nav nav-list"></ul>
-        <ul class="column-2 span3 nav nav-list"></ul>
-        <ul class="column-3 span3 nav nav-list"></ul>
-        <ul class="column-4 span3 nav nav-list"></ul>
-    </div>
 {{else}}
-    <h2>
+    <h4>
         <a href="/sites/{{ slug }}" class="site-group-link">
             {{ name }} sites
         </a>
-    </h2>
+    </h4>
+{{/if}}
+<div class="row-fluid">
+    <ul class="column-1 span3 nav nav-list"></ul>
+    <ul class="column-2 span3 nav nav-list"></ul>
+    <ul class="column-3 span3 nav nav-list"></ul>
+    <ul class="column-4 span3 nav nav-list"></ul>
+</div>
+{{#if more}}
+<br>
+<p class="alert alert-info">
+    <a href="/sites/{{ slug }}" class="site-group-link">
+        All {{ total }} {{ name }} sites
+    </a>
+</p>
 {{/if}}

@@ -9,13 +9,14 @@ class SiteController extends \BaseController {
      */
     public function index($group_id = 0)
     {
-        // 
+        //
         $sites = Site::hasConstraint('engine', function($query, $table) use ($group_id) {
            $query->where($table . '.enabled', 1);
            if ($group_id) {
                $query->where($table . '.site_group_id', $group_id);
            }
         })->get();
+        // dd(DB::getQueryLog());
 
         return Response::json($sites->toArray(), 200);
 

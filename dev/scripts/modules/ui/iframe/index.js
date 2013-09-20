@@ -16,7 +16,8 @@ define([
             'ui:window:resized':    'onWindowResized',
             'ui:page:open':         'remove',
             'ui:engines:open':      'remove',
-            'ui:sites:open':        'remove'
+            'ui:sites:open':        'remove',
+            'ui:site:open':         'remove'
         },
 
         el: null,

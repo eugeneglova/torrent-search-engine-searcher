@@ -50,7 +50,7 @@ define([
                         model:  model
                     });
 
-                    column = Math.ceil(index/column_count);
+                    column = Math.ceil((index + 1) / column_count);
 
                     this.$('.column-' + column).append(view.render().$el);
 

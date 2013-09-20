@@ -1,9 +1,10 @@
 /*global define*/
 
 define([
+    'underscore',
     'backbone',
     'hbs!../templates/site'
-], function (Backbone, SiteTemplate) {
+], function (_, Backbone, SiteTemplate) {
     'use strict';
 
     var SiteView = Backbone.View.extend({
@@ -23,10 +24,14 @@ define([
 
         is_active: null,
 
-        active_class: 'active',
+        class: 'active',
 
         initialize: function(options) {
             this.parent = options.parent;
+
+            this.groups = options.groups;
+
+            this.group = this.groups.findWhere({ id: this.model.get('site_group_id') }).value();
 
             this.setIsActive(false);
 
@@ -36,7 +41,9 @@ define([
         },
 
         render: function() {
-            this.$el.html(this.template(this.model.toJSON()));
+            this.$el.html(this.template(_.extend({}, this.model.toJSON(), {
+                group: this.group.toJSON()
+            })));
 
             return this;
         },
@@ -45,7 +52,7 @@ define([
             this.is_active = is_active;
 
             if (this.isActive()) {
-                this.$el.addClass(this.active_class);
+                this.$el.addClass(this.class);
             }
 
             return true;

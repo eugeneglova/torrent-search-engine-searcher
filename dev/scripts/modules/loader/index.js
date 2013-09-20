@@ -22,10 +22,12 @@ define([
     'modules/ui/addthis/index',
     'modules/ui/engines/index',
     'modules/ui/sites/index',
+    'modules/ui/site/index',
     'modules/ui/navbar/index',
 
     // Data
     'modules/data/engines/index',
+    'modules/data/sites/index',
     'modules/data/user-engines/index',
     'modules/data/categories/index',
     'modules/data/pages/index',
@@ -54,10 +56,12 @@ define([
     AddThis,
     Engines,
     Sites,
+    Site,
     Navbar,
 
     // Data
     DataEngines,
+    DataSites,
     DataUserEngines,
     DataCategories,
     DataPages,
@@ -102,11 +106,13 @@ define([
                 head:           Head,
                 addthis:        AddThis,
                 engines:        Engines,
-                sites:          Sites
+                sites:          Sites,
+                site:           Site
             };
 
             this.definitions.data = {
                 engines:        DataEngines,
+                sites:          DataSites,
                 user_engines:   DataUserEngines,
                 categories:     DataCategories,
                 pages:          DataPages,

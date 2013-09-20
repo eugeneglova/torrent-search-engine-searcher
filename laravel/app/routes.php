@@ -46,22 +46,22 @@ $index_file = __DIR__ . '/../../' . $environment . '/index.html';
 Route::get('page/{page}', function() use ($index_file)
 {
     readfile($index_file);
-})->where(array('page' => '[a-z-]+'));
+})->where(array('page' => '[\w-]+'));
 
 Route::get('engine/{engine}', function() use ($index_file)
 {
     readfile($index_file);
-})->where(array('engine' => '[a-z-]+'));
+})->where(array('engine' => '[\w-]+'));
 
 Route::get('engine/{engine}/search/{query}', function() use ($index_file)
 {
     readfile($index_file);
-})->where(array('engine' => '[a-z-]+'));
+})->where(array('engine' => '[\w-]+'));
 
 Route::get('engine/{engine}/search/{query}/category/{category}', function() use ($index_file)
 {
     readfile($index_file);
-})->where(array('engine' => '[a-z-]+', 'category' => '[a-z-]+'));
+})->where(array('engine' => '[\w-]+', 'category' => '[\w-]+'));
 
 Route::get('engines', function() use ($index_file)
 {
@@ -71,7 +71,7 @@ Route::get('engines', function() use ($index_file)
 Route::get('engines/{group}', function() use ($index_file)
 {
     readfile($index_file);
-})->where(array('group' => '[a-z-]+'));
+})->where(array('group' => '[\w-]+'));
 
 Route::get('sites', function() use ($index_file)
 {
@@ -81,4 +81,9 @@ Route::get('sites', function() use ($index_file)
 Route::get('sites/{group}', function() use ($index_file)
 {
     readfile($index_file);
-})->where(array('group' => '[a-z-]+'));
+})->where(array('group' => '[\w-]+'));
+
+Route::get('sites/{group}/{site}', function() use ($index_file)
+{
+    readfile($index_file);
+})->where(array('group' => '[\w-]+', 'site' => '[\w-]+'));

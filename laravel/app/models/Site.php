@@ -11,14 +11,14 @@ class Site extends Eloquent {
 
     protected $visible = array(
         'site_id',
+        'site_group_id',
         'name',
-        'home_url',
         'sort'
     );
 
     public function engine()
     {
-        return $this->hasOne('Engine', 'id');
+        return $this->hasOne('Engine', 'd_id');
     }
 
     public function scopeHasConstraint($query, $relation, $constraints)

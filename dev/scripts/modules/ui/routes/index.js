@@ -15,6 +15,8 @@ define([
         listeners: {
             ':set':                 'onSet',
             'data:engines:ready':   'onDataEnginesReady',
+            'data:sites:ready':     'onDataSitesReady',
+            'data:groups:ready':    'onDataGroupsReady',
             'data:pages:ready':     'onDataPagesReady',
             'app:loader:ready':     'onLoaderReady'
         },
@@ -25,23 +27,24 @@ define([
         // Reference to the engines collection
         engines: null,
 
+        // Reference to the sites collection
+        sites: null,
+
+        // Reference to the groups collection
+        groups: null,
+
         initialize: function() {
             this.routers = {};
 
             this.routers.pages = new PagesRouter();
-
             this.listenTo(this.routers.pages, 'open-page-by-name', this.onOpenPageByName, this);
 
             this.routers.engines = new EnginesRouter();
-
             this.listenTo(this.routers.engines, 'open-engine', this.onOpenEngine, this);
-
             this.listenTo(this.routers.engines, 'open-engines', this.onOpenEngines, this);
 
             this.routers.sites = new SitesRouter();
-
             this.listenTo(this.routers.sites, 'open-site', this.onOpenSite, this);
-
             this.listenTo(this.routers.sites, 'open-sites', this.onOpenSites, this);
 
             return this;
@@ -67,6 +70,30 @@ define([
             return true;
         },
 
+        onDataSitesReady: function() {
+            this.request('data:sites:get', this.onDataSitesGet, this);
+
+            return true;
+        },
+
+        onDataSitesGet: function(sites) {
+            this.sites = sites;
+
+            return true;
+        },
+
+        onDataGroupsReady: function() {
+            this.request('data:groups:get', this.onDataGroupsGet, this);
+
+            return true;
+        },
+
+        onDataGroupsGet: function(groups) {
+            this.groups = groups;
+
+            return true;
+        },
+
         onOpenEngine: function(engine_slug, query, category_slug) {
             var engine;
 
@@ -84,31 +111,45 @@ define([
         },
 
         onOpenEngines: function(group_slug) {
-            this.request('data:groups:get', this.onDataGroupsGet(group_slug, this.openEngines, this), this);
+            var group;
+
+            group = this.groups.findWhere({ slug: group_slug });
+
+            this.request('data:state:set', 'group-id', group ? group.id : undefined);
+
+            this.request('ui:engines:open');
+
+            return true;
+        },
+
+        onOpenSite: function(group_slug, site_slug) {
+            var group, site;
+
+            group = this.groups.findWhere({ slug: group_slug });
+
+            if (!group) return false;
+
+            site = this.sites.findWhere({ site_group_id: group.id, slug: site_slug });
+
+            if (!site) return false;
+
+            this.request('data:state:set', 'site-id', site.id);
+
+            this.request('ui:site:open');
 
             return true;
         },
 
         onOpenSites: function(group_slug) {
-            this.request('data:groups:get', this.onDataGroupsGet(group_slug, this.openSites, this), this);
+            var group;
+
+            group = this.groups.findWhere({ slug: group_slug });
+
+            this.request('data:state:set', 'group-id', group ? group.id : undefined);
+
+            this.request('ui:sites:open');
 
             return true;
-        },
-
-        onDataGroupsGet: function(group_slug, callback, context) {
-            return function(groups) {
-                var group;
-
-                this.groups = groups;
-
-                group = this.groups.findWhere({ slug: group_slug });
-
-                this.request('data:state:set', 'group-id', group ? group.id : null);
-
-                callback.call(context);
-
-                return true;
-            };
         },
 
         onDataCategoriesGet: function(category_slug) {
@@ -161,18 +202,6 @@ define([
             this.request('data:state:set', 'page-id', page_id);
 
             this.request('ui:page:open');
-
-            return true;
-        },
-
-        openEngines: function() {
-            this.request('ui:engines:open');
-
-            return true;
-        },
-
-        openSites: function() {
-            this.request('ui:sites:open');
 
             return true;
         }
