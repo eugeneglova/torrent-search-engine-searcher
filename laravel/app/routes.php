@@ -23,6 +23,10 @@ Route::group(array('prefix' => 'api/v1'), function()
 
     Route::resource('groups', 'GroupController');
 
+    Route::resource('groups.sites', 'SiteController');
+
+    Route::resource('sites', 'SiteController');
+
     Route::resource('engines', 'EngineController');
 
     Route::resource('engines.categories', 'CategoryController');
@@ -65,6 +69,16 @@ Route::get('engines', function() use ($index_file)
 });
 
 Route::get('engines/{group}', function() use ($index_file)
+{
+    readfile($index_file);
+})->where(array('group' => '[a-z-]+'));
+
+Route::get('sites', function() use ($index_file)
+{
+    readfile($index_file);
+});
+
+Route::get('sites/{group}', function() use ($index_file)
 {
     readfile($index_file);
 })->where(array('group' => '[a-z-]+'));

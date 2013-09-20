@@ -21,6 +21,7 @@ define([
     'modules/ui/head/index',
     'modules/ui/addthis/index',
     'modules/ui/engines/index',
+    'modules/ui/sites/index',
     'modules/ui/navbar/index',
 
     // Data
@@ -52,6 +53,7 @@ define([
     Head,
     AddThis,
     Engines,
+    Sites,
     Navbar,
 
     // Data
@@ -99,7 +101,8 @@ define([
                 routes:         Routes,
                 head:           Head,
                 addthis:        AddThis,
-                engines:        Engines
+                engines:        Engines,
+                sites:          Sites
             };
 
             this.definitions.data = {

@@ -3,8 +3,9 @@
 define([
     'backbone',
     './routes/engines',
+    './routes/sites',
     './routes/pages'
-], function (Backbone, EnginesRouter, PagesRouter) {
+], function (Backbone, EnginesRouter, SitesRouter, PagesRouter) {
     'use strict';
 
     var Routes = Backbone.UIController.extend({
@@ -36,6 +37,12 @@ define([
             this.listenTo(this.routers.engines, 'open-engine', this.onOpenEngine, this);
 
             this.listenTo(this.routers.engines, 'open-engines', this.onOpenEngines, this);
+
+            this.routers.sites = new SitesRouter();
+
+            this.listenTo(this.routers.sites, 'open-site', this.onOpenSite, this);
+
+            this.listenTo(this.routers.sites, 'open-sites', this.onOpenSites, this);
 
             return this;
         },
@@ -77,12 +84,18 @@ define([
         },
 
         onOpenEngines: function(group_slug) {
-            this.request('data:groups:get', this.onDataGroupsGet(group_slug), this);
+            this.request('data:groups:get', this.onDataGroupsGet(group_slug, this.openEngines, this), this);
 
             return true;
         },
 
-        onDataGroupsGet: function(group_slug) {
+        onOpenSites: function(group_slug) {
+            this.request('data:groups:get', this.onDataGroupsGet(group_slug, this.openSites, this), this);
+
+            return true;
+        },
+
+        onDataGroupsGet: function(group_slug, callback, context) {
             return function(groups) {
                 var group;
 
@@ -92,7 +105,7 @@ define([
 
                 this.request('data:state:set', 'group-id', group ? group.id : null);
 
-                this.request('ui:engines:open');
+                callback.call(context);
 
                 return true;
             };
@@ -148,6 +161,18 @@ define([
             this.request('data:state:set', 'page-id', page_id);
 
             this.request('ui:page:open');
+
+            return true;
+        },
+
+        openEngines: function() {
+            this.request('ui:engines:open');
+
+            return true;
+        },
+
+        openSites: function() {
+            this.request('ui:sites:open');
 
             return true;
         }

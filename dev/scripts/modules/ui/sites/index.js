@@ -2,20 +2,20 @@
 
 define([
     'backbone',
-    './views/engines'
-], function (Backbone, EnginesView) {
+    './views/sites'
+], function (Backbone, SitesView) {
     'use strict';
 
-    var Engines = Backbone.UIController.extend({
+    var Sites = Backbone.UIController.extend({
 
-        namespace: 'ui:engines',
+        namespace: 'ui:sites',
 
         listeners: {
             ':open':                'onOpen',
             'ui:window:resized':    'onWindowResized',
             'ui:page:open':         'remove',
             'ui:iframe:open':       'remove',
-            'ui:sites:open':        'remove'
+            'ui:engines:open':      'remove'
         },
 
         el: null,
@@ -26,21 +26,22 @@ define([
 
         active_group: null,
 
-        // Reference to the engines collection
-        engines: null,
+        // Reference to the sites collection
+        sites: null,
 
         initialize: function() {
             this.el = $('.content');
 
             this.views = {};
 
-            this.views.engines = new EnginesView();
+            this.views.sites = new SitesView();
 
             return this;
         },
 
         onOpen: function() {
-            this.request('data:engines:get', this.onDataEnginesGet, this);
+            // this.request('data:sites:get', this.onDataSitesGet, this);
+            this.request('data:groups:get', this.onDataGroupsGet, this);
 
             return true;
         },
@@ -49,10 +50,10 @@ define([
             return !!this.is_rendered;
         },
 
-        onDataEnginesGet: function(engines) {
-            this.engines = engines;
+        onDataSitesGet: function(sites) {
+            this.sites = sites;
 
-            this.views.engines.setEngines(this.engines);
+            this.views.sites.setSites(this.sites);
 
             this.request('data:groups:get', this.onDataGroupsGet, this);
 
@@ -62,7 +63,7 @@ define([
         onDataGroupsGet: function(groups) {
             this.groups = groups;
 
-            this.views.engines.setGroups(this.groups);
+            this.views.sites.setGroups(this.groups);
 
             this.request('data:state:get', 'group-id', this.onDataStateGetGroupId, this);
 
@@ -72,47 +73,47 @@ define([
         onDataStateGetGroupId: function(group_id) {
             var group = this.groups.get(group_id);
 
-            this.views.engines.setActiveGroup(group);
+            this.views.sites.setActiveGroup(group);
 
             if (group) {
-                this.request('ui:routes:set', 'engines/' + group.get('slug'));
+                this.request('ui:routes:set', 'sites/' + group.get('slug'));
 
                 this.request('ui:head:set', {
-                    head_title:         group.get('name') + ' search engines - TorrentScan',
+                    head_title:         group.get('name') + ' search sites - TorrentScan',
                     head_description:   group.get('description')
                 });
             } else {
-                this.request('ui:routes:set', 'engines');
+                this.request('ui:routes:set', 'sites');
 
                 this.request('ui:head:set', {
-                    head_title:         'All Avaialble BitTorrent Search Engines - TorrentScan',
-                    head_description:   'Huge amount of BitTorrent search engines in one place. You can search torrents with all these torrent search engines.'
+                    head_title:         'All Avaialble BitTorrent Search Sites - TorrentScan',
+                    head_description:   'Huge amount of BitTorrent search sites in one place. You can search torrents with all these torrent search sites.'
                 });
             }
 
             this.render();
 
-            this.request('service:analytics:event', 'engines', 'open', group ? group.get('name') : '');
+            this.request('service:analytics:event', 'sites', 'open', group ? group.get('name') : '');
 
             return true;
         },
 
         onWindowResized: function() {
-            if (!this.views.engines) return false;
+            if (!this.views.sites) return false;
 
-            this.views.engines.resize();
+            this.views.sites.resize();
 
             return true;
         },
 
         render: function() {
-            this.listenTo(this.views.engines, 'open-engine-by-id', this.openEngineById, this);
+            this.listenTo(this.views.sites, 'open-site-by-id', this.openSiteById, this);
 
-            this.listenTo(this.views.engines, 'open-by-group-id', this.openByGroupId, this);
+            this.listenTo(this.views.sites, 'open-by-group-id', this.openByGroupId, this);
 
-            this.views.engines.render();
+            this.views.sites.render();
 
-            this.el.append(this.views.engines.$el);
+            this.el.append(this.views.sites.$el);
 
             this.is_rendered = true;
 
@@ -131,8 +132,8 @@ define([
             return true;
         },
 
-        openEngineById: function(engine_id) {
-            this.request('data:state:set', 'engine-id', engine_id);
+        openSiteById: function(site_id) {
+            this.request('data:state:set', 'site-id', site_id);
 
             this.request('ui:iframe:open');
 
@@ -142,12 +143,12 @@ define([
         openByGroupId: function(group_id) {
             this.request('data:state:set', 'group-id', group_id);
 
-            this.request('ui:engines:open');
+            this.request('ui:sites:open');
 
             return true;
         }
 
     });
 
-    return Engines;
+    return Sites;
 });

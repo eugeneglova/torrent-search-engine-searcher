@@ -15,7 +15,8 @@ define([
             'data:engines:ready':   'onDataEnginesReady',
             'ui:window:resized':    'onWindowResized',
             'ui:page:open':         'remove',
-            'ui:engines:open':      'remove'
+            'ui:engines:open':      'remove',
+            'ui:sites:open':        'remove'
         },
 
         el: null,

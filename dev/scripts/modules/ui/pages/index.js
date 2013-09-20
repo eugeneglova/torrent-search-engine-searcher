@@ -15,7 +15,8 @@ define([
             'data:pages:ready': 'onDataPagesReady',
             'ui:page:open':     'onPageOpen',
             'ui:iframe:open':   'onIframeOpen',
-            'ui:engines:open':  'onEnginesOpen'
+            'ui:engines:open':  'onEnginesOpen',
+            'ui:sites:open':    'onSitesOpen'
         },
 
         el: null,
@@ -97,6 +98,14 @@ define([
 
         onEnginesOpen: function() {
             this.views.pages.setActiveItemByRoute('engines');
+
+            this.render();
+
+            return true;
+        },
+
+        onSitesOpen: function() {
+            this.views.pages.setActiveItemByRoute('sites');
 
             this.render();
 
