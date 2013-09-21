@@ -25,7 +25,7 @@ class Base extends Eloquent {
 
         call_user_func($constraints, $query, $foreignTable);
 
-        return $query->addSelect($this->table . '.*')->addSelect($this->visible);
+        return $query;
     }
 
 }

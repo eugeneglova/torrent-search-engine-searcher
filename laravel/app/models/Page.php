@@ -4,18 +4,28 @@ class Page extends Eloquent {
 
     protected $table = 'pages';
 
-    protected $visible = array(
+    protected $collection_fields = array(
+        'id',
+        'name',
+        'route',
+        'is_custom'
+    );
+
+    protected $model_fields = array(
         'id',
         'name',
         'title',
         'head_title',
         'head_description',
-        'route',
-        'is_custom'
+        'content'
     );
 
-    public static function getPages() {
-        return static::orderBy('sort')->get();
+    public function scopeGetPages($query) {
+        return $query->orderBy('sort')->addSelect($this->collection_fields);
+    }
+
+    public function scopeGetById($query, $id) {
+        return $query->whereId($id)->addSelect($this->model_fields);
     }
 
 }

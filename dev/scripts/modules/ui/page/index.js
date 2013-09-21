@@ -60,28 +60,34 @@ define([
         },
 
         onGetPageId: function(page_id) {
-            var model, route;
+            var route;
 
-            model = this.pages.get(page_id);
+            this.page = this.pages.get(page_id);
 
-            this.views.page.setModel(model);
+            this.views.page.setModel(this.page);
 
-            if (model.get('is_home_page')) {
+            if (this.page.get('is_home_page')) {
                 route = '';
             } else {
-                route = 'page/' + model.get('slug');
+                route = 'page/' + this.page.get('slug');
             }
 
             this.request('ui:routes:set', route);
 
+            this.page.fetch().then(this.onPageLoad.bind(this));
+
+            this.request('service:analytics:event', 'page', 'open', this.page.get('name'));
+
+            return true;
+        },
+
+        onPageLoad: function() {
             this.request('ui:head:set', {
-                title:          model.get('head_title'),
-                description:    model.get('head_description')
+                title:          this.page.get('head_title'),
+                description:    this.page.get('head_description')
             });
 
-            this.request('service:analytics:event', 'page', 'open', model.get('name'));
-
-            model.fetch().then(this.render.bind(this));
+            this.render();
 
             return true;
         },

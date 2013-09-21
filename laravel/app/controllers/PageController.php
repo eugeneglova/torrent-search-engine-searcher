@@ -10,7 +10,7 @@ class PageController extends \BaseController {
     public function index()
     {
         //
-        return Response::json(Page::getPages()->toArray(), 200);
+        return Response::json(Page::getPages()->get()->toArray(), 200);
 
     }
 
@@ -43,7 +43,8 @@ class PageController extends \BaseController {
     public function show($id)
     {
         //
-        return Response::json(PageDetails::find($id)->toArray(), 200);
+        $row = Page::getById($id)->get()->first();
+        return Response::json($row, $row ? 200 : 404);
     }
 
     /**

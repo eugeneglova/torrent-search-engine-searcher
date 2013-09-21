@@ -10,7 +10,7 @@ class SiteController extends \BaseController {
     public function index($group_id = 0)
     {
         //
-        return Response::json(Site::getSitesByGroupId($group_id)->toArray(), 200);
+        return Response::json(Site::getSitesByGroupId($group_id)->get()->toArray(), 200);
 
     }
 
@@ -43,6 +43,8 @@ class SiteController extends \BaseController {
     public function show($id)
     {
         //
+        $row = Site::getById($id)->get()->first();
+        return Response::json($row, $row ? 200 : 404);
     }
 
     /**
