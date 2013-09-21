@@ -4,8 +4,9 @@ define([
     'underscore',
     'backbone',
     'hbs!../templates/engines',
+    'hbs!templates/ads/banner',
     './group'
-], function (_, Backbone, EnginesTemplate, GroupView) {
+], function (_, Backbone, EnginesTemplate, BannerTemplate, GroupView) {
     'use strict';
 
     var EnginesView = Backbone.View.extend({
@@ -82,6 +83,10 @@ define([
 
             this.$el.html(this.template({
                 active_group: this.active_group
+            }, {
+                partials: {
+                    templates_ads_banner: BannerTemplate
+                }
             }));
 
             groups = this.active_group ? [this.active_group] : this.groups;

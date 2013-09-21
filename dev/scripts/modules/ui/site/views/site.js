@@ -5,7 +5,8 @@ define([
     'underscore',
     'backbone',
     'hbs!../templates/site',
-], function ($, _, Backbone, SiteTemplate) {
+    'hbs!templates/ads/banner'
+], function ($, _, Backbone, SiteTemplate, BannerTemplate) {
     'use strict';
 
     var SiteView = Backbone.View.extend({
@@ -53,7 +54,11 @@ define([
 
             this.$el.html(this.template(_.extend({}, this.site.toJSON(), {
                 group: this.group.toJSON()
-            })));
+            }), {
+                partials: {
+                    templates_ads_banner: BannerTemplate
+                }
+            }));
 
             return this;
         },

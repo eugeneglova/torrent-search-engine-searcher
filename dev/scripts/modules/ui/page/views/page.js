@@ -3,8 +3,9 @@
 define([
     'jquery',
     'backbone',
-    'hbs!../templates/page'
-], function ($, Backbone, PageTemplate) {
+    'hbs!../templates/page',
+    'hbs!templates/ads/banner'
+], function ($, Backbone, PageTemplate, BannerTemplate) {
     'use strict';
 
     var PageView = Backbone.View.extend({
@@ -49,7 +50,11 @@ define([
         },
 
         render: function() {
-            this.$el.html(this.template(this.model.toJSON()));
+            this.$el.html(this.template(this.model.toJSON(), {
+                partials: {
+                    templates_ads_banner: BannerTemplate
+                }
+            }));
 
             this.resize();
 

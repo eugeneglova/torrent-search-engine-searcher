@@ -1,8 +1,6 @@
 {{#if active_group}}
     <h1>{{ name }} search engines</h1>
-    <div class="well text-center">
-        <a href="http://tracking.inuvo.com/c/AABXAEUACwAA8UYpr%7E0xxQ%3D%3D?subid1=&subid2=&subid3="><img src="http://tracking.inuvo.com/i/AABXAEUACwAAuEZLr%7E0wLA%3D%3D?subid1=&subid2=&subid3="></a>
-    </div>
+    {{> templates_ads_banner}}
 {{else}}
     <h4>
         <a href="/engines/{{ slug }}" class="engine-group-link">

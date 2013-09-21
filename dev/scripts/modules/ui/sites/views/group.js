@@ -3,8 +3,9 @@
 define([
     'backbone',
     'hbs!../templates/group',
+    'hbs!templates/ads/banner',
     './site'
-], function (Backbone, GroupTemplate, SiteView) {
+], function (Backbone, GroupTemplate, BannerTemplate, SiteView) {
     'use strict';
 
     var GroupView = Backbone.View.extend({
@@ -45,7 +46,11 @@ define([
                 more:   this.total > this.collection.length,
                 total:  this.total,
                 group:  this.group
-            })));
+            }), {
+                partials: {
+                    templates_ads_banner: BannerTemplate
+                }
+            }));
 
             column_count = Math.ceil(this.collection.length / 4);
 

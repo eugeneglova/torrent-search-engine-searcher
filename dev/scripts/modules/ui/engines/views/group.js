@@ -3,8 +3,9 @@
 define([
     'backbone',
     'hbs!../templates/group',
+    'hbs!templates/ads/banner',
     './engine'
-], function (Backbone, GroupTemplate, EngineView) {
+], function (Backbone, GroupTemplate, BannerTemplate, EngineView) {
     'use strict';
 
     var GroupView = Backbone.View.extend({
@@ -37,7 +38,11 @@ define([
 
             this.clearViews();
 
-            this.$el.html(this.template(_.extend(this.model.toJSON(), { active_group: this.active_group })));
+            this.$el.html(this.template(_.extend(this.model.toJSON(), { active_group: this.active_group }), {
+                partials: {
+                    templates_ads_banner: BannerTemplate
+                }
+            }));
 
             column_count = Math.ceil(this.collection.length / 4);
 
