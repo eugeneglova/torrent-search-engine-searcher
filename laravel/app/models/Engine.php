@@ -1,9 +1,6 @@
 <?php
 
-use Illuminate\Database\Eloquent\Relations\HasOneOrMany;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-
-class Engine extends Eloquent {
+class Engine extends Base {
 
     protected $table = 'ss2_sites';
 
@@ -43,28 +40,6 @@ class Engine extends Eloquent {
 
     public static function getCategoriesByEngineId($engine_id) {
         return static::find($engine_id)->categories()->get(array('*', 'search_url'));
-    }
-
-    public function scopeHasConstraint($query, $relation, $constraints)
-    {
-        $instance = $this->$relation();
-
-        $foreignTable = $instance->getModel()->getTable();
-
-        if ($instance instanceof HasOneOrMany) {
-            $foreignKey = $instance->getPlainForeignKey();
-            $query->join($foreignTable, $foreignTable.'.'.$foreignKey, '=', $this->table.'.'.$this->primaryKey);
-        } elseif ($instance instanceof BelongsTo) {
-            $foreignKey = $instance->getForeignKey();
-            $primaryKey = $instance->getModel()->getKeyName();
-            $query->join($foreignTable, $foreignTable.'.'.$primaryKey, '=', $this->table.'.'.$foreignKey);
-        } else {
-            throw new \InvalidArgumentException('Only works on HasOneOrMany and BelongsTo relationships.');
-        }
-
-        call_user_func($constraints, $query, $foreignTable);
-
-        return $query->addSelect($this->table . '.*');
     }
 
 }
