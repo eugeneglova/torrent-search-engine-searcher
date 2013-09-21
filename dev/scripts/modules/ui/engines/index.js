@@ -79,15 +79,15 @@ define([
                 this.request('ui:routes:set', 'engines/' + group.get('slug'));
 
                 this.request('ui:head:set', {
-                    head_title:         group.get('name') + ' search engines - TorrentScan',
-                    head_description:   group.get('description')
+                    title:         group.get('name') + ' search engines - TorrentScan',
+                    description:   group.get('description')
                 });
             } else {
                 this.request('ui:routes:set', 'engines');
 
                 this.request('ui:head:set', {
-                    head_title:         'All Avaialble BitTorrent Search Engines - TorrentScan',
-                    head_description:   'Huge amount of BitTorrent search engines in one place. You can search torrents with all these torrent search engines.'
+                    title:         'All Avaialble BitTorrent Search Engines - TorrentScan',
+                    description:   'Huge amount of BitTorrent search engines in one place. You can search torrents with all these torrent search engines.'
                 });
             }
 

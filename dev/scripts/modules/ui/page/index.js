@@ -74,7 +74,10 @@ define([
 
             this.request('ui:routes:set', route);
 
-            this.request('ui:head:set', model.toJSON());
+            this.request('ui:head:set', {
+                title:          model.get('head_title'),
+                description:    model.get('head_description')
+            });
 
             this.request('service:analytics:event', 'page', 'open', model.get('name'));
 

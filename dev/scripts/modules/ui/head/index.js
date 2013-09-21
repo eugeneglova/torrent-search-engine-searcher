@@ -11,9 +11,7 @@ define([
         namespace: 'ui:head',
 
         listeners: {
-            ':set':             'onSet',
-            ':set:title':       'onSetTitle',
-            ':set:description': 'onSetDescription'
+            ':set': 'onSet'
         },
 
         document: null,
@@ -29,21 +27,9 @@ define([
         },
 
         onSet: function(attributes) {
-            this.onSetTitle(attributes.head_title);
+            this.document.title = attributes.title;
 
-            this.onSetDescription(attributes.head_description);
-
-            return true;
-        },
-
-        onSetTitle: function(title) {
-            this.document.title = title;
-
-            return true;
-        },
-
-        onSetDescription: function(description) {
-            this.description.attr('content', description);
+            this.description.attr('content', attributes.description);
 
             return true;
         }

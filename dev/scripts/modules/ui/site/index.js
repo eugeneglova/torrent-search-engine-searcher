@@ -97,8 +97,8 @@ define([
             this.request('ui:routes:set', 'sites/' + this.group.get('slug') + '/' + this.site.get('slug'));
 
             this.request('ui:head:set', {
-                head_title:         this.site.get('name') + ' - ' + this.group.get('name') + ' File Sharing Directory - TorrentScan',
-                head_description:   this.site.get('description')
+                title:          this.site.get('name') + ' - ' + this.group.get('name') + ' File Sharing Directory - TorrentScan',
+                description:    this.site.get('description')
             });
 
             this.request('service:analytics:event', 'site', 'open', this.site.get('name'));

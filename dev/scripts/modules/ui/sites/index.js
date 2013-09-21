@@ -94,15 +94,15 @@ define([
                 this.request('ui:routes:set', 'sites/' + this.group.get('slug'));
 
                 this.request('ui:head:set', {
-                    head_title:         this.group.get('name') + ' - File Sharing Directory - TorrentScan',
-                    head_description:   this.group.get('description')
+                    title:          this.group.get('name') + ' - File Sharing Directory - TorrentScan',
+                    description:    this.group.get('description')
                 });
             } else {
                 this.request('ui:routes:set', 'sites');
 
                 this.request('ui:head:set', {
-                    head_title:         'File Sharing Directory - TorrentScan',
-                    head_description:   'All file sharing sites.'
+                    title:          'File Sharing Directory - TorrentScan',
+                    description:    'All file sharing sites.'
                 });
             }
 

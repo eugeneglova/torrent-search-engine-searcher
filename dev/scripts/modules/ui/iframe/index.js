@@ -24,6 +24,12 @@ define([
 
         views: null,
 
+        engine: null,
+
+        query: null,
+
+        category: null,
+
         // Reference to the engines collection
         engines: null,
 
@@ -70,17 +76,17 @@ define([
         },
 
         onGetEngineId: function(engine_id) {
-            var engine = this.engines.get(engine_id);
+            this.engine = this.engines.get(engine_id);
 
-            if (!engine) {
+            if (!this.engine) {
                 // Use first engine from user engines collection to search on
                 // when there is no engine selected
-                engine = this.user_engines.first();
+                this.engine = this.user_engines.first();
 
-                this.request('data:state:set', 'engine-id', engine.id);
+                this.request('data:state:set', 'engine-id', this.engine.id);
             }
 
-            this.views.iframe.setEngine(engine);
+            this.views.iframe.setEngine(this.engine);
 
             this.request('data:state:get', 'type', this.onGetType, this);
 
@@ -95,7 +101,10 @@ define([
 
                 this.request('ui:routes:set', 'engine/' + this.views.iframe.engine.get('slug'));
 
-                this.request('ui:head:set', this.views.iframe.engine.toJSON());
+                this.request('ui:head:set', {
+                    title:          this.views.iframe.engine.get('name_stripped') + ' BitTorrent Search - TorrentScan',
+                    description:    'Search for torrents with ' + this.views.iframe.engine.get('name_stripped') + ' and Torrent Scan engine searcher.'
+                });
 
                 this.request('service:analytics:event', 'iframe', type, this.views.iframe.engine.get('name_stripped'));
             } else if (type === 'search') {
@@ -106,7 +115,9 @@ define([
         },
 
         onGetQuery: function(query) {
-            this.views.iframe.setQuery(query);
+            this.query = query;
+
+            this.views.iframe.setQuery(this.query);
 
             this.request('data:categories:get', this.onDataCategoriesGet, this);
 
@@ -124,30 +135,38 @@ define([
         onGetCategoryId: function(category_id) {
             var route;
 
-            this.views.iframe.setCategory(this.categories.get(category_id));
+            this.category = this.categories.get(category_id);
+
+            this.views.iframe.setCategory(this.category);
 
             this.render();
 
             route = 'engine/' + this.views.iframe.engine.get('slug') + '/search/' + this.views.iframe.query;
 
-            if (this.views.iframe.category) {
-                route += '/category/' + this.views.iframe.category.get('slug');
+            if (this.category) {
+                route += '/category/' + this.category.get('slug');
             }
 
             this.request('ui:routes:set', route);
 
-            if (this.views.iframe.category) {
-                this.request('ui:head:set', this.views.iframe.category.toJSON());
+            if (this.category) {
+                this.request('ui:head:set', {
+                    title:          this.category.get('name') + ' torrent ' + this.query + ' ' + this.engine.get('name_stripped') + ' Search - TorrentScan',
+                    description:    'Search results for ' + this.query + ' torrent within ' + this.category.get('name') + ' on ' + this.engine.get('name_stripped') + ' and Torrent Scan engine searcher.'
+                });
             } else {
-                this.request('ui:head:set', this.views.iframe.engine.toJSON());
+                this.request('ui:head:set', {
+                    title:          'Torrent ' + this.query + ' ' + this.engine.get('name_stripped') + ' Search - TorrentScan',
+                    description:    'Search results for ' + this.query + ' on ' + this.engine.get('name_stripped') + ' and Torrent Scan engine searcher.'
+                });
             }
 
-            this.request('service:analytics:event', 'iframe', this.views.iframe.type, this.views.iframe.engine.get('name_stripped'));
+            this.request('service:analytics:event', 'iframe', this.type, this.engine.get('name_stripped'));
 
-            this.request('service:analytics:event', 'iframe', 'query', this.views.iframe.query);
+            this.request('service:analytics:event', 'iframe', 'query', this.query);
 
-            if (this.views.iframe.category) {
-                this.request('service:analytics:event', 'iframe', 'category', this.views.iframe.category.get('name_stripped'));
+            if (this.category) {
+                this.request('service:analytics:event', 'iframe', 'category', this.category.get('name'));
             }
 
             return true;
