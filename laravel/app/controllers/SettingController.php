@@ -10,9 +10,7 @@ class SettingController extends \BaseController {
     public function index()
     {
         //
-        $engines = Setting::where('key', 'version_engines')->get();
-
-        return Response::json($engines->toArray(), 200);
+        return Response::json(Setting::getSettings()->toArray(), 200);
 
     }
 

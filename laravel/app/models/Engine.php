@@ -28,6 +28,23 @@ class Engine extends Eloquent {
         return $this->belongsTo('Site', 'd_id');
     }
 
+    public static function getEngines() {
+        // $engines = Engine::where('enabled', 1)
+        //     ->join('site', 'site.site_id', '=', 'ss2_sites.d_id')
+        //     ->where('site.search_engine', 1)->get();
+
+        return static::hasConstraint('site', function($query, $table) {
+           $query->where($table . '.search_engine', 1);
+        })->where('enabled', 1)->get();
+
+        // $engines = Engine::where('enabled', 1)->get();
+        // dd(DB::getQueryLog());
+    }
+
+    public static function getCategoriesByEngineId($engine_id) {
+        return static::find($engine_id)->categories()->get(array('*', 'search_url'));
+    }
+
     public function scopeHasConstraint($query, $relation, $constraints)
     {
         $instance = $this->$relation();

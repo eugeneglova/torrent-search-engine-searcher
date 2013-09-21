@@ -9,4 +9,8 @@ class Setting extends Eloquent {
         'value'
     );
 
+    public static function getSettings() {
+        return static::where('key', 'version_engines')->get();
+    }
+
 }

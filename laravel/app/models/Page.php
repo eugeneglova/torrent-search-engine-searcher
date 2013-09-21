@@ -14,4 +14,8 @@ class Page extends Eloquent {
         'is_custom'
     );
 
+    public static function getPages() {
+        return static::orderBy('sort')->get();
+    }
+
 }

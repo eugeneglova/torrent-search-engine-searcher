@@ -21,6 +21,16 @@ class Site extends Eloquent {
         return $this->hasOne('Engine', 'd_id');
     }
 
+    public static function getSitesByGroupId($group_id = 0) {
+        return static::hasConstraint('engine', function($query, $table) use ($group_id) {
+           $query->where($table . '.enabled', 1);
+           if ($group_id) {
+               $query->where($table . '.site_group_id', $group_id);
+           }
+        })->get();
+        // dd(DB::getQueryLog());
+    }
+
     public function scopeHasConstraint($query, $relation, $constraints)
     {
 

@@ -11,4 +11,8 @@ class Group extends Eloquent {
         'sort'
     );
 
+    public static function getGroups() {
+        return static::where('enabled', 1)->get();
+    }
+
 }

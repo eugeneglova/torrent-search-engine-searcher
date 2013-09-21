@@ -10,10 +10,7 @@ class GroupController extends \BaseController {
     public function index()
     {
         //
-        $groups = Group::where('enabled', 1)->get();
-
-        return Response::json($groups->toArray(), 200);
-
+        return Response::json(Group::getGroups()->toArray(), 200);
     }
 
     /**

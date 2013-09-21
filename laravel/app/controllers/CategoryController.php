@@ -10,9 +10,7 @@ class CategoryController extends \BaseController {
     public function index($engine_id)
     {
         //
-        $categories = Engine::find($engine_id)->categories()->get(array('*', 'search_url'));
-
-        return Response::json($categories->toArray(), 200);
+        return Response::json(Engine::getCategoriesByEngineId($engine_id)->toArray(), 200);
 
     }
 
