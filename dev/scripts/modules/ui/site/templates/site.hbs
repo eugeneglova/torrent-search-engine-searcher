@@ -3,7 +3,65 @@
         {{{ name }}}
     </h1>
     {{> templates_ads_banner}}
-    <p class="alert alert-info">
-        More details and information about <strong>{{{ name }}}</strong> coming soon...
+
+    {{#if acronym}}
+        <p>
+            <b>Site acronym:</b>
+            <span>{{ acronym }}</span>
+        </p>
+    {{/if}}
+
+    <p>
+        <b>Website URL:</b>
+        <a href="{{ home_url }}" target="_blank" rel="nofollow">
+            {{ home_url }}
+        </a>
     </p>
+
+    <p>
+        <b>SSL Support:</b>
+        <span>{{ ssl_support }}</span>
+    </p>
+
+    <p>
+        <b>RSS feed:</b>
+        {{#if rss_url}}
+            <a href="{{ rss_url }}" target="_blank" rel="nofollow">{{ rss_url }}</a>
+        {{/if}}
+    </p>
+
+    {{#if irc}}
+    <p>
+        <b>IRC:</b>
+        <a href="{{ irc }}" rel="nofollow">
+            {{ irc }}
+        </a>
+    </p>
+    {{/if}}
+
+    <p>
+        <b>Language:</b>
+        <span>{{ language }}</span>
+    </p>
+
+    <p>
+        <b>Foundation date:</b>
+        <span>{{ foundation_date }}</span>
+    </p>
+
+    {{#if search_engine }}
+        <p>
+            <b>Search url example:</b>
+            <div>
+              <a href="{{ search_url }}" target="_blank" rel="nofollow">{{ search_url }}</a>
+            </div>
+        </p>
+    {{/if}}
+
+    <h2>Description:</h2>
+
+    <p>
+        {{{ description }}}
+    </p>
+
 </div>

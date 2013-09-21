@@ -19,6 +19,15 @@ class Site extends Base {
         'site_group_id',
         'name',
         'home_url',
+        'acronym',
+        'ssl_support',
+        'rss_url',
+        'irc',
+        'language',
+        'foundation_date',
+        'search_engine',
+        'search_url',
+        'description',
         'sort'
     );
 
