@@ -13,6 +13,7 @@ class Site extends Eloquent {
         'site_id',
         'site_group_id',
         'name',
+        'home_url',
         'sort'
     );
 
