@@ -71,10 +71,6 @@ define([
                     model:  model
                 });
 
-                if (this.active_engine_id === model.id) {
-                    view.setIsActive(true);
-                }
-
                 this.$el.append(view.render().$el);
 
                 this.views[model.id] = view;
