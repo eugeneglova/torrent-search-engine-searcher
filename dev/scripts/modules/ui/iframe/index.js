@@ -28,6 +28,8 @@ define([
 
         query: null,
 
+        type: null,
+
         category: null,
 
         // Reference to the engines collection
@@ -94,9 +96,11 @@ define([
         },
 
         onGetType: function(type) {
-            this.views.iframe.setType(type);
+            this.type = type;
 
-            if (type === 'home') {
+            this.views.iframe.setType(this.type);
+
+            if (this.type === 'home') {
                 this.render();
 
                 this.request('ui:routes:set', 'engine/' + this.engine.get('slug'));
@@ -107,7 +111,7 @@ define([
                 });
 
                 this.request('service:analytics:event', 'iframe', type, this.engine.get('name_stripped'));
-            } else if (type === 'search') {
+            } else if (this.type === 'search') {
                 this.request('data:state:get', 'query', this.onGetQuery, this);
             }
 
