@@ -110,7 +110,7 @@ define([
                     description:    'Search for torrents with ' + this.engine.get('name_stripped') + ' and Torrent Scan engine searcher.'
                 });
 
-                this.request('service:analytics:event', 'iframe', type, this.engine.get('name_stripped'));
+                this.request('service:analytics:event', 'iframe', this.type, this.engine.get('name_stripped'));
             } else if (this.type === 'search') {
                 this.request('data:state:get', 'query', this.onGetQuery, this);
             }
