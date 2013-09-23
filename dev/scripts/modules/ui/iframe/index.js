@@ -99,14 +99,14 @@ define([
             if (type === 'home') {
                 this.render();
 
-                this.request('ui:routes:set', 'engine/' + this.views.iframe.engine.get('slug'));
+                this.request('ui:routes:set', 'engine/' + this.engine.get('slug'));
 
                 this.request('ui:head:set', {
-                    title:          this.views.iframe.engine.get('name_stripped') + ' BitTorrent Search - TorrentScan',
-                    description:    'Search for torrents with ' + this.views.iframe.engine.get('name_stripped') + ' and Torrent Scan engine searcher.'
+                    title:          this.engine.get('name_stripped') + ' BitTorrent Search - TorrentScan',
+                    description:    'Search for torrents with ' + this.engine.get('name_stripped') + ' and Torrent Scan engine searcher.'
                 });
 
-                this.request('service:analytics:event', 'iframe', type, this.views.iframe.engine.get('name_stripped'));
+                this.request('service:analytics:event', 'iframe', type, this.engine.get('name_stripped'));
             } else if (type === 'search') {
                 this.request('data:state:get', 'query', this.onGetQuery, this);
             }
@@ -141,7 +141,7 @@ define([
 
             this.render();
 
-            route = 'engine/' + this.views.iframe.engine.get('slug') + '/search/' + this.views.iframe.query;
+            route = 'engine/' + this.engine.get('slug') + '/search/' + this.query;
 
             if (this.category) {
                 route += '/category/' + this.category.get('slug');

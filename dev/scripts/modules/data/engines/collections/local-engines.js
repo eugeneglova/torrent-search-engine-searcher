@@ -6,9 +6,9 @@ define([
 ], function (RemoteEnginesCollection, LocalCollection) {
     'use strict';
 
-    var LocalEnginesCollection = RemoteEnginesCollection.extend(_.extend({}, LocalCollection.prototype, {
+    var LocalEnginesCollection = RemoteEnginesCollection.extend(_.omit(_.extend({}, LocalCollection.prototype, {
 
-    }));
+    }), 'model'));
 
     return LocalEnginesCollection;
 });
