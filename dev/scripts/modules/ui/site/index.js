@@ -115,9 +115,9 @@ define([
         },
 
         onWindowResized: function() {
-            if (!this.views.sites) return false;
+            if (!this.views.site) return false;
 
-            this.views.sites.resize();
+            this.views.site.resize();
 
             return true;
         },
