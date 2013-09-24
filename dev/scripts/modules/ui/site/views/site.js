@@ -42,7 +42,7 @@ define([
         },
 
         resize: function() {
-            this.$el.css('height', $(window).height() - $('.header').height());
+            this.$el.css('height', $(window).height() - $('.header').outerHeight(true));
 
             return true;
         },

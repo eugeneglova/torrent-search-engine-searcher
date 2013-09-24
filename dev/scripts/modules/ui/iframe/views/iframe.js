@@ -50,7 +50,7 @@ define([
         },
 
         resize: function() {
-            this.$('iframe').css('height', $(window).height() - $('.header').height());
+            this.$('iframe').css('height', $(window).height() - $('.header').outerHeight(true));
 
             return true;
         },

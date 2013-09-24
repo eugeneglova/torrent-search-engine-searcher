@@ -53,9 +53,7 @@ define([
         },
 
         resize: function() {
-            var sidebar = $('.sidebar');
-
-            this.$el.css('height', $(window).height() - $('.header').height() - $('.search').height() - sidebar.outerHeight() + sidebar.height());
+            this.$el.css('height', $(window).height() - $('.header').outerHeight(true) - $('.search').height());
 
             return true;
         },
