@@ -1,7 +1,16 @@
 <div class="container-fluid">
+
+    <ul class="breadcrumb">
+      <li><a href="/">Home</a> <span class="divider">/</span></li>
+      <li><a href="/sites/">File Sharing Directory</a> <span class="divider">/</span></li>
+      <li><a href="/sites/{{ group.slug }}">{{ group.name }} sites</a> <span class="divider">/</span></li>
+      <li class="active">{{{ name }}}</li>
+    </ul>
+
     <h1>
         {{{ name }}}
     </h1>
+
     {{> templates_ads_banner}}
 
     {{#if acronym}}
