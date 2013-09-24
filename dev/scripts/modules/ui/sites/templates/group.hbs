@@ -1,5 +1,12 @@
 {{#if group}}
+    <ul class="breadcrumb">
+      <li><a href="/">Home</a> <span class="divider">/</span></li>
+      <li><a href="/sites/">File Sharing Directory</a> <span class="divider">/</span></li>
+      <li class="active">{{ name }} sites</li>
+    </ul>
+
     <h1>{{ name }} sites</h1>
+
     {{> templates_ads_banner}}
 {{else}}
     <h4>
