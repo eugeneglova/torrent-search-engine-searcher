@@ -29,7 +29,7 @@ define([
         groups: null,
 
         // Reference to the active group model
-        active_group: null,
+        group: null,
 
         views: null,
 
@@ -51,12 +51,12 @@ define([
             return true;
         },
 
-        setActiveGroup: function(group) {
-            this.active_group = null;
+        setGroup: function(group) {
+            this.group = null;
 
             if (!group) return false;
 
-            this.active_group = group;
+            this.group = group;
 
             return true;
         },
@@ -82,14 +82,14 @@ define([
             this.resize();
 
             this.$el.html(this.template({
-                active_group: this.active_group
+                group: this.group
             }, {
                 partials: {
                     templates_ads_banner: BannerTemplate
                 }
             }));
 
-            groups = this.active_group ? [this.active_group] : this.groups;
+            groups = this.group ? [this.group] : this.groups;
 
             groups.forEach(function(group) {
                 var view, engines;
@@ -99,10 +99,10 @@ define([
                 if (!engines.length) return false;
 
                 view = this.views[group.id] = new GroupView({
-                    parent:         this,
-                    model:          group,
-                    collection:     engines,
-                    active_group:   this.active_group
+                    parent:     this,
+                    model:      group,
+                    collection: engines,
+                    group:      this.group
                 });
 
                 this.$('.groups').append(view.render().$el);

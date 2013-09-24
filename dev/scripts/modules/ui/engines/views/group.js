@@ -21,6 +21,8 @@ define([
         // Reference to parent view
         parent: null,
 
+        group: null,
+
         views: null,
 
         initialize: function(options) {
@@ -28,7 +30,7 @@ define([
 
             this.parent = options.parent;
 
-            this.active_group = options.active_group;
+            this.group = options.group;
 
             return this;
         },
@@ -38,7 +40,7 @@ define([
 
             this.clearViews();
 
-            this.$el.html(this.template(_.extend(this.model.toJSON(), { active_group: this.active_group }), {
+            this.$el.html(this.template(_.extend(this.model.toJSON(), { group: this.group }), {
                 partials: {
                     templates_ads_banner: BannerTemplate
                 }

@@ -25,7 +25,7 @@ define([
 
         is_rendered: null,
 
-        active_group: null,
+        group: null,
 
         // Reference to the engines collection
         engines: null,
@@ -71,16 +71,16 @@ define([
         },
 
         onDataStateGetGroupId: function(group_id) {
-            var group = this.groups.get(group_id);
+            this.group = this.groups.get(group_id);
 
-            this.views.engines.setActiveGroup(group);
+            this.views.engines.setGroup(this.group);
 
-            if (group) {
-                this.request('ui:routes:set', 'engines/' + group.get('slug'));
+            if (this.group) {
+                this.request('ui:routes:set', 'engines/' + this.group.get('slug'));
 
                 this.request('ui:head:set', {
-                    title:         group.get('name') + ' search engines - TorrentScan',
-                    description:   group.get('description')
+                    title:         this.group.get('name') + ' search engines - TorrentScan',
+                    description:   this.group.get('description')
                 });
             } else {
                 this.request('ui:routes:set', 'engines');
@@ -93,7 +93,7 @@ define([
 
             this.render();
 
-            this.request('service:analytics:event', 'engines', 'open', group ? group.get('name') : '');
+            this.request('service:analytics:event', 'engines', 'open', this.group ? this.group.get('name') : '');
 
             return true;
         },
