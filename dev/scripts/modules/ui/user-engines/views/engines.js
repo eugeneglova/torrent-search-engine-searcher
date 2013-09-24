@@ -53,7 +53,7 @@ define([
         },
 
         resize: function() {
-            this.$el.css('height', $(window).height() - $('.header').outerHeight(true) - $('.search').height());
+            this.$el.css('height', $(window).height() - $('.header').outerHeight(true) - $('.search').outerHeight(true));
 
             return true;
         },

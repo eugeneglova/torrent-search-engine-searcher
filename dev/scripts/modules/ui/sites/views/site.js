@@ -13,7 +13,7 @@ define([
 
         tagName: 'li',
 
-        className: 'site',
+        className: 'site-item',
 
         events: {
             'click': 'onClick'
