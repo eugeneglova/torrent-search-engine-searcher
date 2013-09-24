@@ -48,6 +48,8 @@ define([
         },
 
         onOpen: function() {
+            this.remove();
+
             this.request('data:state:get', 'site-id', this.onDataStateGetSiteId, this);
 
             return true;

@@ -5,8 +5,9 @@ define([
     'underscore',
     'backbone',
     'hbs!../templates/site',
-    'hbs!templates/ads/banner'
-], function ($, _, Backbone, SiteTemplate, BannerTemplate) {
+    'hbs!templates/ads/banner',
+    'components/breadcrumbs/index'
+], function ($, _, Backbone, SiteTemplate, BannerTemplate, BreadcrumbsView) {
     'use strict';
 
     var SiteView = Backbone.View.extend({
@@ -21,10 +22,14 @@ define([
         // Reference to the group model
         group: null,
 
+        breadcrumbs: null,
+
         views: null,
 
         initialize: function() {
             this.views = {};
+
+            this.breadcrumbs = new Backbone.Collection();
 
             return this;
         },
@@ -38,6 +43,28 @@ define([
         setGroup: function(group) {
             this.group = group;
 
+            this.breadcrumbs.reset();
+
+            this.breadcrumbs.add({
+                name: 'Home',
+                url: '/'
+            });
+
+            this.breadcrumbs.add({
+                name: 'File Sharing Directory',
+                url: '/sites/'
+            });
+
+            this.breadcrumbs.add({
+                name: this.group.get('name') + ' sites',
+                url: '/sites/' + this.group.get('slug')
+            });
+
+            this.breadcrumbs.add({
+                name: this.site.get('name'),
+                is_active: true
+            });
+
             return true;
         },
 
@@ -48,11 +75,17 @@ define([
         },
 
         render: function() {
-            this.clearViews();
+            this.$el.empty();
 
             this.resize();
 
-            this.$el.html(this.template(_.extend({}, this.site.toJSON(), {
+            this.views.breadcrumbs = new BreadcrumbsView({
+                collection: this.breadcrumbs
+            });
+
+            this.$el.append(this.views.breadcrumbs.render().$el);
+
+            this.$el.append(this.template(_.extend({}, this.site.toJSON(), {
                 group: this.group.toJSON()
             }), {
                 partials: {
@@ -63,11 +96,13 @@ define([
             return this;
         },
 
-        clearViews: function() {
+        remove: function() {
             Object.keys(this.views).forEach(function(key) {
                 this.views[key].remove();
                 delete this.views[key];
             }, this);
+
+            Backbone.View.prototype.remove.apply(this, arguments);
 
             return true;
         }
