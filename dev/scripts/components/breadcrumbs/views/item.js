@@ -40,7 +40,7 @@ define([
         onClick: function(e) {
             e.preventDefault();
 
-            this.parent.trigger('open-by-route', this.model.id);
+            this.parent.trigger('open-route', this.model.get('route'));
 
             return true;
         }

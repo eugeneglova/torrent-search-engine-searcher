@@ -47,17 +47,17 @@ define([
 
             this.breadcrumbs.add({
                 name: 'Home',
-                url: '/'
+                route: ''
             });
 
             this.breadcrumbs.add({
                 name: 'File Sharing Directory',
-                url: '/sites/'
+                route: 'sites'
             });
 
             this.breadcrumbs.add({
                 name: this.group.get('name') + ' sites',
-                url: '/sites/' + this.group.get('slug')
+                route: 'sites/' + this.group.get('slug')
             });
 
             this.breadcrumbs.add({
@@ -83,7 +83,7 @@ define([
                 collection: this.breadcrumbs
             });
 
-            this.$el.append(this.views.breadcrumbs.render().$el);
+            this.$el.append(this.views.breadcrumbs.render().el);
 
             this.$el.append(this.template(_.extend({}, this.site.toJSON(), {
                 group: this.group.toJSON()

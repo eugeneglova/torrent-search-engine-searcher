@@ -2,55 +2,70 @@
 
 define([
     'backbone',
-    './views/item'
-], function (Backbone, ItemView) {
+    './views/breadcrumbs'
+], function (Backbone, BreadcrumbsView) {
     'use strict';
 
-    var BreadcrumbsView = Backbone.View.extend({
+    var Site = Backbone.UIController.extend({
 
-        tagName: 'ul',
+        namespace: 'ui:breadcrumbs',
 
-        className: 'breadcrumb',
+        el: null,
 
         views: null,
 
-        initialize: function() {
+        is_rendered: null,
+
+        // Reference to the breadcrumbs collection
+        breadcrumbs: null,
+
+        initialize: function(options) {
             this.views = {};
+
+            this.breadcrumbs = options.collection;
+
+            this.views.breadcrumbs = new BreadcrumbsView({
+                collection: this.breadcrumbs
+            });
 
             return this;
         },
 
+        isRendered: function() {
+            return !!this.is_rendered;
+        },
+
         render: function() {
-            this.remove();
+            this.listenTo(this.views.breadcrumbs, 'open-route', this.onOpenRoute, this);
 
-            this.collection.forEach(function(model) {
-                var view;
+            this.views.breadcrumbs.render();
 
-                view = this.views[model.id] = new ItemView({
-                    parent: this,
-                    model:  model
-                });
+            this.el = this.views.breadcrumbs.$el;
 
-                this.$el.append(view.render().$el);
-
-                this.views[model.id] = view;
-            }, this);
+            this.is_rendered = true;
 
             return this;
         },
 
         remove: function() {
+            if (!this.isRendered()) return false;
+
             Object.keys(this.views).forEach(function(key) {
                 this.views[key].remove();
-                delete this.views[key];
             }, this);
 
-            Backbone.View.prototype.remove.apply(this, arguments);
+            this.is_rendered = false;
+
+            return true;
+        },
+
+        onOpenRoute: function(route) {
+            this.request('ui:routes:set', route, { trigger: true });
 
             return true;
         }
 
     });
 
-    return BreadcrumbsView;
+    return Site;
 });

@@ -77,13 +77,13 @@ define([
 
             this.breadcrumbs.add({
                 name: 'Home',
-                url: '/'
+                route: ''
             });
 
             if (this.group) {
                 this.breadcrumbs.add({
                     name: 'File Sharing Directory',
-                    url: '/sites/'
+                    route: 'sites'
                 });
 
                 this.breadcrumbs.add({
@@ -101,7 +101,7 @@ define([
                 collection: this.breadcrumbs
             });
 
-            this.$el.append(this.views.breadcrumbs.render().$el);
+            this.$el.append(this.views.breadcrumbs.render().el);
 
             this.$el.append(this.template({
                 group: this.group
