@@ -16,13 +16,6 @@ define([
 
         className: 'engines container-fluid',
 
-        events: {
-            'scroll': 'onScroll'
-        },
-
-        // Reference to the scroll top
-        scroll_top: null,
-
         // Reference to the engines collection
         engines: null,
 
@@ -62,13 +55,6 @@ define([
             if (!group) return false;
 
             this.group = group;
-
-            return true;
-        },
-
-        onScroll: function(e) {
-            // Save scroll position
-            this.scroll_top = e.currentTarget.scrollTop;
 
             return true;
         },
@@ -145,10 +131,7 @@ define([
                 this.views[group.id] = view;
             }, this);
 
-            // Restore scroll position
             _.defer(function() {
-                this.$el.get(0).scrollTop = this.scroll_top;
-
                 this.$('.engine').draggable({ revert: 'invalid', helper: 'clone' }).disableSelection();
 
                 this.$('.droppable').droppable({
