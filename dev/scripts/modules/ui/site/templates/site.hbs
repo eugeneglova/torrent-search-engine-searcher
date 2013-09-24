@@ -1,80 +1,76 @@
-<div class="container-fluid">
+<ul class="breadcrumb">
+  <li><a href="/">Home</a> <span class="divider">/</span></li>
+  <li><a href="/sites/">File Sharing Directory</a> <span class="divider">/</span></li>
+  <li><a href="/sites/{{ group.slug }}">{{ group.name }} sites</a> <span class="divider">/</span></li>
+  <li class="active">{{{ name }}}</li>
+</ul>
 
-    <ul class="breadcrumb">
-      <li><a href="/">Home</a> <span class="divider">/</span></li>
-      <li><a href="/sites/">File Sharing Directory</a> <span class="divider">/</span></li>
-      <li><a href="/sites/{{ group.slug }}">{{ group.name }} sites</a> <span class="divider">/</span></li>
-      <li class="active">{{{ name }}}</li>
-    </ul>
+<h1>
+    {{{ name }}}
+</h1>
 
-    <h1>
-        {{{ name }}}
-    </h1>
+{{> templates_ads_banner}}
 
-    {{> templates_ads_banner}}
+{{#if acronym}}
+    <p>
+        <b>Site acronym:</b>
+        <span>{{ acronym }}</span>
+    </p>
+{{/if}}
 
-    {{#if acronym}}
-        <p>
-            <b>Site acronym:</b>
-            <span>{{ acronym }}</span>
-        </p>
-    {{/if}}
+<p>
+    <b>Website URL:</b>
+    <a href="{{ home_url }}" target="_blank" rel="nofollow">
+        {{ home_url }}
+    </a>
+</p>
+
+<p>
+    <b>SSL Support:</b>
+    <span>{{ ssl_support }}</span>
+</p>
+
+{{#if rss_url}}
+    <p>
+        <b>RSS feed:</b>
+        <a href="{{ rss_url }}" target="_blank" rel="nofollow">{{ rss_url }}</a>
+    </p>
+{{/if}}
+
+{{#if irc}}
+    <p>
+        <b>IRC:</b>
+        <a href="{{ irc }}" rel="nofollow">{{ irc }}</a>
+    </p>
+{{/if}}
+
+{{#if language}}
+    <p>
+        <b>Language:</b>
+        <span>{{ language }}</span>
+    </p>
+{{/if}}
+
+{{#if foundation_date}}
+    <p>
+        <b>Foundation date:</b>
+        <span>{{ foundation_date }}</span>
+    </p>
+{{/if}}
+
+{{#if search_engine }}
+    <p>
+        <b>Search url example:</b>
+        <div>
+          <a href="{{ search_url }}" target="_blank" rel="nofollow">{{ search_url }}</a>
+        </div>
+    </p>
+{{/if}}
+
+{{#if description}}
+    <h2>Description:</h2>
 
     <p>
-        <b>Website URL:</b>
-        <a href="{{ home_url }}" target="_blank" rel="nofollow">
-            {{ home_url }}
-        </a>
+        {{{ description }}}
     </p>
-
-    <p>
-        <b>SSL Support:</b>
-        <span>{{ ssl_support }}</span>
-    </p>
-
-    {{#if rss_url}}
-        <p>
-            <b>RSS feed:</b>
-            <a href="{{ rss_url }}" target="_blank" rel="nofollow">{{ rss_url }}</a>
-        </p>
-    {{/if}}
-
-    {{#if irc}}
-        <p>
-            <b>IRC:</b>
-            <a href="{{ irc }}" rel="nofollow">{{ irc }}</a>
-        </p>
-    {{/if}}
-
-    {{#if language}}
-        <p>
-            <b>Language:</b>
-            <span>{{ language }}</span>
-        </p>
-    {{/if}}
-
-    {{#if foundation_date}}
-        <p>
-            <b>Foundation date:</b>
-            <span>{{ foundation_date }}</span>
-        </p>
-    {{/if}}
-
-    {{#if search_engine }}
-        <p>
-            <b>Search url example:</b>
-            <div>
-              <a href="{{ search_url }}" target="_blank" rel="nofollow">{{ search_url }}</a>
-            </div>
-        </p>
-    {{/if}}
-
-    {{#if description}}
-        <h2>Description:</h2>
-
-        <p>
-            {{{ description }}}
-        </p>
-    {{/if}}
-
-</div>
+{{/if}}

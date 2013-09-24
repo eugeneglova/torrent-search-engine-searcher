@@ -13,7 +13,7 @@ define([
 
         template: SiteTemplate,
 
-        className: 'site',
+        className: 'site container-fluid',
 
         // Reference to the site model
         site: null,
