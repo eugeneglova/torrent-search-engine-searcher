@@ -1,9 +1,10 @@
 /*global define*/
 
 define([
+    'underscore',
     'backbone',
     './views/pages'
-], function (Backbone, PagesView) {
+], function (_, Backbone, PagesView) {
     'use strict';
 
     var Pages = Backbone.UIController.extend({

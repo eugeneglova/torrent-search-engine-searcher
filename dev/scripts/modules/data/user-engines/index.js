@@ -1,10 +1,11 @@
 /*global define*/
 
 define([
+    'underscore',
     'components/data-collection/index',
     './collections/remote-engines',
     './collections/local-engines'
-], function (DataCollection, RemoteEnginesCollection, LocalEnginesCollection) {
+], function (_, DataCollection, RemoteEnginesCollection, LocalEnginesCollection) {
     'use strict';
 
     var UserEngines = DataCollection.extend({

@@ -1,11 +1,12 @@
 /*global define*/
 
 define([
+    'underscore',
     'backbone',
     'hbs!../templates/group',
     'hbs!templates/ads/banner',
     './engine'
-], function (Backbone, GroupTemplate, BannerTemplate, EngineView) {
+], function (_, Backbone, GroupTemplate, BannerTemplate, EngineView) {
     'use strict';
 
     var GroupView = Backbone.View.extend({

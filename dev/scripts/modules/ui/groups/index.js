@@ -1,9 +1,10 @@
 /*global define*/
 
 define([
+    'underscore',
     'backbone',
     './views/groups'
-], function (Backbone, GroupsView) {
+], function (_, Backbone, GroupsView) {
     'use strict';
 
     var Groups = Backbone.UIController.extend({
@@ -14,7 +15,7 @@ define([
             'data:groups:ready':    'onDataGroupsReady',
             'ui:engines:open':      'onEnginesOpen',
             'ui:iframe:open':       'onIframeOpen',
-            'ui:page:open':         'onIframeOpen',
+            'ui:page:open':         'onIframeOpen'
         },
 
         el: null,
