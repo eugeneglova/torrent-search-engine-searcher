@@ -5,15 +5,16 @@ define([
     'backbone',
     'hbs!../templates/engines',
     'hbs!templates/ads/banner',
-    './group'
-], function (_, Backbone, EnginesTemplate, BannerTemplate, GroupView) {
+    './group',
+    'components/breadcrumbs/index'
+], function (_, Backbone, EnginesTemplate, BannerTemplate, GroupView, BreadcrumbsView) {
     'use strict';
 
     var EnginesView = Backbone.View.extend({
 
         template: EnginesTemplate,
 
-        className: 'engines',
+        className: 'engines container-fluid',
 
         events: {
             'scroll': 'onScroll'
@@ -31,10 +32,14 @@ define([
         // Reference to the active group model
         group: null,
 
+        breadcrumbs: null,
+
         views: null,
 
         initialize: function() {
             this.views = {};
+
+            this.breadcrumbs = new Backbone.Collection();
 
             return this;
         },
@@ -77,11 +82,41 @@ define([
         render: function() {
             var groups;
 
-            this.clearViews();
+            this.$el.empty();
 
             this.resize();
 
-            this.$el.html(this.template({
+            this.breadcrumbs.reset();
+
+            this.breadcrumbs.add({
+                name: 'Home',
+                route: ''
+            });
+
+            if (this.group) {
+                this.breadcrumbs.add({
+                    name: 'Engines',
+                    route: 'engines'
+                });
+
+                this.breadcrumbs.add({
+                    name: this.group.get('name') + ' engines',
+                    is_active: true
+                });
+            } else {
+                this.breadcrumbs.add({
+                    name: 'Engines',
+                    is_active: true
+                });
+            }
+
+            this.views.breadcrumbs = new BreadcrumbsView({
+                collection: this.breadcrumbs
+            });
+
+            this.$el.append(this.views.breadcrumbs.render().el);
+
+            this.$el.append(this.template({
                 group: this.group
             }, {
                 partials: {
@@ -140,11 +175,13 @@ define([
             return true;
         },
 
-        clearViews: function() {
+        remove: function() {
             Object.keys(this.views).forEach(function(key) {
                 this.views[key].remove();
                 delete this.views[key];
             }, this);
+
+            Backbone.View.prototype.remove.apply(this, arguments);
 
             return true;
         }

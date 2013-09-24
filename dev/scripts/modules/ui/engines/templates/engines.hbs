@@ -1,17 +1,15 @@
-<div class="container-fluid">
-    {{#unless group}}
-        <div class="row-fluid">
-            <h1>All BitTorrent Search Engines</h1>
-            {{> templates_ads_banner}}
-            <p>
-                You can now <strong>sort</strong> your torrent engines list.
-                Also you can <strong>drag &amp; drop</strong> engines to <strong>add</strong> or <strong>remove</strong> engine from available torrent search engines to your favorite list.
-            </p>
-            <p class="alert alert-info">Engines and sites grouped by type</p>
-        </div>
-    {{/unless}}
-    <div class="groups droppable">
-        <!--Groups content-->
+{{#unless group}}
+    <div class="row-fluid">
+        <h1>All BitTorrent Search Engines</h1>
+        {{> templates_ads_banner}}
+        <p>
+            You can now <strong>sort</strong> your torrent engines list.
+            Also you can <strong>drag &amp; drop</strong> engines to <strong>add</strong> or <strong>remove</strong> engine from available torrent search engines to your favorite list.
+        </p>
+        <p class="alert alert-info">Engines and sites grouped by type</p>
     </div>
-    <br>
+{{/unless}}
+<div class="groups droppable">
+    <!--Groups content-->
 </div>
+<br>

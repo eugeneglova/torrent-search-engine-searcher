@@ -41,6 +41,8 @@ define([
         },
 
         onOpen: function() {
+            this.remove();
+
             this.request('data:engines:get', this.onDataEnginesGet, this);
 
             return true;
