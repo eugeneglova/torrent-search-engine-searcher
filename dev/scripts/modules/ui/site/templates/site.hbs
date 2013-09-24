@@ -23,31 +23,33 @@
         <span>{{ ssl_support }}</span>
     </p>
 
-    <p>
-        <b>RSS feed:</b>
-        {{#if rss_url}}
+    {{#if rss_url}}
+        <p>
+            <b>RSS feed:</b>
             <a href="{{ rss_url }}" target="_blank" rel="nofollow">{{ rss_url }}</a>
-        {{/if}}
-    </p>
-
-    {{#if irc}}
-    <p>
-        <b>IRC:</b>
-        <a href="{{ irc }}" rel="nofollow">
-            {{ irc }}
-        </a>
-    </p>
+        </p>
     {{/if}}
 
-    <p>
-        <b>Language:</b>
-        <span>{{ language }}</span>
-    </p>
+    {{#if irc}}
+        <p>
+            <b>IRC:</b>
+            <a href="{{ irc }}" rel="nofollow">{{ irc }}</a>
+        </p>
+    {{/if}}
 
-    <p>
-        <b>Foundation date:</b>
-        <span>{{ foundation_date }}</span>
-    </p>
+    {{#if language}}
+        <p>
+            <b>Language:</b>
+            <span>{{ language }}</span>
+        </p>
+    {{/if}}
+
+    {{#if foundation_date}}
+        <p>
+            <b>Foundation date:</b>
+            <span>{{ foundation_date }}</span>
+        </p>
+    {{/if}}
 
     {{#if search_engine }}
         <p>
@@ -58,10 +60,12 @@
         </p>
     {{/if}}
 
-    <h2>Description:</h2>
+    {{#if description}}
+        <h2>Description:</h2>
 
-    <p>
-        {{{ description }}}
-    </p>
+        <p>
+            {{{ description }}}
+        </p>
+    {{/if}}
 
 </div>
