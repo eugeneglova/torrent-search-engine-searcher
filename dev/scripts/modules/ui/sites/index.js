@@ -48,6 +48,8 @@ define([
         },
 
         onOpen: function() {
+            this.remove();
+
             this.request('data:state:get', 'group-id', this.onDataStateGetGroupId, this);
 
             return true;
