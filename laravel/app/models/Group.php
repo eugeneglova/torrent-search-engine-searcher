@@ -8,6 +8,7 @@ class Group extends Eloquent {
         'id',
         'name',
         'slug',
+        'description',
         'sort'
     );
 
