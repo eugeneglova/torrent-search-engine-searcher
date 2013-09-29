@@ -33,8 +33,8 @@ define([
             return true;
         },
 
-        onSet: function(key, value) {
-            this.set(key, value);
+        onSet: function(key, value, options) {
+            this.set(key, value, options);
 
             if (['query', 'engine-id', 'category-id'].indexOf(key) !== -1) {
                 this.setType();
@@ -47,10 +47,14 @@ define([
             return this.model.get(key);
         },
 
-        set: function(key, value) {
+        set: function(key, value, options) {
+            options = options || {};
+
             this.model.set(key, value);
 
-            this.announce('changed:' + key);
+            if (!options.silent) {
+                this.announce('changed:' + key);
+            }
 
             return true;
         },

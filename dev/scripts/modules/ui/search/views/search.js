@@ -1,8 +1,9 @@
 /*global define*/
 
 define([
+    'underscore',
     'backbone'
-], function (Backbone) {
+], function (_, Backbone) {
     'use strict';
 
     var SearchView = Backbone.View.extend({
@@ -12,8 +13,9 @@ define([
         className: 'search-query span12',
 
         events: {
-            'change':     'onChange',
-            'keypress':   'onSubmit'
+            'change':   'onChange',
+            'keyup':    'onKeyUp',
+            'keypress': 'onKeyPress'
         },
 
         // Reference to search query
@@ -46,7 +48,15 @@ define([
             return true;
         },
 
-        onSubmit: function(e) {
+        onKeyUp: function(e) {
+            _.throttle(function() {
+                this.trigger('change', $(e.currentTarget).val(), { silent: true });
+            }.bind(this), 300)();
+
+            return true;
+        },
+
+        onKeyPress: function(e) {
             if (e.which === 13) {
                 e.preventDefault();
 

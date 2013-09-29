@@ -54,8 +54,10 @@ define([
             return this;
         },
 
-        onChange: function(value) {
-            this.request('data:state:set', 'query', value);
+        onChange: function(value, options) {
+            options = options || {};
+
+            this.request('data:state:set', 'query', value, options);
 
             return true;
         },
