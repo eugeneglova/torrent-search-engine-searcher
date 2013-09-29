@@ -173,6 +173,12 @@ define([
                 this.request('service:analytics:event', 'iframe', 'category', this.category.get('name'));
             }
 
+            this.request('service:search-log:send', {
+                query:          this.query,
+                engine_id:      this.engine.id,
+                category_id:    this.category ? this.category.id : 0
+            });
+
             return true;
         },
 

@@ -7,6 +7,7 @@ define([
     'modules/service/log/index',
     'modules/service/analytics/index',
     'modules/service/contact/index',
+    'modules/service/search-log/index',
 
     // UI
     'modules/ui/window/index',
@@ -41,6 +42,7 @@ define([
     Log,
     Analytics,
     Contact,
+    SearchLog,
 
     // UI
     Window,
@@ -89,7 +91,8 @@ define([
             this.definitions.service = {
                 log:        Log,
                 analytics:  Analytics,
-                contact:    Contact
+                contact:    Contact,
+                search_log: SearchLog
             };
 
             this.definitions.ui = {

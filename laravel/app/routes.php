@@ -29,6 +29,8 @@ Route::group(array('prefix' => 'api/v1'), function()
     Route::resource('pages', 'PageController');
 
     Route::resource('contact', 'ContactController');
+
+    Route::resource('search-log', 'SearchLogController');
 });
 
 // Get environment name
