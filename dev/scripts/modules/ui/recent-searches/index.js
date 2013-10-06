@@ -11,12 +11,12 @@ define([
         namespace: 'ui:recent-searches',
 
         listeners: {
-            'data:search-log:ready':    'onDataSearchLogReady',
-            'ui:page:opened:home':      'onPageOpenedHome',
-            'ui:iframe:open':           'remove',
-            'ui:engines:open':          'remove',
-            'ui:sites:open':            'remove',
-            'ui:site:open':             'remove'
+            'data:recent-searches:ready':   'onRecentSearchesReady',
+            'ui:page:opened:home':          'onPageOpenedHome',
+            'ui:iframe:open':               'remove',
+            'ui:engines:open':              'remove',
+            'ui:sites:open':                'remove',
+            'ui:site:open':                 'remove'
         },
 
         views: null,
@@ -36,8 +36,8 @@ define([
             return !!this.is_rendered;
         },
 
-        onDataSearchLogReady: function() {
-            this.request('data:search-log:get', this.onDataSearchLogGet, this);
+        onRecentSearchesReady: function() {
+            this.request('data:recent-searches:get', this.onRecentSearchesGet, this);
 
             return true;
         },
@@ -48,7 +48,7 @@ define([
             return true;
         },
 
-        onDataSearchLogGet: function(search_log) {
+        onRecentSearchesGet: function(search_log) {
             this.search_log = search_log;
 
             this.views.recent_searches = new RecentSearchesView({

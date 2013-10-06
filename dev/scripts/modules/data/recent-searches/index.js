@@ -3,25 +3,25 @@
 define([
     'underscore',
     'components/data-remote-collection/index',
-    './collections/search-log'
-], function (_, DataRemoteCollection, SearchLogCollection) {
+    './collections/recent-searches'
+], function (_, DataRemoteCollection, RecentSearchesCollection) {
     'use strict';
 
-    var SearchLog = DataRemoteCollection.extend({
+    var RecentSearches = DataRemoteCollection.extend({
 
-        namespace: 'data:search-log',
+        namespace: 'data:recent-searches',
 
         listeners: _.extend({}, DataRemoteCollection.prototype.listeners, {
             'data:engines:ready': 'onDataEnginesReady'
         }),
 
-        remote_collection_constructor: SearchLogCollection,
+        remote_collection_constructor: RecentSearchesCollection,
 
 
         initialize: function() {
             DataRemoteCollection.prototype.initialize.apply(this, arguments);
 
-            this.listenTo(this.collections.remote, 'reset', this.onSearchLogReset, this);
+            this.listenTo(this.collections.remote, 'reset', this.onRecentSearchesReset, this);
 
             return this;
         },
@@ -32,7 +32,7 @@ define([
             return true;
         },
 
-        onSearchLogReset: function() {
+        onRecentSearchesReset: function() {
             if (this.collections.engines) {
                 this.collections.remote.engines = this.collections.engines;
             }
@@ -50,5 +50,5 @@ define([
 
     });
 
-    return SearchLog;
+    return RecentSearches;
 });

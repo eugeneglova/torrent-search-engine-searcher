@@ -36,7 +36,7 @@ define([
     'modules/data/state/index',
     'modules/data/settings/index',
     'modules/data/groups/index',
-    'modules/data/search-log/index'
+    'modules/data/recent-searches/index'
 ], function (
     Backbone,
 
@@ -73,7 +73,7 @@ define([
     DataState,
     DataSettings,
     DataGroups,
-    DataSearchLog
+    DataRecentSearches
 ) {
     'use strict';
 
@@ -119,15 +119,15 @@ define([
             };
 
             this.definitions.data = {
-                engines:        DataEngines,
-                sites:          DataSites,
-                user_engines:   DataUserEngines,
-                categories:     DataCategories,
-                pages:          DataPages,
-                state:          DataState,
-                settings:       DataSettings,
-                groups:         DataGroups,
-                search_log:     DataSearchLog
+                engines:            DataEngines,
+                sites:              DataSites,
+                user_engines:       DataUserEngines,
+                categories:         DataCategories,
+                pages:              DataPages,
+                state:              DataState,
+                settings:           DataSettings,
+                groups:             DataGroups,
+                recent_searches:    DataRecentSearches
             };
 
             this.modules            = {};
