@@ -10,6 +10,7 @@ class SearchLogController extends \BaseController {
     public function index()
     {
         //
+        return Response::json(SearchLog::getRecentSearches()->get()->toArray(), 200);
     }
 
     /**
