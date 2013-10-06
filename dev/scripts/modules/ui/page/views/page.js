@@ -18,8 +18,6 @@ define([
             'click .submit': 'onSubmit'
         },
 
-        ui: null,
-
         // Reference to the page model
         model: null,
 
