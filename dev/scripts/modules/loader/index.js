@@ -34,7 +34,8 @@ define([
     'modules/data/pages/index',
     'modules/data/state/index',
     'modules/data/settings/index',
-    'modules/data/groups/index'
+    'modules/data/groups/index',
+    'modules/data/search-log/index'
 ], function (
     Backbone,
 
@@ -69,7 +70,8 @@ define([
     DataPages,
     DataState,
     DataSettings,
-    DataGroups
+    DataGroups,
+    DataSearchLog
 ) {
     'use strict';
 
@@ -121,7 +123,8 @@ define([
                 pages:          DataPages,
                 state:          DataState,
                 settings:       DataSettings,
-                groups:         DataGroups
+                groups:         DataGroups,
+                search_log:     DataSearchLog
             };
 
             this.modules            = {};
