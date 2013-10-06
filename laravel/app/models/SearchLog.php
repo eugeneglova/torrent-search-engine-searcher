@@ -10,6 +10,10 @@ class SearchLog extends Eloquent {
         'created_at'
     );
 
+    protected $appends = array(
+        'now'
+    );
+
     protected $fillable = array(
         'query',
         'engine_id',
@@ -18,8 +22,12 @@ class SearchLog extends Eloquent {
         'ua'
     );
 
+    public function getNowAttribute() {
+        return $this->attributes['now'];
+    }
+
     public function scopeGetRecentSearches($query) {
-        return $query->orderBy('created_at')->groupBy('query', 'ip')->limit(20);
+        return $query->orderBy('created_at', 'desc')->groupBy('query', 'ip')->addSelect($this->visible)->addSelect(DB::raw('now() as `now`'))->limit(20);
     }
 
 }

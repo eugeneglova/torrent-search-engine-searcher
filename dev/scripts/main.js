@@ -58,6 +58,7 @@ require.config({
         localstorage:           '../bower_components/backbone.localStorage/backbone.localStorage',
         backbone:               'core/backbone',
         underscore:             '../bower_components/underscore/underscore',
+        moment:                '../bower_components/momentjs/moment',
         bootstrap:              'vendor/bootstrap',
         // require-handlebars-plugin setup
         'handlebars':           '../bower_components/require-handlebars-plugin/Handlebars',

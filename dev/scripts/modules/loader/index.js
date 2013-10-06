@@ -25,6 +25,7 @@ define([
     'modules/ui/sites/index',
     'modules/ui/site/index',
     'modules/ui/navbar/index',
+    'modules/ui/recent-searches/index',
 
     // Data
     'modules/data/engines/index',
@@ -61,6 +62,7 @@ define([
     Sites,
     Site,
     Navbar,
+    RecentSearches,
 
     // Data
     DataEngines,
@@ -98,21 +100,22 @@ define([
             };
 
             this.definitions.ui = {
-                window:         Window,
-                user_engines:   UserEngines,
-                categories:     Categories,
-                search:         Search,
-                iframe:         Iframe,
-                page:           Page,
-                navbar:         Navbar,
-                pages:          Pages,
-                // groups:         Groups,
-                routes:         Routes,
-                head:           Head,
-                addthis:        AddThis,
-                engines:        Engines,
-                sites:          Sites,
-                site:           Site
+                window:             Window,
+                user_engines:       UserEngines,
+                categories:         Categories,
+                search:             Search,
+                iframe:             Iframe,
+                page:               Page,
+                navbar:             Navbar,
+                pages:              Pages,
+                // groups:          Groups,
+                routes:             Routes,
+                head:               Head,
+                addthis:            AddThis,
+                engines:            Engines,
+                sites:              Sites,
+                site:               Site,
+                recent_searches:    RecentSearches
             };
 
             this.definitions.data = {

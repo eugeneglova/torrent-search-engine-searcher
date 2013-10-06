@@ -126,6 +126,10 @@ define([
 
             this.el.append(this.views.page.$el);
 
+            if (this.page.get('is_home_page')) {
+                this.announce('opened:home');
+            }
+
             return this;
         },
 
