@@ -48,6 +48,10 @@ define([
         },
 
         set: function(key, value, options) {
+            if (key === 'query' && (!value || value.replace(/\s/g).length < 1)) {
+                return false;
+            }
+
             options = options || {};
 
             this.model.set(key, value);

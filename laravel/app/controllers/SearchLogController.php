@@ -12,6 +12,8 @@ class SearchLogController extends \BaseController {
         //
         if (Input::get('show') == 'recent') {
             return Response::json(SearchLog::getRecentSearches()->get()->toArray(), 200);
+        } else if (Input::get('show') == 'top') {
+            return Response::json(SearchLog::getTopSearches()->get()->toArray(), 200);
         }
     }
 

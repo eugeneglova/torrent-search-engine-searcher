@@ -26,6 +26,7 @@ define([
     'modules/ui/site/index',
     'modules/ui/navbar/index',
     'modules/ui/recent-searches/index',
+    'modules/ui/top-searches/index',
 
     // Data
     'modules/data/engines/index',
@@ -36,7 +37,8 @@ define([
     'modules/data/state/index',
     'modules/data/settings/index',
     'modules/data/groups/index',
-    'modules/data/recent-searches/index'
+    'modules/data/recent-searches/index',
+    'modules/data/top-searches/index'
 ], function (
     Backbone,
 
@@ -63,6 +65,7 @@ define([
     Site,
     Navbar,
     RecentSearches,
+    TopSearches,
 
     // Data
     DataEngines,
@@ -73,7 +76,8 @@ define([
     DataState,
     DataSettings,
     DataGroups,
-    DataRecentSearches
+    DataRecentSearches,
+    DataTopSearches
 ) {
     'use strict';
 
@@ -115,7 +119,8 @@ define([
                 engines:            Engines,
                 sites:              Sites,
                 site:               Site,
-                recent_searches:    RecentSearches
+                recent_searches:    RecentSearches,
+                top_searches:       TopSearches
             };
 
             this.definitions.data = {
@@ -127,7 +132,8 @@ define([
                 state:              DataState,
                 settings:           DataSettings,
                 groups:             DataGroups,
-                recent_searches:    DataRecentSearches
+                recent_searches:    DataRecentSearches,
+                top_searches:       DataTopSearches
             };
 
             this.modules            = {};
