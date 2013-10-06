@@ -27,7 +27,7 @@ class SearchLog extends Eloquent {
     }
 
     public function scopeGetRecentSearches($query) {
-        return $query->orderBy('created_at', 'desc')->groupBy('query', 'ip')->addSelect($this->visible)->addSelect(DB::raw('now() as `now`'))->limit(20);
+        return $query->orderBy('created_at', 'desc')->groupBy('query', 'ip')->addSelect($this->visible)->addSelect(DB::raw('UTC_TIMESTAMP() as `now`'))->limit(20);
     }
 
 }

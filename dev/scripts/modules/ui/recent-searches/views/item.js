@@ -41,7 +41,10 @@ define([
         onClick: function(e) {
             e.preventDefault();
 
-            this.parent.trigger('open-engine-by-id', this.model.id);
+            this.parent.trigger('search', {
+                query:      this.model.get('query'),
+                engine_id:  this.model.get('engine_id')
+            });
 
             return true;
         }

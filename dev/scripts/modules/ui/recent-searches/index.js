@@ -12,12 +12,16 @@ define([
 
         listeners: {
             'data:search-log:ready':    'onDataSearchLogReady',
-            'ui:page:opened:home':      'onPageOpenedHome'
+            'ui:page:opened:home':      'onPageOpenedHome',
+            'ui:iframe:open':           'remove',
+            'ui:engines:open':          'remove',
+            'ui:sites:open':            'remove',
+            'ui:site:open':             'remove'
         },
 
-        el: null,
-
         views: null,
+
+        is_rendered: null,
 
         // Reference to the search log collection
         search_log: null,
@@ -26,6 +30,10 @@ define([
             this.views = {};
 
             return this;
+        },
+
+        isRendered: function() {
+            return !!this.is_rendered;
         },
 
         onDataSearchLogReady: function() {
@@ -50,12 +58,38 @@ define([
             return true;
         },
 
-        render: function() {
-            this.el = $('#recent-searches');
+        onSearch: function(search) {
+            this.request('data:state:set', 'query', search.query);
 
-            this.el.append(this.views.recent_searches.render().$el);
+            this.request('data:state:set', 'engine-id', search.engine_id);
+
+            this.request('ui:iframe:open');
+
+            return true;
+        },
+
+        render: function() {
+            this.views.recent_searches.setElement('#recent-searches');
+
+            this.views.recent_searches.render();
+
+            this.listenTo(this.views.recent_searches, 'search', this.onSearch, this);
+
+            this.is_rendered = true;
 
             return this;
+        },
+
+        remove: function() {
+            if (!this.isRendered()) return false;
+
+            Object.keys(this.views).forEach(function(key) {
+                this.views[key].remove();
+            }, this);
+
+            this.is_rendered = false;
+
+            return true;
         }
 
     });
