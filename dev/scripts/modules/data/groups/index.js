@@ -1,44 +1,16 @@
 /*global define*/
 
 define([
-    'backbone',
+    'components/data-remote-collection/index',
     './collections/groups'
-], function (Backbone, GroupsCollection) {
+], function (DataRemoteCollection, GroupsCollection) {
     'use strict';
 
-    var Groups = Backbone.Controller.extend({
+    var Groups = DataRemoteCollection.extend({
 
         namespace: 'data:groups',
 
-        listeners: {
-            ':get': 'onGet'
-        },
-
-        // Reference to the groups collection
-        groups: null,
-
-        initialize: function() {
-            // Initialize groups collection
-            this.groups = new GroupsCollection();
-
-            this.listenTo(this.groups, 'reset', this.onReset, this);
-
-            this.groups.fetch({ reset: true });
-
-            return this;
-        },
-
-        onGet: function(callback, context) {
-            callback.call(context, this.groups);
-
-            return true;
-        },
-
-        onReset: function() {
-            this.announce('ready');
-
-            return true;
-        }
+        remote_collection_constructor: GroupsCollection
 
     });
 
