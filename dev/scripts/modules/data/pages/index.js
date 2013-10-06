@@ -21,7 +21,7 @@ define([
             // Initialize pages collection
             this.pages = new PagesCollection();
 
-            this.listenTo(this.pages, 'reset', this.onPagesReset, this);
+            this.listenTo(this.pages, 'reset', this.onReset, this);
 
             this.pages.fetch({ reset: true });
 
@@ -34,7 +34,7 @@ define([
             return true;
         },
 
-        onPagesReset: function() {
+        onReset: function() {
             this.announce('ready');
 
             return true;
