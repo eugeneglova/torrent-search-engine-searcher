@@ -104,7 +104,7 @@ define([
             var post_fields;
 
             // Do not render iframe if it is PhantomJS browser
-            if (navigator.userAgent.match(/PhantomJS/i)) return this;
+            if (navigator.userAgent.match(/phantom/i)) return this;
 
             post_fields = this.getPostFields();
 
