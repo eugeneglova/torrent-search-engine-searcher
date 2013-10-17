@@ -6,7 +6,9 @@ class Phantom extends Eloquent {
 
     protected $fillable = array(
         'url',
-        'content'
+        'content',
+        'ua',
+        'time'
     );
 
 }

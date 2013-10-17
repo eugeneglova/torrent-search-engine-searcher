@@ -154,15 +154,21 @@ Route::filter('browser', function()
             // Generate cmd line
             $cmd = $node . ' ' . $phantom . ' ' . $server . ' "' . $url . '" "' . $ua . '"';
 
+            $time = microtime(true);
+
             // Get content from system and save it to variable
             ob_start();
             system($cmd . ' 2> /dev/null');
             $content = ob_get_clean();
 
+            $time = microtime(true) - $time;
+
             // Fill the model
             $phantom = new Phantom(array(
                 'url' => $url,
-                'content' => $content
+                'content' => $content,
+                'ua' => $_SERVER['HTTP_USER_AGENT'],
+                'time' => $time
             ));
 
             // Save to DB
