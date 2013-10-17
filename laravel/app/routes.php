@@ -36,6 +36,9 @@ Route::group(array('prefix' => 'api/v1'), function()
 // Get environment name
 $environment = strstr($_SERVER['HTTP_HOST'], 'dev.') ? 'dev' : 'prd';
 
+// SEO server controller
+Route::get('phantom', 'PhantomController@index');
+
 // Get file path based on environment
 $index_file = __DIR__ . '/../../' . $environment . '/index.html';
 
