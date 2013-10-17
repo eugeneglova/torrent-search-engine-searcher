@@ -556,21 +556,9 @@ AddCharset utf-8 .atom .css .js .json .rss .vtt .xml
     Options -MultiViews
     RewriteEngine On
 
-    RewriteCond %{HTTP_USER_AGENT} Googlebot [OR]
-    RewriteCond %{HTTP_USER_AGENT} YandexBot [OR]
-    RewriteCond %{HTTP_USER_AGENT} AdsBot-Google [OR]
-    RewriteCond %{HTTP_USER_AGENT} bingbot [OR]
-    RewriteCond %{HTTP_USER_AGENT} msnbot [OR]
-    RewriteCond %{HTTP_USER_AGENT} AltaVista [OR]
-    RewriteCond %{HTTP_USER_AGENT} Slurp [OR]
-    RewriteCond %{HTTP_USER_AGENT} AhrefsBot [OR]
-    RewriteCond %{HTTP_USER_AGENT} Teoma
-    RewriteCond %{HTTP_USER_AGENT} !Phantom
-    RewriteRule (.*) phantom [L]
-
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
 </IfModule>
 
-DirectoryIndex index.html index.php
+DirectoryIndex index.php

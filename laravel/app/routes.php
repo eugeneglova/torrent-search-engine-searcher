@@ -33,57 +33,62 @@ Route::group(array('prefix' => 'api/v1'), function()
     Route::resource('search-log', 'SearchLogController');
 });
 
-// Get environment name
-$environment = strstr($_SERVER['HTTP_HOST'], 'dev.') ? 'dev' : 'prd';
-
-// SEO server controller
-Route::get('phantom', 'PhantomController@index');
-
-// Get file path based on environment
-$index_file = __DIR__ . '/../../' . $environment . '/index.html';
-
-// Push state urls support
-Route::get('page/{page}', function() use ($index_file)
+Route::group(array('before' => 'browser'), function()
 {
-    readfile($index_file);
-})->where(array('page' => '[\w-]+'));
+    // Get environment name
+    $environment = strstr($_SERVER['HTTP_HOST'], 'dev.') ? 'dev' : 'prd';
 
-Route::get('engine/{engine}', function() use ($index_file)
-{
-    readfile($index_file);
-})->where(array('engine' => '[\w-]+'));
+    // Get file path based on environment
+    $index_file = __DIR__ . '/../../' . $environment . '/index.html';
 
-Route::get('engine/{engine}/search/{query}', function() use ($index_file)
-{
-    readfile($index_file);
-})->where(array('engine' => '[\w-]+'));
+    // Push state urls support
+    Route::get('/', function() use ($index_file)
+    {
+        readfile($index_file);
+    });
 
-Route::get('engine/{engine}/search/{query}/category/{category}', function() use ($index_file)
-{
-    readfile($index_file);
-})->where(array('engine' => '[\w-]+', 'category' => '[\w-]+'));
+    Route::get('page/{page}', function() use ($index_file)
+    {
+        readfile($index_file);
+    })->where(array('page' => '[\w-]+'));
 
-Route::get('engines', function() use ($index_file)
-{
-    readfile($index_file);
+    Route::get('engine/{engine}', function() use ($index_file)
+    {
+        readfile($index_file);
+    })->where(array('engine' => '[\w-]+'));
+
+    Route::get('engine/{engine}/search/{query}', function() use ($index_file)
+    {
+        readfile($index_file);
+    })->where(array('engine' => '[\w-]+'));
+
+    Route::get('engine/{engine}/search/{query}/category/{category}', function() use ($index_file)
+    {
+        readfile($index_file);
+    })->where(array('engine' => '[\w-]+', 'category' => '[\w-]+'));
+
+    Route::get('engines', function() use ($index_file)
+    {
+        readfile($index_file);
+    });
+
+    Route::get('engines/{group}', function() use ($index_file)
+    {
+        readfile($index_file);
+    })->where(array('group' => '[\w-]+'));
+
+    Route::get('sites', function() use ($index_file)
+    {
+        readfile($index_file);
+    });
+
+    Route::get('sites/{group}', function() use ($index_file)
+    {
+        readfile($index_file);
+    })->where(array('group' => '[\w-]+'));
+
+    Route::get('sites/{group}/{site}', function() use ($index_file)
+    {
+        readfile($index_file);
+    })->where(array('group' => '[\w-]+', 'site' => '[\w-]+'));
 });
-
-Route::get('engines/{group}', function() use ($index_file)
-{
-    readfile($index_file);
-})->where(array('group' => '[\w-]+'));
-
-Route::get('sites', function() use ($index_file)
-{
-    readfile($index_file);
-});
-
-Route::get('sites/{group}', function() use ($index_file)
-{
-    readfile($index_file);
-})->where(array('group' => '[\w-]+'));
-
-Route::get('sites/{group}/{site}', function() use ($index_file)
-{
-    readfile($index_file);
-})->where(array('group' => '[\w-]+', 'site' => '[\w-]+'));
