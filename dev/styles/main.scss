@@ -1,6 +1,11 @@
 $iconSpritePath: '/images/glyphicons-halflings.png';
 @import 'sass-bootstrap/lib/bootstrap';
 
+h1, h2, h3, h4, h5, h6 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-weight: 400;
+}
+
 .app-container {
     padding-right: 0;
     padding-left: 0;
