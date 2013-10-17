@@ -20,6 +20,9 @@ page.onResourceRequested = function (request) {
     }
 };
 
+// Suppress errors
+page.onError = function () {};
+
 // Set user agent
 page.settings.userAgent = "Phantom: " + system.args[2];
 
