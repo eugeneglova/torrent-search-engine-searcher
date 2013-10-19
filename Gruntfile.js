@@ -258,7 +258,7 @@ module.exports = function (grunt) {
                         '*.{ico,txt}',
                         '.htaccess',
                         'index.php',
-                        'seoserver.php',
+                        'ads.html',
                         'phantom-server.js',
                         'images/{,*/}*.{webp,gif}'
                     ]
